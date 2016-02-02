@@ -1,0 +1,36 @@
+body{
+background-color: FFFFCC;
+}
+.all{
+ width: 1000px;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: -8px;
+}
+#top{
+ height: 280px;
+ width: 1000px;
+ background-color: FF9900;
+}
+#action{
+ min-height: 560px;
+ height: auto;
+ width: 800px;
+ background-color: FFCC66;
+ float: left;
+}
+#footer{
+ height: 50px;
+ width: 1000px;
+ background-color: 33CCFF;
+}
+#menu{
+ min-height: 560px;
+ height: auto;
+ width: 200px;
+ background-color: 00CC33;
+ float: left;
+}
+.clean{
+ clear: left;
+}
