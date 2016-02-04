@@ -1,5 +1,8 @@
+textarea{
+ resize: none;
+}
 body{
-background-color: FFFFCC;
+ background-color: FFFFCC;
 }
 .all{
  width: 1000px;
@@ -32,10 +35,12 @@ background-color: FFFFCC;
 }
 #menu{
  min-height: 560px;
- height: auto;
  width: 200px;
  background-color: 00CC33;
  float: left;
+}
+.main{
+overflow:auto;
 }
 .clean{
  clear: left;
