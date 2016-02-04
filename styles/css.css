@@ -8,9 +8,12 @@ background-color: FFFFCC;
  margin-top: -8px;
 }
 #top{
- height: 280px;
- width: 1000px;
+ height: 150px;
  background-color: FF9900;
+}
+#topmenu{
+ height: 50px;
+ background-color: ff0099;
 }
 #action{
  min-height: 560px;
@@ -21,8 +24,11 @@ background-color: FFFFCC;
 }
 #footer{
  height: 50px;
+ margin-left: auto;
+ margin-right: auto;
  width: 1000px;
  background-color: 33CCFF;
+ 
 }
 #menu{
  min-height: 560px;
