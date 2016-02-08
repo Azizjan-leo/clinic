@@ -11,11 +11,13 @@ body{
  margin-top: -8px;
 }
 #top{
- height: 150px;
+ height: 100px;
  background-color: FF9900;
 }
 #topmenu{
+ width: 800px;
  height: 50px;
+ float: right;
  background-color: ff0099;
 }
 #action{
@@ -34,7 +36,7 @@ body{
  
 }
 #menu{
- min-height: 560px;
+ min-height: 350px;
  width: 200px;
  background-color: 00CC33;
  float: left;

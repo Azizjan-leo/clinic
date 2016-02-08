@@ -7,8 +7,8 @@
  <body>
   <div class="all">
    <div id="top"><center>TOP</center></div>
-   <div id="topmenu"> <?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?> </div>
    <div class="main">
+    <div id="topmenu"> <?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?> </div>
     <div id="menu"><center>MENU</center></div>
     <div id="action">
 			<?php
