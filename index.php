@@ -6,7 +6,7 @@
  </head>
  <body>
   <div class="all">
-   <div id="top"><center>TOP</center></div>
+   <div id="top"><a href="index.php"><center><img src="images/topLogo.jpg" height="100" width="400"/></center></a></div>
    <div class="main">
     <div id="topmenu"> <?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?> </div>
     <div id="menu"><center>MENU</center></div>
