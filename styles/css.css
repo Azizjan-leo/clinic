@@ -15,7 +15,6 @@ body{
 #top{
  background: url("../images/top.jpg") no-repeat;
  height: 100px;
- background-color: FF9900;
  background-size: 1000px 100px;
 }
 #topmenu{

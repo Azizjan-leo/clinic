@@ -7,9 +7,9 @@
  </head>
  <body>
   <div class="all">
-   <div id="top"></div>
+   <div id="top"><a href="index.php"><img src="images/topLogo.jpg" height="100" width="400"/></a></div>
    <div class="main">
-    <div id="topmenu"> <!--<?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?>-->
+    <div id="topmenu">
      <nav id="menu-wrap">
       <ul id="menu">
        <li><?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?></li>
