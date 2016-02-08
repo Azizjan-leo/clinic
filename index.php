@@ -3,13 +3,31 @@
   <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
+  <link rel="stylesheet" type="text/css" href="styles/menu.css" />
  </head>
  <body>
   <div class="all">
-   <div id="top"><center>TOP</center></div>
+   <div id="top"></div>
    <div class="main">
-    <div id="topmenu"> <?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?> </div>
-    <div id="menu"><center>MENU</center></div>
+    <div id="topmenu"> <!--<?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?>-->
+     <nav id="menu-wrap">
+      <ul id="menu">
+       <li><?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?></li>
+       <li><a href="#">Меню2</a>
+        <ul>
+         <li><a href="#">Подменю1</a></li>
+         <li><a href="#">Подменю2</a></li>
+         <li><a href="#">Подменю3</a></li>
+         <li><a href="#">Подменю4</a></li>
+        </ul>
+       </li>
+       <li><a href="#">Меню3</a></li>
+       <li><a href="#">Меню3</a></li>
+       <li><a href="#">Меню3</a></li>
+      </ul>
+      </nav>
+    </div>
+    <div id="leftmenu"><center>MENU</center></div>
     <div id="action">
 			<?php
 				if(isset($_GET["content"])){
