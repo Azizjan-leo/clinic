@@ -7,13 +7,36 @@
   <title></title>
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
+  <link rel="stylesheet" type="text/css" href="styles/menu.css" />
  </head>
  <body>
   <div class="all">
-   <div id="top"><a href="index.php"><center><img src="images/topLogo.jpg" height="100" width="400"/></center></a></div>
+   <div id="top"><a href="index.php"><img src="images/topLogo.jpg" height="100" width="400"/></a></div>
    <div class="main">
+<<<<<<< HEAD
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
     <div id="menu"><? include("parts/menu.php");?></div>
+=======
+    <div id="topmenu">
+     <nav id="menu-wrap">
+      <ul id="menu">
+       <li><?php printf ('<a href="../index.php?content=%s">Экспертная система</a>',syst);?></li>
+       <li><a href="#">Меню2</a>
+        <ul>
+         <li><a href="#">Подменю1</a></li>
+         <li><a href="#">Подменю2</a></li>
+         <li><a href="#">Подменю3</a></li>
+         <li><a href="#">Подменю4</a></li>
+        </ul>
+       </li>
+       <li><a href="#">Меню3</a></li>
+       <li><a href="#">Меню3</a></li>
+       <li><a href="#">Меню3</a></li>
+      </ul>
+      </nav>
+    </div>
+    <div id="leftmenu"><center>MENU</center></div>
+>>>>>>> d410730b9ec839b538c5f81d658edf1a9d0a4a59
     <div id="action">
 			<?php
 				if(isset($_GET["content"])){
