@@ -25,14 +25,6 @@
 				else
 					echo "<center>INDEX</center>";
 			?>
-     <!--Это пока не трогай-->
-     <!--Диагнозы.
-     <form name="dianoses">
-      <input type="text" name="diagnos_name" maxlength="30" placeholder="Название диагноза" size="30" required /><br>
-      <textarea name="dignos_description" maxlength="100" cols="50" rows="3" placeholder="Описание диагноза" required></textarea><br>
-      <textarea name="symptoms" maxlength="200" cols="50" rows="6" placeholder="Симптомы" readonly required></textarea><br>
-      <input type="submit" value="Отправить">
-     </form>-->
     </div>
    </div>
    <div class="clean"></div>
