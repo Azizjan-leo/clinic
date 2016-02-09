@@ -25,7 +25,7 @@ body{
 #action{
  min-height: 560px;
  height: auto;
- width: 800px;
+ width: 1000px;
  background-color: #FFFFFF;
  float: left;
 }
@@ -33,16 +33,10 @@ body{
  height: 50px;
  margin-left: auto;
  margin-right: auto;
- width: 800px;
+ width: 1000px;
  background-color: 33CCFF;
  float: right; 
 }
-#leftmenu{
- min-height: 350px;
- width: 200px;
- background-color: #FFFFFF;
- float: left;
- }
 .main{
 overflow:auto;
 }

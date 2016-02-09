@@ -14,7 +14,9 @@
    <div id="top"><a href="index.php"><img src="images/top.jpg" width="1000" height="100"></a></div>
    <div class="main">
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
+    <div id="panel"><img src="images/leftmenu.png" width="60" height="60">
     <div id="leftmenu"><? include("parts/menu.php");?></div>
+    </div>
     <div id="action">
 			<?php
 				if(isset($_GET["content"])){
