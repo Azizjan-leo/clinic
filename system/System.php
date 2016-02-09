@@ -11,6 +11,7 @@
 			if($user_data["password"] == $e_password){	
 				$_SESSION['name'] = $user_data["name"];
 				$_SESSION["check"] = $_SESSION['systAccess'] = true;
+				print '<script>window.location.reload()</script>';
 				}
 			else 
 				echo "Wrong login or password";
@@ -50,5 +51,12 @@
 			      <input type="text" name="symptom_name" maxlength="30" placeholder="Название симптома" size="30" required /><br>
 			      <textarea name="symptom_description" maxlength="100" cols="50" rows="3" placeholder="Описание симптома" required></textarea><br>
 			      <input type="submit" value="Отправить">
-			     </form>';
+			     </form>
+			 Диагнозы.
+				 <form name="dianoses">
+				  <input type="text" name="diagnos_name" maxlength="30" placeholder="Название диагноза" size="30" required /><br>
+				  <textarea name="dignos_description" maxlength="100" cols="50" rows="3" placeholder="Описание диагноза" required></textarea><br>
+				  <textarea name="symptoms" maxlength="200" cols="50" rows="6" placeholder="Симптомы" readonly required></textarea><br>
+				  <input type="submit" value="Отправить">
+				 </form>';
 ?>
