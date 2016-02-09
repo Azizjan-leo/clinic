@@ -16,6 +16,7 @@
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
     <div id="menu"><? include("parts/menu.php");?></div>
     <div id="leftmenu"><center>MENU</center></div>
+    <div id="leftmenu"><? include("parts/menu.php");?></div>
     <div id="action">
 			<?php
 				if(isset($_GET["content"])){
@@ -35,7 +36,7 @@
     </div>
    </div>
    <div class="clean"></div>
+   <div id="footer"><center>FOOTER</center></div>
   </div>
-  <div id="footer"><center>FOOTER</center></div>
  </body>
 </html>
