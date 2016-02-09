@@ -1,4 +1,4 @@
-<?php
+<div align=center><?php
 	if(!$_SESSION["check"]){
 		if(isset($_POST["submit"])){
 		
@@ -26,23 +26,21 @@
 	}
 		
 	else{
-		if(isset($_POST['position']))
-			print 'Position adding.
+		if(isset($_GET['item'])){
+			$item = $_GET['item'];
+			if($item == "position"){
+				print 'Position adding.
 			     <form name="staff">
 			      <input type="text" name="staff_name" maxlength="30" placeholder="Position name" size="30" required /><br>
 			      <input type="text" name="salary_name" maxlength="11" placeholder="Salary" size="30" required /><br>
 			      <input type="submit" value="Enter">
 			     </form>';
-		print '<button type="submit" value="position">Submit</button>';
-	}
-		/*print '
-			 Position adding.
-			     <form name="staff">
-			      <input type="text" name="staff_name" maxlength="30" placeholder="Position name" size="30" required /><br>
-			      <input type="text" name="salary_name" maxlength="11" placeholder="Salary" size="30" required /><br>
-			      <input type="submit" value="Enter">
-			     </form>
-			 Employee.
+				printf ('<a href="../index.php?item=%s" class="button">New employee</a><br>',employee);
+				printf ('<a href="../index.php?item=%s" class="button">New symptom</a><br>',symptom);
+				printf ('<a href="../index.php?item=%s" class="button">New diagnosis</a><br>',diagnosis);
+			}
+			else if($item == "employee"){
+				print 'Employee.
 			     <form name="emp">
 			      <input type="text" name="first_name" maxlength="30" placeholder="Name" size="30" required /><br>
 			      <input type="text" name="middle_name" maxlength="30" placeholder="Surname" size="30" required /><br>
@@ -52,19 +50,41 @@
 			      <input type="text" name="phone_num" maxlength="10" placeholder="Telephone" size="30" required /><br>
 			      <textarea  name="pasport_data" maxlength="50" cols="50" rows="2" placeholder="Passort data" required></textarea><br>
 			      <input type="submit" value="Enter">
-			     </form>
-				 
-			 Symptom adding.
+			     </form>';
+				printf ('<a href="../index.php?item=%s" class="button">New position</a><br>',position);
+				printf ('<a href="../index.php?item=%s" class="button">New symptom</a><br>',symptom);
+				printf ('<a href="../index.php?item=%s" class="button">New diagnosis</a><br>',diagnosis);
+			}
+			else if($item == "symptom"){
+				print 'Symptom adding.
 			     <form name="symptoms">
 			      <input type="text" name="symptom_name" maxlength="30" placeholder="Symptom name" size="30" required /><br>
 			      <textarea name="symptom_description" maxlength="100" cols="50" rows="3" placeholder="Description" required></textarea><br>
-			      <input type="submit" value="Enter">
-			     </form>
-			 Diagnosis adding.
+			      <input type="submit" name="symptomAdd" value="Enter">
+			     </form>';
+				printf ('<a href="../index.php?item=%s" class="button">New position</a><br>',position);
+				printf ('<a href="../index.php?item=%s" class="button">New employee</a><br>',emloyee);
+				printf ('<a href="../index.php?item=%s" class="button">New diagnosis</a><br>',diagnosis);
+			}
+			else if($item == "diagnosis"){
+				print 'Diagnosis adding.
 				 <form name="dianoses">
 				  <input type="text" name="diagnos_name" maxlength="30" placeholder="Diagnosis name" size="30" required /><br>
 				  <textarea name="dignos_description" maxlength="100" cols="50" rows="3" placeholder="Description" required></textarea><br>
 				  <textarea name="symptoms" maxlength="200" cols="50" rows="6" placeholder="Description" readonly required></textarea><br>
 				  <input type="submit" value="Enter">
-				 </form>';*/
-?>
+				 </form>';
+				printf ('<a href="../index.php?item=%s" class="button">New position</a><br>',position);
+				printf ('<a href="../index.php?item=%s" class="button">New employee</a><br>',emloyee);
+				printf ('<a href="../index.php?item=%s" class="button">New symptom</a><br>',symptom);
+			}
+		}
+		else{
+			printf ('<a href="../index.php?item=%s" class="button">New position</a><br>
+					 <a href="../index.php?item=%s" class="button">New employee</a><br>
+					 <a href="../index.php?item=%s" class="button">New symptom</a><br>
+					 <a href="../index.php?item=%s" class="button">New diagnosis</a>',position,employee,symptom,diagnosis);
+		}
+	}
+				 
+?></div>

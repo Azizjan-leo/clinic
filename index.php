@@ -19,8 +19,8 @@
     </div>
     <div id="action">
 			<?php
-				if(isset($_GET["content"])){
-					include("system/System.php");
+				if(isset($_GET["content"])or isset($_GET['item'])){
+					include('system/system.php');
 				}
 				else
 					echo "<center>INDEX</center>";
