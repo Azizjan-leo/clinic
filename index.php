@@ -13,30 +13,12 @@
   <div class="all">
    <div id="top"><a href="index.php"><img src="images/topLogo.jpg" height="100" width="400"/></a></div>
    <div class="main">
-<<<<<<< HEAD
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
     <div id="menu"><? include("parts/menu.php");?></div>
-=======
     <div id="topmenu">
-     <nav id="menu-wrap">
-      <ul id="menu">
-       <li><?php printf ('<a href="../index.php?content=%s">–≠–∫—Å–ø–µ—Ä—Ç–Ω–∞—è —Å–∏—Å—Ç–µ–º–∞</a>',syst);?></li>
-       <li><a href="#">–ú–µ–Ω—é2</a>
-        <ul>
-         <li><a href="#">–ü–æ–¥–º–µ–Ω—é1</a></li>
-         <li><a href="#">–ü–æ–¥–º–µ–Ω—é2</a></li>
-         <li><a href="#">–ü–æ–¥–º–µ–Ω—é3</a></li>
-         <li><a href="#">–ü–æ–¥–º–µ–Ω—é4</a></li>
-        </ul>
-       </li>
-       <li><a href="#">–ú–µ–Ω—é3</a></li>
-       <li><a href="#">–ú–µ–Ω—é3</a></li>
-       <li><a href="#">–ú–µ–Ω—é3</a></li>
-      </ul>
-      </nav>
+     
     </div>
     <div id="leftmenu"><center>MENU</center></div>
->>>>>>> d410730b9ec839b538c5f81d658edf1a9d0a4a59
     <div id="action">
 			<?php
 				if(isset($_GET["content"])){
@@ -45,13 +27,13 @@
 				else
 					echo "<center>INDEX</center>";
 			?>
-     <!--›ÚÓ ÔÓÍ‡ ÌÂ ÚÓ„‡È, Á‡‚Ú‡ ÔÓÏÂÌˇÂÏ-->
-     <!--ƒË‡„ÌÓÁ˚.
+     <!--–≠—Ç–æ –ø–æ–∫–∞ –Ω–µ —Ç—Ä–æ–≥–∞–π, –∑–∞–≤—Ç—Ä–∞ –ø–æ–º–µ–Ω—è–µ–º-->
+     <!--–î–∏–∞–≥–Ω–æ–∑—ã.
      <form name="dianoses">
-      <input type="text" name="diagnos_name" maxlength="30" placeholder="Õ‡Á‚‡ÌËÂ ‰Ë‡„ÌÓÁ‡" size="30" required /><br>
-      <textarea name="dignos_description" maxlength="100" cols="50" rows="3" placeholder="ŒÔËÒ‡ÌËÂ ‰Ë‡„ÌÓÁ‡" required></textarea><br>
-      <textarea name="symptoms" maxlength="200" cols="50" rows="6" placeholder="—ËÏÔÚÓÏ˚" readonly required></textarea><br>
-      <input type="submit" value="ŒÚÔ‡‚ËÚ¸">
+      <input type="text" name="diagnos_name" maxlength="30" placeholder="–ù–∞–∑–≤–∞–Ω–∏–µ –¥–∏–∞–≥–Ω–æ–∑–∞" size="30" required /><br>
+      <textarea name="dignos_description" maxlength="100" cols="50" rows="3" placeholder="–û–ø–∏—Å–∞–Ω–∏–µ –¥–∏–∞–≥–Ω–æ–∑–∞" required></textarea><br>
+      <textarea name="symptoms" maxlength="200" cols="50" rows="6" placeholder="–°–∏–º–ø—Ç–æ–º—ã" readonly required></textarea><br>
+      <input type="submit" value="–û—Ç–ø—Ä–∞–≤–∏—Ç—å">
      </form>-->
     </div>
    </div>

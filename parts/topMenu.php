@@ -1,4 +1,17 @@
 <?
-	printf ('<div align="left"><a href="../index.php?content=%s">Ёкспертна€ система</div>
-	<div align="right"><a href="../phpHendlers/connect.php?action=%s">Log out</a></div>',syst,out);
+	printf ('<nav id="menu-wrap">
+      <ul id="menu">
+       <li><a href="#">Doctors</a>
+        <ul>
+         <li><a href="#">РџРѕР?РјРµРЅСЋ1</a></li>
+         <li><a href="#">РџРѕР?РјРµРЅСЋ2</a></li>
+         <li><a href="#">РџРѕР?РјРµРЅСЋ3</a></li>
+         <li><a href="#">РџРѕР?РјРµРЅСЋ4</a></li>
+        </ul>
+       </li>
+       <li><a href="#">РњРµРЅСЋ3</a></li>
+       <li><a href="../index.php?content=%s">Expert system</a></li>
+       <li><a href="../phpHendlers/connect.php?action=%s">Out</a></li>
+      </ul>
+      </nav>',syst,out);
 ?>

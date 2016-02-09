@@ -2,10 +2,10 @@
 -- version 4.0.10.6
 -- http://www.phpmyadmin.net
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Фев 03 2016 г., 19:00
--- Версия сервера: 5.5.41-log
--- Версия PHP: 5.3.29
+-- Host: 127.0.0.1:3306
+-- Generation Time: Feb 09, 2016 at 05:01 PM
+-- Server version: 5.5.41-log
+-- PHP Version: 5.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,20 +17,19 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `system`
+-- Database: `system`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Diagnoses`
+-- Table structure for table `Diagnoses`
 --
 
 CREATE TABLE IF NOT EXISTS `Diagnoses` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(30) DEFAULT NULL,
   `Description` varchar(100) DEFAULT NULL,
-  `symptoms` varchar(200) DEFAULT NULL,
   `Blood_test` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -38,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `Diagnoses` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Employee`
+-- Table structure for table `Employee`
 --
 
 CREATE TABLE IF NOT EXISTS `Employee` (
@@ -48,15 +47,13 @@ CREATE TABLE IF NOT EXISTS `Employee` (
   `Second_Name` varchar(30) DEFAULT NULL,
   `Date` date DEFAULT NULL,
   `Prof` int(11) DEFAULT NULL,
-  `Phone_number` varchar(10) DEFAULT NULL,
-  `Pasport_data` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Emp_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `patients`
+-- Table structure for table `patients`
 --
 
 CREATE TABLE IF NOT EXISTS `patients` (
@@ -75,12 +72,12 @@ CREATE TABLE IF NOT EXISTS `patients` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Staff`
+-- Table structure for table `Staff`
 --
 
 CREATE TABLE IF NOT EXISTS `Staff` (
   `Staff_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(30) DEFAULT NULL,
+  `Name` int(11) DEFAULT NULL,
   `Salary` int(11) DEFAULT NULL,
   PRIMARY KEY (`Staff_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -88,15 +85,35 @@ CREATE TABLE IF NOT EXISTS `Staff` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Symptoms`
+-- Table structure for table `Symptoms`
 --
 
 CREATE TABLE IF NOT EXISTS `Symptoms` (
   `Symptom_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(30) DEFAULT NULL,
-  `Description` varchar(100) DEFAULT NULL,
+  `Name` int(11) DEFAULT NULL,
+  `Description` int(11) DEFAULT NULL,
   PRIMARY KEY (`Symptom_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SystAccess`
+--
+
+CREATE TABLE IF NOT EXISTS `SystAccess` (
+  `id` tinyint(5) NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) NOT NULL,
+  `password` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `SystAccess`
+--
+
+INSERT INTO `SystAccess` (`id`, `name`, `password`) VALUES
+(1, 'admin', '123');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
