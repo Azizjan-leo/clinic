@@ -11,11 +11,9 @@
  </head>
  <body>
   <div class="all">
-   <div id="top"><a href="index.php"><img src="images/top.jpg"></a></div>
+   <div id="top"><a href="index.php"><img src="images/top.jpg" width="1000" height="100"></a></div>
    <div class="main">
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
-    <div id="menu"><? include("parts/menu.php");?></div>
-    <div id="leftmenu"><center>MENU</center></div>
     <div id="leftmenu"><? include("parts/menu.php");?></div>
     <div id="action">
 			<?php
@@ -25,7 +23,7 @@
 				else
 					echo "<center>INDEX</center>";
 			?>
-     <!--Это пока не трогай, завтра поменяем-->
+     <!--Это пока не трогай-->
      <!--Диагнозы.
      <form name="dianoses">
       <input type="text" name="diagnos_name" maxlength="30" placeholder="Название диагноза" size="30" required /><br>
