@@ -18,7 +18,7 @@ body{
  background-size: 1000px 100px;
 }
 #topmenu{
- width: 800px;
+ width: 1000px;
  height: 50px;
  float: right;
  background-color: #FFFFFF;
@@ -34,9 +34,9 @@ body{
  height: 50px;
  margin-left: auto;
  margin-right: auto;
- width: 1000px;
+ width: 800px;
  background-color: 33CCFF;
- 
+ float: right; 
 }
 #leftmenu{
  min-height: 350px;
