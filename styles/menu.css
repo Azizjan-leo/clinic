@@ -155,3 +155,52 @@
  -moz-border-radius: 0 0 3px 3px;
 	border-radius: 0 0 3px 3px;
 }
+
+/*-----------left menu----------*/
+#panel {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 60;
+    height: 60;
+    font: 14px Arial;
+    color: #fff;
+    text-align: left;
+    padding: 0px;
+
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    }
+ 
+#leftmenu{
+    position: fixed;
+    top: 100px;
+    left: -220px;
+    background: #fff;
+    color: #000;
+    width: 200px;
+    height: 300px;
+    padding: 10px;
+    text-align: left;
+
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+
+    -webkit-border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    }
+#panel:hover {
+    left: 220px; /* при наведении выдвигается на скрытые 200px + 20px отступы */
+}
+#panel:hover #leftmenu {
+    left: 0; /* отступ слева */
+}
