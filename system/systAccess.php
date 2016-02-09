@@ -16,6 +16,8 @@
 		if($user_data["password"] == $e_password){	
 			$_SESSION['name'] = $user_data["name"];
 			$_SESSION["check"] = $_SESSION['systAccess'] = true;
+			header("Location: http://clinic:82/index.php?content=syst");
+			die();
 			}
 		else 
 			echo "Wrong login or password";

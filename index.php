@@ -4,20 +4,17 @@
 ?>
 <html>
  <head>
-  <title></title>
-  <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+	<title>Clinic</title>
+  <meta http-equiv="Content-Type" content="text/html;">
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
-  <link rel="stylesheet" type="text/css" href="styles/menu.css" />
+		<link rel="stylesheet" type="text/css" href="styles/menu.css" />
  </head>
  <body>
   <div class="all">
-   <div id="top"><a href="index.php"><img src="images/topLogo.jpg" height="100" width="400"/></a></div>
+   <div id="top"><a href="index.php"><img src="images/top.jpg"></a></div>
    <div class="main">
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
     <div id="menu"><? include("parts/menu.php");?></div>
-    <div id="topmenu">
-     
-    </div>
     <div id="leftmenu"><center>MENU</center></div>
     <div id="action">
 			<?php

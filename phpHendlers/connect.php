@@ -9,8 +9,9 @@
 			unset($_SESSON['name']);
 			$_SESSION['systAccess'] = FALSE;
 			session_unset();
-			echo "Session destroing";
 			$_SESSION["check"] = $_SESSION['systAccess'] = false;
+			header("Location: http://clinic:82/index.php");
+			die();
 			//session_destroy(); //?! Uninitialized session ?!
 		}
 	}
