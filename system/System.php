@@ -35,9 +35,9 @@
 			      <input type="text" name="salary_name" maxlength="11" placeholder="Salary" size="30" required /><br>
 			      <input type="submit" value="Enter">
 			     </form>';
-				printf ('<a href="../index.php?item=%s" class="button">New employee</a><br>',employee);
-				printf ('<a href="../index.php?item=%s" class="button">New symptom</a><br>',symptom);
-				printf ('<a href="../index.php?item=%s" class="button">New diagnosis</a><br>',diagnosis);
+				printf ('<a href="../index.php?item=%s" class="button blue">New employee</a><br>',employee);
+				printf ('<a href="../index.php?item=%s" class="button blue">New symptom</a><br>',symptom);
+				printf ('<a href="../index.php?item=%s" class="button blue">New diagnosis</a><br>',diagnosis);
 			}
 			else if($item == "employee"){
 				print 'Employee.
@@ -51,9 +51,9 @@
 			      <textarea  name="pasport_data" maxlength="50" cols="50" rows="2" placeholder="Passort data" required></textarea><br>
 			      <input type="submit" value="Enter">
 			     </form>';
-				printf ('<a href="../index.php?item=%s" class="button">New position</a><br>',position);
-				printf ('<a href="../index.php?item=%s" class="button">New symptom</a><br>',symptom);
-				printf ('<a href="../index.php?item=%s" class="button">New diagnosis</a><br>',diagnosis);
+				printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>',position);
+				printf ('<a href="../index.php?item=%s" class="button blue">New symptom</a><br>',symptom);
+				printf ('<a href="../index.php?item=%s" class="button blue">New diagnosis</a><br>',diagnosis);
 			}
 			else if($item == "symptom"){
 				print 'Symptom adding.
@@ -62,9 +62,9 @@
 			      <textarea name="symptom_description" maxlength="100" cols="50" rows="3" placeholder="Description" required></textarea><br>
 			      <input type="submit" name="symptomAdd" value="Enter">
 			     </form>';
-				printf ('<a href="../index.php?item=%s" class="button">New position</a><br>',position);
-				printf ('<a href="../index.php?item=%s" class="button">New employee</a><br>',emloyee);
-				printf ('<a href="../index.php?item=%s" class="button">New diagnosis</a><br>',diagnosis);
+				printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>',position);
+				printf ('<a href="../index.php?item=%s" class="button blue">New employee</a><br>',emloyee);
+				printf ('<a href="../index.php?item=%s" class="button blue">New diagnosis</a><br>',diagnosis);
 			}
 			else if($item == "diagnosis"){
 				print 'Diagnosis adding.
@@ -74,16 +74,16 @@
 				  <textarea name="symptoms" maxlength="200" cols="50" rows="6" placeholder="Description" readonly required></textarea><br>
 				  <input type="submit" value="Enter">
 				 </form>';
-				printf ('<a href="../index.php?item=%s" class="button">New position</a><br>',position);
-				printf ('<a href="../index.php?item=%s" class="button">New employee</a><br>',emloyee);
-				printf ('<a href="../index.php?item=%s" class="button">New symptom</a><br>',symptom);
+				printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>',position);
+				printf ('<a href="../index.php?item=%s" class="button blue">New employee</a><br>',emloyee);
+				printf ('<a href="../index.php?item=%s" class="button blue">New symptom</a><br>',symptom);
 			}
 		}
 		else{
-			printf ('<a href="../index.php?item=%s" class="button">New position</a><br>
-					 <a href="../index.php?item=%s" class="button">New employee</a><br>
-					 <a href="../index.php?item=%s" class="button">New symptom</a><br>
-					 <a href="../index.php?item=%s" class="button">New diagnosis</a>',position,employee,symptom,diagnosis);
+			printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>
+					 <a href="../index.php?item=%s" class="button blue">New employee</a><br>
+					 <a href="../index.php?item=%s" class="button blue">New symptom</a><br>
+					 <a href="../index.php?item=%s" class="button blue">New diagnosis</a>',position,employee,symptom,diagnosis);
 		}
 	}
 				 

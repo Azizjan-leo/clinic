@@ -1,3 +1,7 @@
+*{
+ font-family: Arial;
+}
+
 textarea{
  resize: none;
 }
@@ -43,15 +47,62 @@ overflow:auto;
 .clean{
  clear: left;
 }
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
 
-    text-decoration: none;
-    color: initial;
+/*-----BUTTONS-----*/
+
+.button, input[type="submit"] {
+ width: 100px;
+	display: inline-block;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
-.center{
-    margin-left: auto;
-    margin-right: auto;
+.button:hover, input[type="submit"]:hover {
+	text-decoration: none;
+}
+.button:active, input[type="submit"]:active {
+	position: relative;
+	top: 1px;
+}
+.blue, input[type="submit"]{
+ color: #fff;
+ border: solid 1px #0076c3;
+ background: #0095cd;
+ background: -webkit-gradient(linear, left top, left bottom, from(#04acec), to(#0186ba));
+}
+.blue:hover, input[type="submit"]:hover{
+ background: #007edd;
+ background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+}
+.blue:active, input[type="submit"]:active{
+ color: #80bed6;
+ background: -webkit-gradient(linear, left top, left bottom, from(#0186ba), to(#04acec));
+}
+/*-------------------*/
+/*---Boxes styles---*/
+input[type="text"], input[type="password"], input[type="date"], select{
+ width: 371px;
+ height: 24px;
+ border: 1px solid #cccccc;
+ border-radius: 3px;
+ -webkit-border-radius: 3px;
+ -moz-border-radius: 3px;
+ -khtml-border-radius: 3px;
+ background: #ffffff !important;
+ outline: none;
+ color: #cccccc;
+}
+
+input[type="submit"]{
+ width: 371px;
 }
