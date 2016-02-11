@@ -8,6 +8,7 @@
   <meta http-equiv="Content-Type" content="text/html;">
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
 		<link rel="stylesheet" type="text/css" href="styles/menu.css" />
+  <script src="scripts/showhide.js"></script>
  </head>
  <body>
   <div class="all">
@@ -23,7 +24,8 @@
 					include('system/system.php');
 				}
 				else
-					echo "<center>INDEX</center>";
+					echo "INDEX
+    ";
 			?>
     </div>
    </div>
