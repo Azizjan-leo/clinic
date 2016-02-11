@@ -1,0 +1,195 @@
+﻿/*Button submit styles*/
+input[type=submit]{ width:173px; height:43px;
+  background: #111;  
+  background: -moz-linear-gradient(top,  
+  rgba(50, 50, 50, 0.9) 0%,  
+  rgba(30, 30, 30, 0.9) 50%,  
+  rgba(20, 20, 20, 0.9) 50%,  
+  rgba(0, 0, 0, 0.9) 100%);  
+  background: -webkit-gradient(linear, 0 0, 0 100%,  
+  color-stop(0, rgba(50, 50, 50, 0.9)),  
+  color-stop(0.5, rgba(30, 30, 30, 0.9)),  
+  color-stop(0.5, rgba(20, 20, 20, 0.9)),  
+  color-stop(1, rgba(0, 0, 0, 0.9)));  
+  border: 0;  
+  -moz-border-radius: 4px;  
+  -webkit-border-radius: 4px;  
+  border-radius: 4px;  
+  -moz-box-shadow: inset 1px 1px 1px 0px rgba(135, 135, 135, 0.1), inset -1px -1px 1px 0px rgba(135, 135, 135, 0.1);  
+  -webkit-box-shadow: inset 1px 1px 1px 0px rgba(135, 135, 135, 0.1), inset -1px -1px 1px 0px rgba(135, 135, 135, 0.1);  
+  box-shadow: inset 1px 1px 1px 0px rgba(135, 135, 135, 0.1), inset -1px -1px 1px 0px rgba(135, 135, 135, 0.1);  
+  color: #fff;  
+  font:18px Arial, Helvetica, sans-serif;  
+  font-weight: lighter;  
+  line-height: 1;  
+  padding: 12px 0;  
+  text-shadow: 0px -1px 1px rgba(0, 0, 0, .8), 0 1px 1px rgba(255, 255, 255, 0.3);   
+  }
+  
+ .button_00 input[type=submit]{
+ width:230px;
+ }
+ 
+ .ind_f input[type=submit]{
+ height:201px;
+ }
+  
+  input[type=submit]:hover{
+  background: #222;  
+  background: -moz-linear-gradient(top,  
+  rgba(70, 70, 70, 0.9) 0%,  
+  rgba(50, 50, 50, 0.9) 50%,  
+  rgba(40, 40, 40, 0.9) 50%,  
+  rgba(20, 20, 20, 0.9) 100%);  
+  background: -webkit-gradient(linear, 0 0, 0 100%,  
+  color-stop(0, rgba(70, 70, 70, 0.9)),  
+  color-stop(0.5, rgba(50, 50, 50, 0.9)),  
+  color-stop(0.5, rgba(40, 40, 40, 0.9)),  
+  color-stop(1, rgba(20, 20, 20, 0.9)));  
+  cursor: pointer;
+ }
+ input[type=submit]:active{
+  background: #000;  
+  background: -moz-linear-gradient(top,  
+  rgba(30, 30, 30, 0.9) 0%,  
+  rgba(20, 20, 20, 0.9) 50%,  
+  rgba(10, 10, 10, 0.9) 50%,  
+  rgba(0, 0, 0, 0.9) 100%);  
+  background: -webkit-gradient(linear, 0 0, 0 100%,  
+  color-stop(0, rgba(30, 30, 30, 0.9)),  
+  color-stop(0.5, rgba(20, 20, 20, 0.9)),  
+  color-stop(0.5, rgba(10, 10, 10, 0.9)),  
+  color-stop(1, rgba(0, 0, 0, 0.9)))
+ }
+ 
+ /*input fields styles*/
+ 
+input[type=text], input[type=password]{
+border: 3px solid #474747;
+width:173px; height:43px;
+font-size: 20px;
+}
+
+textarea{
+border: 3px solid #474747;
+width:100%;
+}
+
+/*img styles*/
+.color_img{width:100%;}
+.color_img:hover{
+background:#eeeeee;}
+
+img.zoom {
+  -moz-user-select: none; user-select: none;
+}
+img.zoom:hover {
+  display: block;
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  max-width: 99%;
+  max-height: 99%;
+  border: solid rgba(210,210,210,.4);
+  border-width: 100vh 100vw;
+  cursor: zoom-out;
+}
+:not(:active) > img.zoom:not(:hover), img.zoom:active {
+  pointer-events: none;
+}
+
+/*Menu style*/
+
+.right_menu{margin-top:20%; margin-right:10px;}
+ul{
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style:none;
+  background: #111;  
+  background: -moz-linear-gradient(top,  
+  rgba(50, 50, 50, 0.9) 0%,  
+  rgba(30, 30, 30, 0.9) 50%,  
+  rgba(20, 20, 20, 0.9) 50%,  
+  rgba(0, 0, 0, 0.9) 100%);  
+  background: -webkit-gradient(linear, 0 0, 0 100%,  
+  color-stop(0, rgba(50, 50, 50, 0.9)),  
+  color-stop(0.5, rgba(30, 30, 30, 0.9)),  
+  color-stop(0.5, rgba(20, 20, 20, 0.9)),  
+  color-stop(1, rgba(0, 0, 0, 0.9)));  
+  border: 0;
+  -moz-box-shadow: inset 1px 1px 1px 0px rgba(135, 135, 135, 0.1), inset -1px -1px 1px 0px rgba(135, 135, 135, 0.1);  
+  -webkit-box-shadow: inset 1px 1px 1px 0px rgba(135, 135, 135, 0.1), inset -1px -1px 1px 0px rgba(135, 135, 135, 0.1);  
+  box-shadow: inset 1px 1px 1px 0px rgba(135, 135, 135, 0.1), inset -1px -1px 1px 0px rgba(135, 135, 135, 0.1);  
+  color: #fff;  
+  font:18px Arial, Helvetica, sans-serif;  
+  font-weight: lighter;  
+  line-height: 1;  
+  padding: 12px 0;  
+  text-shadow: 0px -1px 1px rgba(0, 0, 0, .8), 0 1px 1px rgba(255, 255, 255, 0.3);  
+  width: 100%;
+  height:30px;  
+  padding: 5px 0;
+  margin-top:5px;
+}
+li a {
+  text-decoration: none;
+  font-size: 15px;
+  font-family: arial, sans-serif;
+  color:white;
+}
+li:hover {
+  background: #222;  
+  background: -moz-linear-gradient(top,  
+  rgba(70, 70, 70, 0.9) 0%,  
+  rgba(50, 50, 50, 0.9) 50%,  
+  rgba(40, 40, 40, 0.9) 50%,  
+  rgba(20, 20, 20, 0.9) 100%);  
+  background: -webkit-gradient(linear, 0 0, 0 100%,  
+  color-stop(0, rgba(70, 70, 70, 0.9)),  
+  color-stop(0.5, rgba(50, 50, 50, 0.9)),  
+  color-stop(0.5, rgba(40, 40, 40, 0.9)),  
+  color-stop(1, rgba(20, 20, 20, 0.9)));  
+  cursor: pointer;
+  position:relative;
+}
+
+li:active{
+ background: #000;  
+  background: -moz-linear-gradient(top,  
+  rgba(30, 30, 30, 0.9) 0%,  
+  rgba(20, 20, 20, 0.9) 50%,  
+  rgba(10, 10, 10, 0.9) 50%,  
+  rgba(0, 0, 0, 0.9) 100%);  
+  background: -webkit-gradient(linear, 0 0, 0 100%,  
+  color-stop(0, rgba(30, 30, 30, 0.9)),  
+  color-stop(0.5, rgba(20, 20, 20, 0.9)),  
+  color-stop(0.5, rgba(10, 10, 10, 0.9)),  
+  color-stop(1, rgba(0, 0, 0, 0.9)))
+}
+/*Some blocks for forms*/
+.articles_01{
+text-align:center;
+width:500px;
+margin-top:1px;
+}
+
+.articles_02{
+color:white;
+padding-top:5px;
+}
+
+.tb_ind{
+position:absolute;
+bottom:0px;
+right:0px;
+}
+
+.ind_f{
+position:relative;
+}
