@@ -20,12 +20,15 @@
     </div>
     <div id="action">
 			<?php
-				if(isset($_GET["content"])or isset($_GET['item'])){
-					include('system/system.php');
+				if(isset($_GET["content"])){
+					$content = $_GET["content"];
+					if($_GET['item'])
+						include('system/system.php');
+					else
+						include('pages/'.$content.'.php');
 				}
 				else
-					echo "INDEX
-    ";
+					echo "INDEX";
 			?>
     </div>
    </div>

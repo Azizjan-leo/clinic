@@ -1,13 +1,14 @@
 <div align=center><?php
 	include("phpHendlers/connect.php");
 	//Hendlers
-		if(isset($_POST['position'])){
+		if(isset($_POST['position']) and $_SESSION['form']){
 		$name = $_POST['name'];
 		$salary = $_POST['salary'];
 		$query="INSERT INTO `Staff` VALUES(NULL,'".$name."','".$salary."')";
 		mysql_query( $query );
-		$_POST['position'] = $_GET['item'] = false;
+		$_POST['position'] = $_SESSION['form'] = false;
 		};
+		$_SESSION['form'] = true;
 	//End
 	if(!$_SESSION["check"]){
 		if(isset($_POST["submit"])){
@@ -36,7 +37,7 @@
 	}
 		
 	else{
-		if(isset($_GET['item'])){
+		if(isset($_GET['item']) and !$_SESSION['form']){
 			$item = $_GET['item'];
 			if($item == "position"){
 				print 'Position adding.
