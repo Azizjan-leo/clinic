@@ -12,7 +12,7 @@
  </head>
  <body>
   <div class="all">
-   <div id="top"><a href="index.php"><img src="images/top.jpg" width="1000" height="100"></a></div>
+   <div id="top"><a href="index.php"><img src="images/top1.jpg" width="1000" height="150"></a></div>
    <div class="main">
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
     <div id="panel"><img src="images/leftmenu.png" width="60" height="60">
@@ -33,7 +33,7 @@
     </div>
    </div>
    <div class="clean"></div>
-   <div id="footer"><center>FOOTER</center></div>
+   <div id="footer"><div class="footer_text">FOOTER</div></div>
   </div>
  </body>
 </html>

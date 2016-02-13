@@ -16,7 +16,8 @@ body{
  margin-top: -8px;
 }
 #top{
- height: 100px;
+ margin-top: 20px;
+ height: 150px;
  background-size: 1000px 100px;
 }
 #topmenu{
@@ -26,19 +27,34 @@ body{
  background-color: #FFFFFF;
 }
 #action{
- min-height: 560px;
+ min-height: 545px;
  height: auto;
  width: 1000px;
  background-color: #FFFFFF;
  float: left;
 }
 #footer{
- height: 50px;
+ height: 30px;
  margin-left: auto;
  margin-right: auto;
+ margin-bottom: 10px;
  width: 1000px;
  background-color: 33CCFF;
- float: right; 
+ float: right;
+ border: 1px solid #04acec;
+	background-color: #0186ba;
+	background-image: -moz-linear-gradient(#04acec, #0186ba); 
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#04acec), to(#0186ba));	
+	background-image: -webkit-linear-gradient(#04acec, #0186ba);	
+	background-image: -o-linear-gradient(#04acec, #0186ba);
+	background-image: -ms-linear-gradient(#04acec, #0186ba);
+	background-image: linear-gradient(#04acec, #0186ba);
+	-moz-border-radius: 6px 6px 0px 0px;
+	-webkit-border-radius: 6px 6px 0px 0px;
+	border-radius: 6px 6px 0px 0px;
+	-moz-box-shadow: 0 1px 1px #0033cc, 0 1px 0 #0066ff inset;
+	-webkit-box-shadow: 0 1px 1px #0033cc, 0 1px 0 #0066ff inset;
+	box-shadow: 0 1px 1px #0033cc, 0 1px 0 #0066ff inset;
 }
 .main{
 overflow:auto;
@@ -134,7 +150,6 @@ input[type="submit"]{
 .state  .button{
  width: 27%;
 }
-/*-------Doctors page--------*/
 .hidden {position: absolute; visibility: hidden;}
 .visible {position: absolute; visibility: visible; z-index: 2;}
 
@@ -157,7 +172,7 @@ input[type="submit"]{
 
 .comment_block{
  padding:12px;
-	width:400px;
+	width:500px;
 	position:relative;
 	background-color:#fcfcfc;
 	border:1px solid white;
@@ -166,7 +181,7 @@ input[type="submit"]{
  -moz-border-radius:10px;
 	-webkit-border-radius:10px;
 	border-radius:10px;
- left:50%; margin-left:-215px;
+ left:50%; margin-left:-250px;
 	-moz-box-shadow:2px 2px 0 #c2c2c2;
 	-webkit-box-shadow:2px 2px 0 #c2c2c2;
 	box-shadow:2px 2px 0 #c2c2c2;
@@ -191,3 +206,11 @@ input[type="submit"]{
  display: none;
 }
 /*---------------------*/
+.footer_text{
+ margin-top: 7px;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 14px;
+	text-decoration: none;
+	text-shadow: 0 1px 0 #000;
+}
