@@ -20,9 +20,9 @@
     </div>
     <div id="action">
 			<?php
-				if(isset($_GET["content"])){
+				if(isset($_GET["content"])or $_GET["item"]){
 					$content = $_GET["content"];
-					if($_GET['item'])
+					if($content == "syst" or $_GET["item"])
 						include('system/system.php');
 					else
 						include('pages/'.$content.'.php');

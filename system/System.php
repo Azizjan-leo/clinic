@@ -1,14 +1,28 @@
 <div align=center><?php
 	include("phpHendlers/connect.php");
+	$_SESSION['form'] = true;
 	//Hendlers
 		if(isset($_POST['position']) and $_SESSION['form']){
 		$name = $_POST['name'];
 		$salary = $_POST['salary'];
 		$query="INSERT INTO `Staff` VALUES(NULL,'".$name."','".$salary."')";
 		mysql_query( $query );
-		$_POST['position'] = $_SESSION['form'] = false;
-		};
-		$_SESSION['form'] = true;
+		$_POST['position'] = false;
+		$_SESSION['form'] = false;
+		}
+		if(isset($_POST['employee']) and $_SESSION['form']){
+			$name = $_POST['name'];
+			$surname = $_POST['surname'];
+			$middle_name = $_POST['middle_name'];
+			$date = $_POST['date'];
+			$prof = $_POST['prof'];
+			$phone_num = $_POST['phone_num'];
+			$pasport_data = $_POST['pasport_data'];
+			$query="INSERT INTO `Employee` VALUES(NULL,'".$name."','".$name."')";
+			mysql_query( $query );
+			$_POST['position'] = false;
+			$_SESSION['form'] = false;
+		}
 	//End
 	if(!$_SESSION["check"]){
 		if(isset($_POST["submit"])){
@@ -37,7 +51,7 @@
 	}
 		
 	else{
-		if(isset($_GET['item']) and !$_SESSION['form']){
+		if(isset($_GET['item']) and $_SESSION['form']){
 			$item = $_GET['item'];
 			if($item == "position"){
 				print 'Position adding.
@@ -49,15 +63,19 @@
 				printf ('<a href="../index.php?item=%s" class="button blue">New employee</a><br>',employee);
 				printf ('<a href="../index.php?item=%s" class="button blue">New symptom</a><br>',symptom);
 				printf ('<a href="../index.php?item=%s" class="button blue">New diagnosis</a><br>',diagnosis);
+				$_SESSION['form'] = false;
 			}
 			else if($item == "employee"){
 				print 'Employee.
 			     <form name="emp" method="post" action="dataAdding.php">
 			      <input type="text" name="first_name" maxlength="30" placeholder="Name" size="30" required /><br>
-			      <input type="text" name="middle_name" maxlength="30" placeholder="Surname" size="30" required /><br>
-			      <input type="text" name="second_name" maxlength="30" placeholder="Middle name" size="30" required /><br>
-			      <input type="date" name="date" required /><br>
-			      <select name="prof" required><option>items</option></select><br>
+			      <input type="text" name="surname" maxlength="30" placeholder="Surname" size="30" required /><br>
+			      <input type="text" name="middle_name" maxlength="30" placeholder="Middle name" size="30" required /><br>
+			      Receipt date<br>
+				  <input type="date" name="date" required /><br>
+			      <select name="prof">';
+				  $sql = mysql_query("SELECT Name FROM Staff"); while ($row = mysql_fetch_array($sql)){ echo "<option value=\"Name1\">" . $row['Name'] . "</option>";}
+				  print '</select><br>
 			      <input type="text" name="phone_num" maxlength="10" placeholder="Telephone" size="30" required /><br>
 			      <textarea  name="pasport_data" maxlength="50" cols="50" rows="2" placeholder="Passort data" required></textarea><br>
 			      <input type="submit" name="employee" value="Enter">
@@ -94,7 +112,7 @@
 			printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>
 					 <a href="../index.php?item=%s" class="button blue">New employee</a><br>
 					 <a href="../index.php?item=%s" class="button blue">New symptom</a><br>
-					 <a href="../index.php?item=%s" class="button blue">New diagnosis</a>',position,employee,symptom,diagnosis);
+					 <a href="../index.php?item=%s" class="button blue">New diagnosis</a>',position,employee,symptom,diagnosis);						 
 		}
 	}
 				 
