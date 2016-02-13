@@ -3,12 +3,13 @@
 	$_SESSION['form'] = true;
 	//Hendlers
 		if(isset($_POST['position']) and $_SESSION['form']){
-		$name = $_POST['name'];
-		$salary = $_POST['salary'];
-		$query="INSERT INTO `Staff` VALUES(NULL,'".$name."','".$salary."')";
-		mysql_query( $query );
-		$_POST['position'] = false;
-		$_SESSION['form'] = false;
+			$name = $_POST['name'];
+			$salary = $_POST['salary'];
+			$unit = $_POST['unit'];
+			$query="INSERT INTO `Staff` VALUES(NULL,'".$name."','".$salary."','".$unit."')";
+			mysql_query( $query );
+			$_POST['position'] = false;
+			$_SESSION['form'] = false;
 		}
 		if(isset($_POST['employee']) and $_SESSION['form']){
 			$name = $_POST['name'];
@@ -18,11 +19,27 @@
 			$prof = $_POST['prof'];
 			$phone_num = $_POST['phone_num'];
 			$pasport_data = $_POST['pasport_data'];
-			$query="INSERT INTO `Employee` VALUES(NULL,'".$name."','".$name."')";
+			$query="INSERT INTO `Employee` VALUES(NULL,'".$name."','".$surname."','".$middle_name."','".$prof."','".$phone_num."','".$pasport_data."','".$date."')";
 			mysql_query( $query );
 			$_POST['position'] = false;
 			$_SESSION['form'] = false;
 		}
+		if(isset($_POST['symptom']) and $_SESSION['form']){
+			$name = $_POST['name'];
+			$description = $_POST['description'];
+			$query="INSERT INTO `Symptoms` VALUES(NULL,'".$name."','".$description."')";
+			mysql_query( $query );
+			$_POST['position'] = false;
+			$_SESSION['form'] = false;
+		}
+		if(isset($_POST['diagnosis']) and $_SESSION['form']){
+			$name = $_POST['name'];
+			$description = $_POST['description'];
+			$query="INSERT INTO `Diagnosis` VALUES(NULL,'".$name."','".$description."')";
+			mysql_query( $query );
+			$_POST['position'] = false;
+			$_SESSION['form'] = false;
+		}		
 	//End
 	if(!$_SESSION["check"]){
 		if(isset($_POST["submit"])){
@@ -35,7 +52,7 @@
 
 			if($user_data["password"] == $e_password){	
 				$_SESSION['name'] = $user_data["name"];
-				$_SESSION["check"] = $_SESSION['systAccess'] = true;
+				$_SESSION["check"] = $_SESSION['systAccess'] = $_SESSION['log'] = true;
 				print '<script>window.location.reload()</script>';
 			}
 			else 
@@ -58,6 +75,7 @@
 			     <form name="staff" method="post">
 			      <input type="text" name="name" maxlength="30" placeholder="Position name" size="30" required /><br>
 			      <input type="text" name="salary" maxlength="11" placeholder="Salary" size="30" required /><br>
+				  <select name="unit"><option value="1">Dollar</option><option value="2">Euro</option><option value="3">Ruble</option><option value="4">Som</option></select><br>
 			      <input type="submit" name="position" value="Enter">
 			     </form>';
 				printf ('<a href="../index.php?item=%s" class="button blue">New employee</a><br>',employee);
@@ -67,16 +85,16 @@
 			}
 			else if($item == "employee"){
 				print 'Employee.
-			     <form name="emp" method="post" action="dataAdding.php">
-			      <input type="text" name="first_name" maxlength="30" placeholder="Name" size="30" required /><br>
+			     <form name="emp" method="post">
+			      <input type="text" name="name" maxlength="30" placeholder="Name" size="30" required /><br>
 			      <input type="text" name="surname" maxlength="30" placeholder="Surname" size="30" required /><br>
 			      <input type="text" name="middle_name" maxlength="30" placeholder="Middle name" size="30" required /><br>
 			      Receipt date<br>
 				  <input type="date" name="date" required /><br>
 			      <select name="prof">';
-				  $sql = mysql_query("SELECT Name FROM Staff"); while ($row = mysql_fetch_array($sql)){ echo "<option value=\"Name1\">" . $row['Name'] . "</option>";}
+				  $sql = mysql_query("SELECT Name FROM Staff"); while ($row = mysql_fetch_array($sql)){ echo "<option value=".$row['Name'].">" . $row['Name'] . "</option>";}
 				  print '</select><br>
-			      <input type="text" name="phone_num" maxlength="10" placeholder="Telephone" size="30" required /><br>
+			      <input type="text" name="phone_num" maxlength="15" placeholder="Telephone" size="30" required /><br>
 			      <textarea  name="pasport_data" maxlength="50" cols="50" rows="2" placeholder="Passort data" required></textarea><br>
 			      <input type="submit" name="employee" value="Enter">
 			     </form>';
@@ -86,9 +104,9 @@
 			}
 			else if($item == "symptom"){
 				print 'Symptom adding.
-			     <form name="symptoms" method="post" action="dataAdding.php">
-			      <input type="text" name="symptom_name" maxlength="30" placeholder="Symptom name" size="30" required /><br>
-			      <textarea name="symptom_description" maxlength="100" cols="50" rows="3" placeholder="Description" required></textarea><br>
+			     <form name="symptoms" method="post">
+			      <input type="text" name="name" maxlength="50" placeholder="Symptom name" size="30" required /><br>
+			      <textarea name="description" maxlength="200" cols="50" rows="3" placeholder="Description" required></textarea><br>
 			      <input type="submit" name="symptom" value="Enter">
 			     </form>';
 				printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>',position);
@@ -97,10 +115,9 @@
 			}
 			else if($item == "diagnosis"){
 				print 'Diagnosis adding.
-				 <form name="dianoses" method="post" action="dataAdding.php">
-				  <input type="text" name="diagnos_name" maxlength="30" placeholder="Diagnosis name" size="30" required /><br>
-				  <textarea name="dignos_description" maxlength="100" cols="50" rows="3" placeholder="Description" required></textarea><br>
-				  <textarea name="symptoms" maxlength="200" cols="50" rows="6" placeholder="Description" readonly required></textarea><br>
+				 <form name="dianoses" method="post" >
+				  <input type="text" name="name" maxlength="50" placeholder="Diagnosis name" size="30" required /><br>
+				  <textarea name="description" maxlength="500" cols="50" rows="3" placeholder="Description" required></textarea><br>
 				  <input type="submit" name="diagnosis" value="Enter">
 				 </form>';
 				printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>',position);
