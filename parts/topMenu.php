@@ -4,7 +4,7 @@
        <li><a href="../index.php?content=%s">Doctors</a></li>
        <li><a href="#">Меню</a>
        <ul>
-         <li><a href="#">Подменю</a></li>
+         <li><a href="../index.php?content=%s">Comments</a></li>
          <li><a href="#">Подменю</a></li>
          <li><a href="#">Подменю</a></li>
          <li><a href="#">Подменю</a></li>
@@ -13,5 +13,5 @@
        <li><a href="../index.php?content=%s">Expert system</a></li>
        <li><a href="../phpHendlers/connect.php?action=%s">Out</a></li>
       </ul>
-      </nav>',doctors,syst,out);
+      </nav>',doctors,comments,syst,out);
 ?>

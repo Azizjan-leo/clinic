@@ -149,3 +149,41 @@ input[type="submit"]{
  margin-left: -200px;
  text-align: center;
 }
+
+/*---------Comments---------*/
+.comments{
+ text-align:center;
+ height: auto;
+}
+
+.comment_block{
+ padding:12px;
+	width:400px;
+	position:relative;
+	background-color:#fcfcfc;
+	border:1px solid white;
+	color:#888;
+	margin-bottom:25px;
+ -moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+ left:50%; margin-left:-215px;
+	-moz-box-shadow:2px 2px 0 #c2c2c2;
+	-webkit-box-shadow:2px 2px 0 #c2c2c2;
+	box-shadow:2px 2px 0 #c2c2c2;
+}
+
+.comment_date{
+ font-size:10px;
+	padding:6px 0;
+	position:absolute;
+	right:15px;
+	top:10px;
+	color:#bbb;
+}
+
+.comment_text{
+ color: #555;
+ font-size:17px;
+}
+/*---------------------*/
