@@ -9,10 +9,30 @@
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
 		<link rel="stylesheet" type="text/css" href="styles/menu.css" />
   <script src="scripts/scripts.js"></script>
+  <script type="text/javascript" src="scripts/jquery-1.4.1.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery.orbit.min.js"></script>
+ 	<script type="text/javascript">
+			$(window).load(function() {
+				$('#featured').orbit({
+					'bullets': true,
+					'timer' : true,
+					'animation' : 'horizontal-slide'
+				});
+			});
+		</script>
  </head>
  <body>
   <div class="all">
-   <div id="top"><a href="index.php"><img src="images/top1.jpg" width="1000" height="150"></a></div>
+   <div id="top">
+   <div id="featured"> 
+			<img src="images/slide_0.jpg" width="1000" height="150" />
+			<a href="#" target="_blank"><img src="images/slide_1.jpg" width="1000" height="150" /></a>
+			<img src="images/slide_2.jpg" width="1000" height="150" />
+			<img src="images/slide_3.jpg" width="1000" height="150" />
+		</div> 
+		<span class="orbit-caption" id="ezioCaption">This is an <em>awesome caption</em> for Ezio. <strong>Note:</strong> This whole image is linked</span>
+		<span class="orbit-caption" id="marcusCaption">This is an <em>awesome caption</em> for Marcus with a <a href="http://www.zurb.com/playground" target="_blank" style="color: #fff">link</a></span>
+   </div>
    <div class="main">
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
     <div id="panel"><img src="images/leftmenu.png" width="60" height="60">
