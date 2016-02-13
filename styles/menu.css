@@ -209,10 +209,10 @@ div.orbit a img { border: none; }
 
 /* TIMER */
 div.timer { width: 40px; height: 40px; overflow: hidden; position: absolute; top: 10px; right:10px; opacity: .6; cursor: pointer; z-index: 1001; }
-span.rotator { display: block; width: 40px; height: 40px; position: absolute; top: 0; left: -20px; background: url('../images/rotator-black.png') no-repeat; z-index: 3; }
+span.rotator { display: block; width: 40px; height: 40px; position: absolute; top: 0; left: -20px; background: no-repeat; z-index: 3; }
 span.mask { display: block; width: 20px; height: 40px; position: absolute; top: 0; right: 0; z-index: 2; overflow: hidden; }
 span.rotator.move { left: 0; }
-span.mask.move { width: 40px; left: 0; background: url('../images/timer-black.png') repeat 0px 0px;  }
+span.mask.move { width: 40px; left: 0; background: repeat 0px 0px;  }
 span.pause { display: block; width: 40px; height: 40px; position: absolute; top: 0; left: 0px; background: url('../images/pause-black.png') no-repeat; z-index: 4; opacity: 0; }
 div.timer:hover span.pause,
 span.pause.active, 

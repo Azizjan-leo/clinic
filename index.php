@@ -25,13 +25,13 @@
   <div class="all">
    <div id="top">
    <div id="featured"> 
-			<img src="images/slide_0.jpg" width="1000" height="150" />
+			<img src="images/slide_0.jpg" width="1000" height="150" rel="slide_0" />
 			<a href="#" target="_blank"><img src="images/slide_1.jpg" width="1000" height="150" /></a>
-			<img src="images/slide_2.jpg" width="1000" height="150" />
+			<img src="images/slide_2.jpg" rel="slide_2" width="1000" height="150" />
 			<img src="images/slide_3.jpg" width="1000" height="150" />
 		</div> 
-		<span class="orbit-caption" id="ezioCaption">Text</span>
-		<span class="orbit-caption" id="marcusCaption">Text</span>
+		<span class="orbit-caption" id="slide_0">Text</span>
+		<span class="orbit-caption" id="slide_2">Text</span>
    </div>
    <div class="main">
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
