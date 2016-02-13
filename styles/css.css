@@ -6,8 +6,7 @@ textarea{
  resize: none;
 }
 body{
- background: url("../images/bg.png");
- background-color: #99CCFF;
+ background-color: #fff;
  
 }
 .all{
@@ -185,5 +184,10 @@ input[type="submit"]{
 .comment_text{
  color: #555;
  font-size:17px;
+}
+
+#comments_form{
+ background-color: yellow;
+ display: none;
 }
 /*---------------------*/

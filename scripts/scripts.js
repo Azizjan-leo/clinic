@@ -1,6 +1,6 @@
-﻿var divs = [document.getElementById('b1'), document.getElementById('b2')];
-function hiddenShow(id, evt)
+﻿function hiddenShow(id, evt)
 {
+ var divs = [document.getElementById('b1'), document.getElementById('b2')];
    var div = document.getElementById(id);
    if (div.className == 'hidden')
    {
@@ -31,4 +31,14 @@ function choose(){
    s3.disabled = true;
    s4.disabled = true;
   }
+}
+
+function comment_button(){
+ var div = document.getElementById("comments_form");
+ if(div.style.display=="none"){
+  div.style.display="inline";
+ }
+ else{
+  div.style.display="none";
+ }
 }

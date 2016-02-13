@@ -2,10 +2,10 @@
 -- version 4.0.10.6
 -- http://www.phpmyadmin.net
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Фев 13 2016 г., 14:35
--- Версия сервера: 5.5.41-log
--- Версия PHP: 5.3.29
+-- Host: 127.0.0.1:3306
+-- Generation Time: Feb 09, 2016 at 05:01 PM
+-- Server version: 5.5.41-log
+-- PHP Version: 5.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,38 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `system`
+-- Database: `system`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Comments_general`
---
-
-CREATE TABLE IF NOT EXISTS `Comments_general` (
-  `Comment_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Date` date DEFAULT NULL,
-  `Text` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`Comment_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
-
---
--- Дамп данных таблицы `Comments_general`
---
-
-INSERT INTO `Comments_general` (`Comment_ID`, `Date`, `Text`) VALUES
-(16, '2016-02-13', 'ajodawij'),
-(17, '2016-02-13', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu'),
-(18, '2016-02-13', 'С„РѕС†РІС€С„РІС†РѕС‰С€С†С„РІРѕС‰С„С†С€РѕРІС‰'),
-(19, '2016-02-13', 'works'),
-(20, '2016-02-14', 'awdwadwad'),
-(22, '2016-02-13', 'awdawdwa');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `Diagnoses`
+-- Table structure for table `Diagnoses`
 --
 
 CREATE TABLE IF NOT EXISTS `Diagnoses` (
@@ -62,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `Diagnoses` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Employee`
+-- Table structure for table `Employee`
 --
 
 CREATE TABLE IF NOT EXISTS `Employee` (
@@ -78,21 +53,7 @@ CREATE TABLE IF NOT EXISTS `Employee` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Emp_comments`
---
-
-CREATE TABLE IF NOT EXISTS `Emp_comments` (
-  `Emp_comments_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Emp_ID` int(11) NOT NULL,
-  `Date` date DEFAULT NULL,
-  `Text` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`Emp_comments_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `patients`
+-- Table structure for table `patients`
 --
 
 CREATE TABLE IF NOT EXISTS `patients` (
@@ -111,21 +72,20 @@ CREATE TABLE IF NOT EXISTS `patients` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Staff`
+-- Table structure for table `Staff`
 --
 
 CREATE TABLE IF NOT EXISTS `Staff` (
   `Staff_ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` int(11) DEFAULT NULL,
   `Salary` int(11) DEFAULT NULL,
-  `Unit` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`Staff_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Symptoms`
+-- Table structure for table `Symptoms`
 --
 
 CREATE TABLE IF NOT EXISTS `Symptoms` (
@@ -138,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `Symptoms` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `SystAccess`
+-- Table structure for table `SystAccess`
 --
 
 CREATE TABLE IF NOT EXISTS `SystAccess` (
@@ -149,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `SystAccess` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Дамп данных таблицы `SystAccess`
+-- Dumping data for table `SystAccess`
 --
 
 INSERT INTO `SystAccess` (`id`, `name`, `password`) VALUES
