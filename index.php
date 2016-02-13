@@ -30,8 +30,8 @@
 			<img src="images/slide_2.jpg" width="1000" height="150" />
 			<img src="images/slide_3.jpg" width="1000" height="150" />
 		</div> 
-		<span class="orbit-caption" id="ezioCaption">This is an <em>awesome caption</em> for Ezio. <strong>Note:</strong> This whole image is linked</span>
-		<span class="orbit-caption" id="marcusCaption">This is an <em>awesome caption</em> for Marcus with a <a href="http://www.zurb.com/playground" target="_blank" style="color: #fff">link</a></span>
+		<span class="orbit-caption" id="ezioCaption">Text</span>
+		<span class="orbit-caption" id="marcusCaption">Text</span>
    </div>
    <div class="main">
     <div id="topmenu"> <?php include("parts/topMenu.php");?> </div>
