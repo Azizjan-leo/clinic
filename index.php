@@ -8,7 +8,7 @@
   <meta http-equiv="Content-Type" content="text/html;">
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
 		<link rel="stylesheet" type="text/css" href="styles/menu.css" />
-  <script src="scripts/showhide.js"></script>
+  <script src="scripts/scripts.js"></script>
  </head>
  <body>
   <div class="all">

@@ -134,7 +134,7 @@ input[type="submit"]{
 .state  .button{
  width: 27%;
 }
-/*---------------*/
+/*-------Doctors page--------*/
 .hidden {position: absolute; visibility: hidden;}
 .visible {position: absolute; visibility: visible; z-index: 2;}
 
