@@ -97,11 +97,10 @@
 			}
 			else if($usersTableData['Class'] == 4){
 				if($usersTableData[Password] == $_POST[f_password]){
-					$data = mysql_fetch_array(mysql_query("SELECT * FROM patients WHERE Id = '$id'"));
+					$_SESSION[userData] = mysql_fetch_array(mysql_query("SELECT * FROM patients WHERE Id = '$id'"));
 					$_SESSION["check"] = $_SESSION['log'] = true;
 					$_SESSION["class"] = 4;
-					$_SESSION[userName] = $data[First_Name] . " " . $data[Second_Name];
-					$_SESSION[userData] = $data;
+					$_SESSION[userName] = $_SESSION[userData][First_Name] . " " . $_SESSION[userData][Second_Name];
 					print '<script type="text/javascript">window.location.href="../index.php"</script>';
 				}
 				else{
@@ -163,10 +162,9 @@
 					}
 				}
 				else if ($userTableData['Class'] == 4){
-					$data = mysql_fetch_array(mysql_query("SELECT * FROM patients WHERE  Id = $id"));			
-					$_SESSION[userName] = $data[First_Name] . " " . $data[Second_Name];
+					$_SESSION[userData] = mysql_fetch_array(mysql_query("SELECT * FROM patients WHERE  Id = $id"));			
+					$_SESSION[userName] = $_SESSION[userData][First_Name] . " " . $_SESSION[userData][Second_Name];
 					$_SESSION["class"] = 4;
-					$_SESSION[userData] = $data;
 				}
 				$_SESSION[t] = false;
 				$_SESSION["check"] = $_SESSION['log'] = true;
