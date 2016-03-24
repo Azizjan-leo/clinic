@@ -5,80 +5,14 @@
 			<tr>
 				<td class="homeAction">
 					';
-	if(isset($_POST[newPatientFormSubmin])){
-		$firstName = $_POST[First_Name];
-		$middleName = $_POST[Middle_Name];
-		$secondName = $_POST[Second_Name];
-		$birthDate = $_POST[Birth_Date];
-		$gender = $_POST[Gender];
-		$insuranceCategory = $_POST[Insurance_Category];
-		$diagnosis = $_POST[Diagnosis];
-		$virus = $_POST[Virus];
-		$receiptDate = date("Y-m-d");
-		$prof = $_POST[Prof];
-		$address = $_POST[Address];
-		$phone = $_POST[Phone];
-		$email = $_POST[Email];
-		$comment = $_POST[Comment];
-		$careDoctor = $_SESSION[userData][Emp_ID];
-		$data = mysql_fetch_array(mysql_query("SELECT Id FROM Staff WHERE Name = '".$_SESSION[userData][Prof]."'"));
-		$careDoctorProf = $data[Id];
-		
-		if ( $_FILES['image']['error'] == 0 ) {
-			// Если файл загружен успешно, то читаем содержимое файла
-			mysql_query("INSERT INTO Users VALUES(NULL, 4, NULL)") or die(mysql_error());
-			$data = mysql_fetch_array(mysql_query("SELECT MAX(Id) AS Id FROM Users WHERE Class = 4"));
-			$id = $data['Id'];
-			$query="INSERT INTO patients VALUES('".$id."','".$firstName."','".$middleName."','".$secondName."','".$birthDate."', '".$gender."', '".$insuranceCategory."', '".$diagnosis."','".$virus."', '".$receiptDate."', '".$prof."', '".$address."', '".$phone."', '".$email."', '".$careDoctor."', '".$careDoctorProf."', '".$_FILES['image']['name']."', '".$comment."')";
-			// После чего остается только выполнить данный запрос к базе данных
-			if(mysql_query($query)){
-				// Также отправляем картинку в папку unloaded_images
-				if(move_uploaded_file($_FILES['image']['tmp_name'], 'images/'.$_FILES['image']['name'])){
-					$_SESSION[massage] = $id;
-				}				
-			}
-		}
-		else{
-			echo '<p style="color: red">File loading error</p>';
-		}
-		
-	}
-	if(isset($_POST[newEmployeeFormSubmin])){
-		$name = $_POST['name'];
-		$surname = $_POST['surname'];
-		$middle_name = $_POST['middle_name'];
-		$date = $_POST['date'];
-		$prof = $_POST['prof'];
-		$phone_num = $_POST['phone_num'];
-		$passport_data = $_POST['passport_data'];
-		$carierStart = $_POST[carierStart];
-		$category = $_POST[category];
-		$class = $_POST[userClass];
-			
-		// Проверяем, что при загрузке не произошло ошибок
-		if ( $_FILES['image']['error'] == 0 ) {
-			// Формируем запрос на добавление файла в базу данных
-			mysql_query("INSERT INTO Users VALUES(NULL, '".$class."', NULL)") or die(mysql_error());
-			$data = mysql_fetch_array(mysql_query("SELECT MAX(Id) AS Id FROM Users WHERE Class = ".$class.""));
-			$id = $data[Id];
-			// После чего остается только выполнить данный запрос к базе данных
-			if(mysql_query("INSERT INTO `Employee` VALUES('".$id."','".$class."','".$name."','".$surname."','".$middle_name."','".$prof."','".$carierStart."','".$category."','".$phone_num."','".$passport_data."','".$date."','".$_FILES['image']['name']."','".$_POST[curriculumVitae]."')")){
-				if(move_uploaded_file($_FILES['image']['tmp_name'], 'images/'.$_FILES['image']['name'])){
-					$_SESSION[massage] = $id;
-				}else{echo "can't move_uploaded_file";}
-			}else{echo"can't insert into Employee";}			
-		}else{echo "Image uploading error";}
-	}	
-	if($_SESSION[massage]){
-		$id = $_SESSION[massage];
+	if(isset($_GET[newID])){
 		echo "<p style='color: green'>New entry has been added</p>
-		  <big>ID: <textarea cols='11' rows='1'>$id</textarea><br><br>";
-		  $_SESSION[massage] = false;
+		  <big>ID: <textarea cols='11' rows='1'>$_GET[newID]</textarea><br><br>";
 	}
-	function newPatientForm(){
-
+			
+	if(isset($_POST[newPatientForm])){
 		print '
-			<form enctype="multipart/form-data" accept-charset="utf8" method="POST" name="newPatientForm">
+			<form enctype="multipart/form-data" accept-charset="utf8" method="POST" name="newPatientForm" action="../phpHendlers/forms.php">
 				<input type="text" maxlength="30" name="First_Name" placeholder="First Name"  required/> <br>
 				<input type="text" maxlength="30" name="Middle_Name" placeholder="Middle Name"  /> <br>
 				<input type="text" maxlength="30" name="Second_Name" placeholder="Second Name"  required/> <br>
@@ -93,19 +27,13 @@
 				<input type="email" name="Email" maxlength="30" placeholder="Email" required/><br>
 				Photo <input type="file" name="image" value="image" multiple accept="image/*"  required/></br>
 				<textarea  name="Comment" maxlength="150" cols="50" rows="3" placeholder="Comment"></textarea><br>
-				<input type="submit" name="newPatientFormSubmin" value="Enter">
+				<input type="submit" name="newPatientFormSubmit" value="Enter">
 			</form>
 		';
-	}		
-	if(isset($_POST[newPatientForm])){
-		newPatientForm();
 	}
 	if(isset($_POST[newEmployeeForm])){
-		newEmployeeForm();
-	}
-	function newEmployeeForm(){
 		print '
-			<form enctype="multipart/form-data" accept-charset="cp1251_general_ci" name="emp" method="post">
+			<form enctype="multipart/form-data" accept-charset="utf8_general_ci" name="emp" method="post" action="../phpHendlers/forms.php">
 				<select name="userClass" required>';
 					$sql = mysql_query("SELECT * FROM UserClasses"); while ($row = mysql_fetch_array($sql)){ echo "<option value=".$row['Id'].">" . $row['Name'] . "</option>";}
 					print '
@@ -130,9 +58,10 @@
 				<input type="text" name="passport_data" placeholder="Passport data" required /><br>
 				<textarea cols="50" rows="10" name="curriculumVitae" placeholder="Curriculum vitae" required></textarea><br>
 				<input type="file" name="image" value="Image" multiple accept="image/*" required></br>
-				<input type="submit" name="newEmployeeFormSubmin" value="Enter">
+				<input type="submit" name="newEmployeeFormSubmit" value="Enter">
 			</form>';
 	}
+	
 	print '
 				</td>
 				<td class="homeMenu">

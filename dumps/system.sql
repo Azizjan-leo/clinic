@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 17, 2016 at 07:23 PM
+-- Generation Time: Mar 24, 2016 at 05:27 PM
 -- Server version: 5.5.41-log
 -- PHP Version: 5.3.29
 
@@ -87,9 +87,9 @@ CREATE TABLE IF NOT EXISTS `Employee` (
   `Passport_data` varchar(30) NOT NULL,
   `Receipt_Date` date NOT NULL,
   `Image` varchar(50) NOT NULL,
-  `CurriculumVitae` text NOT NULL,
+  `CurriculumVitae` longtext NOT NULL,
   PRIMARY KEY (`Emp_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
 
 --
 -- Dumping data for table `Employee`
@@ -100,7 +100,12 @@ INSERT INTO `Employee` (`Emp_ID`, `Class`, `First_Name`, `Surname`, `Middle_Name
 (3, 3, 'Sergey', 'Durakov', 'Ivanovich', 3, '0000-00-00', NULL, '+996702647002', 'AN 10-01', '2016-02-13', '', ''),
 (5, 2, 'Sigmund', 'Freud', '', 5, '0000-00-00', 5, '+996702647002', 'AN 345-456', '2016-03-12', 'Sigmund Freud.jpg', ''),
 (24, 3, 'A', 'A', 'A', 3, '2016-03-15', 5, '+996702647002', 'AN 343-234', '2016-03-15', 'Фото1064.jpg', 'абвгдеёжзийклмнопрст'),
-(25, 2, 'Azizjan', 'Ayupov', 'Hamidovich', 1, '2013-09-17', 3, '+996702647002', 'AN 343-234', '2016-03-15', 'Photo1084.jpg', 'bla bla bla');
+(25, 2, 'Azizjan', 'Ayupov', 'Hamidovich', 1, '2013-09-17', 3, '+996702647002', 'AN 343-234', '2016-03-15', 'Photo1084.jpg', 'bla bla bla'),
+(29, 2, 'Sanabar', 'Sydyq', 'Tursun', 2, '1992-08-16', 1, '+996702647002', 'AN 343-234', '2016-03-19', 'apa.jpg', 'wdwwdwd'),
+(32, 2, 'Sanabar', 'Sydyq', 'Tursun', 2, '1992-08-16', 1, '+996702647002', 'AN 343-234', '2016-03-19', 'apa.jpg', 'bla bla bla'),
+(33, 3, 'Гость', 'sa', 'No', 3, '2016-03-20', 1, '+996702647002', 'AN 343-234', '2016-03-20', 'admin.jpg', 'bbbbbbbb'),
+(34, 3, 'Гость', 'sa', 'No', 3, '2016-03-20', 1, '+996702647002', 'AN 343-234', '2016-03-20', 'admin.jpg', 'bbbbbbbb'),
+(35, 2, '12', '12', '12', 1, '2016-03-20', 1, '12', '12', '2016-03-20', 'admin.jpg', '12');
 
 -- --------------------------------------------------------
 
@@ -137,21 +142,20 @@ CREATE TABLE IF NOT EXISTS `Order` (
   `DoctorId` int(10) NOT NULL,
   `Date` datetime DEFAULT NULL,
   `PatientId` int(11) DEFAULT NULL,
-  `VisitorId` int(11) NOT NULL,
-  `Phone` varchar(15) NOT NULL,
+  `UnregVisitorId` int(11) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `Order`
 --
 
-INSERT INTO `Order` (`Id`, `DoctorId`, `Date`, `PatientId`, `VisitorId`, `Phone`) VALUES
-(1, 5, NULL, 19, 0, '+996707757077'),
-(2, 25, NULL, 0, 1, '+996707757077'),
-(6, 25, NULL, 0, 0, '+996707757077'),
-(7, 25, NULL, 0, 0, '+996707757077'),
-(8, 25, NULL, 21, 0, '+996707757077');
+INSERT INTO `Order` (`Id`, `DoctorId`, `Date`, `PatientId`, `UnregVisitorId`) VALUES
+(1, 5, NULL, 19, 0),
+(2, 25, NULL, 0, 1),
+(8, 25, NULL, 21, 0),
+(9, 5, NULL, NULL, 3),
+(10, 5, NULL, 21, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -179,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `Photo` varchar(50) NOT NULL,
   `Comment` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `patients`
@@ -187,7 +191,58 @@ CREATE TABLE IF NOT EXISTS `patients` (
 
 INSERT INTO `patients` (`ID`, `First_Name`, `Middle_Name`, `Second_Name`, `Birth_Date`, `Gender`, `Insurance_Category`, `Diagnosis`, `Virus`, `Receipt_Date`, `Prof`, `Address`, `Phone`, `Email`, `Care_Doctor`, `Care_Doctor_Prof`, `Photo`, `Comment`) VALUES
 (19, 'Azizjan', 'Hamidovich', 'Ayupov', '2016-03-01', 1, 2, 2, 0, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, 6, '20151211_231550.jpg', 'sd sd'),
-(21, 'Devid', '', 'Duhovnyi', '2016-03-01', 1, 1, 1, 1, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, 6, '20151211_231550.jpg', 'bla bla');
+(21, 'Devid', '', 'Duhovnyi', '2016-03-01', 1, 1, 1, 1, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, 6, '20151211_231550.jpg', 'bla bla'),
+(37, 'Kamilla', '', 'Munurova', '2005-02-28', 0, 0, 2, 0, '2016-03-20', 'Cook', 'Bishkek Orto-Say', '+996702942932', 'litpulla@mail.ru', 1, 0, 'Фото0196.jpg', 'Beautiful girl.'),
+(38, 'Hamid', 'Kasymovich', 'Ayupov', '1963-05-22', 1, 0, 2, 0, '2016-03-20', 'Builder', 'Bishkek Orto-Say', '+996702568963', 'litpulla@mail.ru', 1, 0, 'Photo0086.jpg', ''),
+(39, 'John', '', 'Fly', '2016-03-24', 1, 0, 2, 1, '2016-03-24', 'Actor', 'New Jersey', '+12661157', 'blabla@mail.ru', 25, 0, 'image.jpg', 'No comment.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Reception`
+--
+
+CREATE TABLE IF NOT EXISTS `Reception` (
+  `Emp_ID` int(10) NOT NULL,
+  `Time` int(3) DEFAULT NULL,
+  PRIMARY KEY (`Emp_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Reception`
+--
+
+INSERT INTO `Reception` (`Emp_ID`, `Time`) VALUES
+(25, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Schedule`
+--
+
+CREATE TABLE IF NOT EXISTS `Schedule` (
+  `Day_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `Emp_ID` int(10) NOT NULL,
+  `Day` varchar(3) NOT NULL,
+  `Start` time NOT NULL,
+  `Lunch_Start` time DEFAULT NULL,
+  `Lunch_End` time DEFAULT NULL,
+  `End` time DEFAULT NULL,
+  PRIMARY KEY (`Day_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+
+--
+-- Dumping data for table `Schedule`
+--
+
+INSERT INTO `Schedule` (`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunch_End`, `End`) VALUES
+(26, 25, 'Mon', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(27, 25, 'Tue', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(28, 25, 'Wed', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(29, 25, 'Thu', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(30, 25, 'Fri', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(31, 25, 'Sat', '08:00:00', '12:00:00', '13:00:00', '17:00:00');
 
 -- --------------------------------------------------------
 
@@ -210,10 +265,10 @@ CREATE TABLE IF NOT EXISTS `Staff` (
 --
 
 INSERT INTO `Staff` (`Id`, `Name`, `IsDoctor`, `Salary`, `Unit`, `Image`) VALUES
-(1, 'Surgeon', 1, 100.5, 1, ''),
-(2, 'Pediatrician', 1, 150, 2, ''),
+(1, 'Surgeon', 1, 100.5, 1, 'surg.jpg'),
+(2, 'Pediatrician', 1, 150, 2, 'Pediatr.jpg'),
 (3, 'Cleaner', 0, 200, 1, ''),
-(4, 'Ophthalmologist', 1, 1000, 1, ''),
+(4, 'Ophthalmologist', 1, 1000, 1, 'Ophthalmologist.jpg'),
 (5, 'Psychologist', 1, 1200, 1, '430910.png'),
 (6, 'Admin', 0, 15000, 1, 'admin.jpg');
 
@@ -237,6 +292,30 @@ CREATE TABLE IF NOT EXISTS `Symptoms` (
 INSERT INTO `Symptoms` (`Symptom_ID`, `Name`, `Description`) VALUES
 (1, '0', '0'),
 (2, 'Headache', 'Headache');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UnregVisitors`
+--
+
+CREATE TABLE IF NOT EXISTS `UnregVisitors` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `First_Name` varchar(25) DEFAULT NULL,
+  `Middle_Name` varchar(25) DEFAULT NULL,
+  `Second_Name` varchar(25) DEFAULT NULL,
+  `Phone` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='All clinic non-registered patients' AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `UnregVisitors`
+--
+
+INSERT INTO `UnregVisitors` (`Id`, `First_Name`, `Middle_Name`, `Second_Name`, `Phone`) VALUES
+(1, 'Kamilla', '', 'Munurova', '+996702942932'),
+(2, 'Yusupova', 'Erkinovna', 'Guzyal', '+996702647002'),
+(3, 'Guzyal', 'Erkinovna', 'Yusupova', '+996702647002');
 
 -- --------------------------------------------------------
 
@@ -271,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
   `Class` int(3) NOT NULL,
   `Password` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `Users`
@@ -279,32 +358,19 @@ CREATE TABLE IF NOT EXISTS `Users` (
 
 INSERT INTO `Users` (`Id`, `Class`, `Password`) VALUES
 (1, 1, '123'),
+(5, 2, '123'),
 (19, 4, '123'),
 (21, 4, '123'),
 (24, 3, '123'),
-(25, 2, '123');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Visitors`
---
-
-CREATE TABLE IF NOT EXISTS `Visitors` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Patient_ID` int(11) DEFAULT NULL,
-  `First_Name` varchar(25) DEFAULT NULL,
-  `Second_Name` varchar(25) DEFAULT NULL,
-  `Phone` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `Visitors`
---
-
-INSERT INTO `Visitors` (`Id`, `Patient_ID`, `First_Name`, `Second_Name`, `Phone`) VALUES
-(1, NULL, 'Kamilla', 'Munurova', '+996702942932');
+(25, 2, '123'),
+(32, 2, NULL),
+(33, 3, NULL),
+(34, 3, NULL),
+(35, 2, NULL),
+(36, 4, NULL),
+(37, 4, NULL),
+(38, 4, NULL),
+(39, 4, NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

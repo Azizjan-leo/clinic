@@ -135,6 +135,20 @@ input.homeMenuButton{
  width: 250px;
  height: 2em;
 }
+/*----patient page----*/
+.patientInfo{
+ margin: 5px 10px;
+ min-height: 400;
+}
+.patientInfo big{
+ font-size: 20px;
+}
+.patientPhoto{
+ float:left;
+ height=250;
+ width: 200;
+}
+/*--------------------*/
 /*-------------------*/
 /*----doc page------*/
 .state{
@@ -143,16 +157,40 @@ input.homeMenuButton{
  float: right;
  white-space: pre;
 }
+#shortInputField{
+ width: 93px;
+}
+.brd {
+ border: 1px solid black;
+}
+.scheduleEditForm td{
+ border: 1px solid black;
+ text-align: center;
+}
+.scheduleEditForm1 td{
+ width: 1px;
+ text-align: center;
+}
+
+.scheduleEditForm{
+ margin-top: 70px;
+ margin-left: 170px; 
+}
+.scheduleEditForm1{
+ margin-top: 70px;
+ margin-left: 170px; 
+}
 
 .docInfo{
- margin: 5px 15px;
+ margin: 0px 10px;
  min-height: 400;
 }
 
 .doc_photo img{
  width: 300px;
  height: 350px;
-float: left;
+ float: left;
+ margin: 0px 10px 3px 3px;
 }
 
 .state  .button{

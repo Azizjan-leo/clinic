@@ -9,8 +9,8 @@
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
 		<link rel="stylesheet" type="text/css" href="styles/menu.css" />
   <script src="scripts/scripts.js"></script>
-  <script type="text/javascript" src="scripts/jquery-1.4.1.min.js"></script>
-		<script type="text/javascript" src="scripts/jquery.orbit.min.js"></script>
+		<!--<script type="text/javascript" src="scripts/jquery-1.4.1.min.js"></script>
+		<script type="text/javascript" src="scripts/jquery.orbit.min.js"></script>-->
  	<script type="text/javascript">
 			$(window).load(function() {
 				$('#featured').orbit({
@@ -20,6 +20,7 @@
 				});
 			});
 		</script>
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
  </head>
  <body>
   <div class="all">
@@ -45,8 +46,12 @@
 					//$_SESSION[t] = false;
 					if($_GET["content"] == "home")
 					{
-						$data = mysql_fetch_array(mysql_query("SELECT Name FROM UserClasses WHERE Id = $_SESSION[class]"));
-						$content = 'pages/'. $data[Name] . 'Home';
+						if($_SESSION['class']){
+							$data = mysql_fetch_array(mysql_query("SELECT Name FROM UserClasses WHERE Id = $_SESSION[class]"));
+							$content = 'pages/'. $data[Name] . 'Home';
+						}else{
+							print '<script type="text/javascript">window.location.href="../index.php?content=logIn"</script>';
+						}
 					}
 					else if($_GET[item] or $_GET["content"] == "syst")
 					{

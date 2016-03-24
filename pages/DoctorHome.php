@@ -5,54 +5,187 @@
 			<tr>
 				<td class="homeAction">
 					';
-	if(isset($_POST[newPatientFormSubmin])){
-		$firstName = $_POST[First_Name];
-		$middleName = $_POST[Middle_Name];
-		$secondName = $_POST[Second_Name];
-		$birthDate = $_POST[Birth_Date];
-		$gender = $_POST[Gender];
-		$insuranceCategory = $_POST[Insurance_Category];
-		$diagnosis = $_POST[Diagnosis];
-		$virus = $_POST[Virus];
-		$receiptDate = date("Y-m-d");
-		$prof = $_POST[Prof];
-		$address = $_POST[Address];
-		$phone = $_POST[Phone];
-		$email = $_POST[Email];
-		$comment = $_POST[Comment];
-		$careDoctor = $_SESSION[userData][Emp_ID];
-		$data = mysql_fetch_array(mysql_query("SELECT Id FROM Staff WHERE Name = '".$_SESSION[userData][Prof]."'"));
-		$careDoctorProf = $data[Id];
-		
-		if ( $_FILES['image']['error'] == 0 ) {
-			// Если файл загружен успешно, то читаем содержимое файла
-			mysql_query("INSERT INTO Users VALUES(NULL, 4, NULL)") or die(mysql_error());
-			$data = mysql_fetch_array(mysql_query("SELECT MAX(Id) AS Id FROM Users WHERE Class = 4"));
-			$id = $data['Id'];
-			$query="INSERT INTO patients VALUES('".$id."','".$firstName."','".$middleName."','".$secondName."','".$birthDate."', '".$gender."', '".$insuranceCategory."', '".$diagnosis."','".$virus."', '".$receiptDate."', '".$prof."', '".$address."', '".$phone."', '".$email."', '".$careDoctor."', '".$careDoctorProf."', '".$_FILES['image']['name']."', '".$comment."')";
-			// После чего остается только выполнить данный запрос к базе данных
-			if(mysql_query($query)){
-				// Также отправляем картинку в папку unloaded_images
-				if(move_uploaded_file($_FILES['image']['tmp_name'], 'images/'.$_FILES['image']['name'])){
-					$_SESSION[massage] = $id;
-				}				
+	$schedule = mysql_fetch_array(mysql_query("SELECT `Emp_ID` FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'"));
+	if(!$schedule[Emp_ID] and !$_GET[scheduleFormFilling]){
+		echo '<a href="../index.php?content=home&scheduleFormFilling=1" style="color: red">Please, create your schedule</a>';
+	}
+	
+	if(isset($_GET[scheduleFormFilling]) or isset($_POST[editScheduleForm])){
+		if(isset($_POST[scheduleSubmitButton1])){
+		$days = array();
+		for($i = 0; $i<7; $i++)
+			if($_POST[$i])
+				$days[] = $_POST[$i];
+		if(isset($days)){
+			$ee = "&days[]=" . implode("&days[]=", array_map('urlencode', $days));
+			print "<script type='text/javascript'>window.location.href='../index.php?content=home&scheduleFormFilling=2$ee'</script>";
+		}else{
+			echo "<p style='color: red;'>Select one at least</p>";
+		}
+	}
+		if($_GET[scheduleFormFilling] == 1){
+			print ' <div class="scheduleEditForm1">
+						<form  method="POST" name="scheduleEditForm1">
+							<table>
+								<tr>
+									<th colspan="7">Choose your weekdays</th>
+								</tr>
+								<tr>
+									<td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td><td>Sun</td>
+								</tr>
+								<tr>
+									<td><input type="radio" name="0" value="Mon"></td>
+									<td><input type="radio" name="1" value="Tue"></td>
+									<td><input type="radio" name="2"  value="Wed"></td>
+									<td><input type="radio" name="3" value="Thu"></td>
+									<td><input type="radio" name="4" value="Fri"></td>
+									<td><input type="radio" name="5" value="Sat"></td>
+									<td><input type="radio" name="6" value="Sun"></td>
+								</tr>
+								<tr>
+									<td colspan="7"><input type="submit" name="scheduleSubmitButton1" value="Enter"></td>
+								</tr>
+							</table>
+						</form>
+					</div>';
+		}
+		if(isset($_POST[allAsOne])){
+			print '<div class="scheduleEditForm">
+					<form  method="POST" name="allAsOneForm" action="../phpHendlers/forms.php">
+						<table>
+							<tr><th>Day</th><th>Start</th><th>Lunch Start</th><th>Lunch End</th><th>End</th></tr>
+							<tr><td>-</td><td><input type="time" name="start"></td><td><input type="time" name="lunchStart"></td><td><input type="time" name="lunchEnd"></td><td><input type="time" name="end"></td></tr>
+							<tr><td colspan="3">Time you need for one reception</td><td colspan="2"><input id="shortInputField" type="text" name="oneReception">min</td></tr>
+							<tr><td colspan="5"><input type="submit" name="allAsOneSubmit" value="Enter"></td></tr>
+						</table>
+					</form>
+				   </div>';
+		}else if($_GET[scheduleFormFilling] == 2){
+			$_SESSION[days] = $_GET[days];
+			print	'<div class="scheduleEditForm">
+			<form  method="POST" name="scheduleEditForm" action="../phpHendlers/forms.php">
+				<table>
+					<tr><th>Day</th><th>Start</th><th>Lunch Start</th><th>Lunch End</th><th>End</th></tr>';
+					for($i=0; $i < count($_GET[days]); $i++){
+						print '<tr><td>'.$_GET[days][$i].'</td><td><input type="time" name="start'.$i.'"></td><td><input type="time" name="lunchStart'.$i.'"></td><td><input type="time" name="lunchEnd'.$i.'"></td><td><input type="time" name="end'.$i.'"></td></tr>';
+					}
+					print '
+					<tr><td colspan="3">Time you need for one reception</td><td colspan="2"><input id="shortInputField" type="text" name="oneReception">min</td></tr>
+					<tr><td colspan="5"><input type="submit" name="scheduleSubmitButton" value="Enter"></td></tr>
+				</table>
+			</form>
+			You can also fill
+			<form method="POST">
+				<input type="submit" name="allAsOne" value="All as one">
+			</form>
+			</div> <!--The div opens in if(!$schedule[Start]) statement below-->
+			';	
+		}
+		if(isset($_POST[editScheduleForm])){
+			$res = mysql_query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+			$days = array();
+			while(($row =  mysql_fetch_assoc($res))) {
+				$days[] = $row[Day];
 			}
+			print ' <div id="scheduleEditForm">
+						<form  method="POST" name="scheduleEditForm1">
+							<table>
+								<tr>
+									<th>Choose your weekdays</th>
+								</tr>
+								<tr>
+									<td class="centerText">Mo Tu W Th Fr Sa Su</dt>
+								</tr>
+								<tr>
+									<td>';
+										
+											for($i = 0; $i < 7; $i++){
+												switch($i){
+													case 0:	print '<input type="checkbox" name="0" value="Mon"';if(in_array("Mon",$days)) print ' checked'; 
+														break;
+													case 1:	print '<input type="checkbox" name="1" value="Tue"';if(in_array("Tue",$days)) print ' checked'; 
+														break;
+													case 2:	print '<input type="checkbox" name="2" value="Wed"';if(in_array("Wed",$days)) print ' checked'; 
+														break;
+													case 3:	print '<input type="checkbox" name="3" value="Thu"';if(in_array("Thu",$days)) print 'checked'; 
+														break;
+													case 4:	print '<input type="checkbox" name="4" value="Fri"';if(in_array("Fri",$days)) print 'checked'; 
+														break;
+													case 5:	print '<input type="checkbox" name="5" value="Sat"';if(in_array("Sat",$days)) print 'checked'; 
+														break;
+													case 6:	print '<input type="checkbox" name="6" value="Sun"';if(in_array("Sun",$days)) print 'checked'; 
+														break;										
+												}
+												echo '>';
+											}
+											
+										print '
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="submit" name="scheduleEditSubmitButton" value="Enter">
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>';
 		}
-		else{
-			echo '<p style="color: red">File loading error</p>';
+		if($_GET[scheduleFormFilling] == 3){
+			$res = mysql_query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+			$DBd = array();
+			while(($row =  mysql_fetch_assoc($res))) {
+				if(in_array($row[Day], $_GET[days]))
+					$DBd[] = $row[Day];
+			}
+			
+			$_SESSION[days] = $_GET[days];
+			print	'<div id="scheduleEditForm">
+			<form  method="POST" name="scheduleEditForm" action="../phpHendlers/forms.php">
+				<table>
+					<tr><th>Day</th><th>Start</th><th>Lunch Start</th><th>Lunch End</th><th>End</th></tr>';
+					for($i=0; $i < count($_GET[days]); $i++){
+						print '<tr><td>'.$_GET[days][$i].'</td><td><input type="time" name="start'.$i.'"';
+						if(in_array($_GET[days][$i],$DBd)){
+							$res = mysql_query("SELECT * FROM Schedule WHERE `Emp_ID` = '".$_SESSION[userData][Emp_ID]."' AND `Day` = '".$_GET[days][$i]."'");
+							$row = mysql_fetch_array($res);
+							print " value='$row[Start]'></td><td><input type='time' name='lunchStart$i' value='$row[Lunch_Start]'></td><td><input type='time' name='lunchEnd$i' value='$row[Lunch_End]'></td><td><input type='time' name='end$i' value='$row[End]'></td></tr>";
+						}else{
+							print '>
+						</td><td><input type="time" name="lunchStart'.$i.'"></td><td><input type="time" name="lunchEnd'.$i.'"></td><td><input type="time" name="end'.$i.'"></td></tr>';
+						}
+					}
+					$res = mysql_fetch_array(mysql_query("SELECT Time FROM Reception WHERE `Emp_ID` = '".$_SESSION[userData][Emp_ID]."'"));
+					print '
+					<tr><td colspan="3">Time you need for one reception</td><td colspan="2"><input id="shortInputField" type="text" value="'.$res['Time'].'" name="oneReception">min</td></tr>
+					<tr><td colspan="5"><input type="submit" name="scheduleEditSubmitButton3" value="Enter"></td></tr>
+				</table>
+			</form></div> <!--The div opens in if(!$schedule[Start]) statement below-->
+			';	
 		}
-		
 	}
-	if($_SESSION[massage]){
-		$id = $_SESSION[massage];
-		echo "<p style='color: green'>New entry has been added</p>
-		  <big>ID: <textarea cols='11' rows='1'>$id</textarea><br><br>";
-		  $_SESSION[massage] = false;
+	if(isset($_POST[scheduleEditSubmitButton])){
+		$days = array();
+		for($i = 0; $i<7; $i++)
+			if($_POST[$i])
+				$days[] = $_POST[$i];
+		if(isset($days)){
+			$ee = "&days[]=" . implode("&days[]=", array_map('urlencode', $days));
+			print "<script type='text/javascript'>window.location.href='../index.php?content=home&scheduleFormFilling=3$ee'</script>";
+		}else{
+			echo "<p style='color: red;'>Select one at least</p>";
+		}
 	}
-	function newPatientForm(){
-
+	if(isset($_GET[massage])){
+		if($_GET[massage] == "NewId"){
+			$id = $_GET[NewId]; 
+			echo "<p style='color: green'>New entry has been added</p>
+			<big>ID: <textarea cols='11' rows='1'>$id</textarea><br><br>";
+		}
+	}
+	if(isset($_POST[newPatientForm])){
 		print '
-			<form enctype="multipart/form-data" accept-charset="utf8" method="POST" name="newPatientForm">
+			<form enctype="multipart/form-data" accept-charset="utf8" method="POST" name="newPatientForm" action="../phpHendlers/forms.php">
 				<input type="text" maxlength="30" name="First_Name" placeholder="First Name"  required/> <br>
 				<input type="text" maxlength="30" name="Middle_Name" placeholder="Middle Name"  /> <br>
 				<input type="text" maxlength="30" name="Second_Name" placeholder="Second Name"  required/> <br>
@@ -67,19 +200,25 @@
 				<input type="email" name="Email" maxlength="30" placeholder="Email" required/><br>
 				Photo <input type="file" name="image" value="image" multiple accept="image/*"  required/></br>
 				<textarea  name="Comment" maxlength="150" cols="50" rows="3" placeholder="Comment" required></textarea><br>
-				<input type="submit" name="newPatientFormSubmin" value="Enter">
+				<input type="submit" name="newPatientFormSubmit" value="Enter">
 			</form>
 		';
-	}		
-	if(isset($_POST[newPatientForm])){
-		$_SESSION[notFirstButton] = true;
-		newPatientForm();
 	}
-	
+	if(isset($_POST[redirToMyPage])){
+		$dir = $_SESSION[userData][Emp_ID];
+		print "<script type='text/javascript'>window.location.href='../index.php?doctor=$dir'</script>";
+	}
 	print '
 				</td>
 				<td class="homeMenu">
-					<form method="POST"><input class="homeMenuButton" type="submit"  name="newPatientForm" value="Patient registering+"></form>
+					<form method="POST">
+						<input class="homeMenuButton" type="submit"  name="newPatientForm" value="Patient registering +">';
+						if($schedule[Emp_ID]){
+							echo "<input class='homeMenuButton' type='submit'  name='editScheduleForm' value='Edit my schedule &#128393;'>";
+						}
+						print'
+						<input class="homeMenuButton" type="submit"  name="redirToMyPage" value="My page">
+					</form>
 				</td>
 			</tr>
 		</table>

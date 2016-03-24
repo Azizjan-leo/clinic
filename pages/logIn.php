@@ -9,7 +9,7 @@
 		$printIdInputForm = '
 			<center>
 				<form name="userId" action="" method="post">
-					<input type="text" name="f_id" placeholder="ID" required /><br>
+					<input autofocus type="text" name="f_id" placeholder="ID" required /><br>
 					<input type="submit" name="f_idSubmit" value="Enter">
 				</form>
 			</center>';
@@ -32,7 +32,7 @@
 				'<center>
 					<form name="userPassword" action="" method="post">
 						<input type="hidden" name="f_id" placeholder="ID" value="'.$id.'"required />
-						<input type="password" name="f_password" placeholder="PASSWORD" required /><br>
+						<input autofocus type="password" name="f_password" placeholder="PASSWORD" required /><br>
 						<input type="submit" name="reenter" value="Enter">
 					</form>
 				</center>';
@@ -43,7 +43,7 @@
 				'<center>Please, create a password<br>
 					<form name="userPassword" action="" method="post">
 						<input type="hidden" name="f_id" placeholder="ID" value="'.$id.'"required />
-						<input type="password" name="f_password" placeholder="PASSWORD" required /><br>
+						<input autofocus type="password" name="f_password" placeholder="PASSWORD" required /><br>
 						<input type="submit" name="f_passwordSubmit" value="Enter">
 					</form>
 				</center>';
