@@ -22,7 +22,7 @@
 			if(mysql_query("INSERT INTO `Employee` VALUES('".$id."','".$class."','".$name."','".$surname."','".$middle_name."','".$prof."','".$carierStart."','".$category."','".$phone_num."','".$passport_data."','".$date."','".$_FILES['image']['name']."','".$_POST[curriculumVitae]."')") or die(mysql_error())){
 				if(mysql_query("INSERT INTO `Schedule` VALUES(NULL, '".$id."', NULL, NULL, NULL, NULL, NULL)")){
 					if(move_uploaded_file($_FILES['image']['tmp_name'], '../images/'.$_FILES['image']['name'])){
-						print "<script type='text/javascript'>window.location.href='../index.php?content=home&newID=$id'</script>";
+						print "<script type='text/javascript'>window.location.href='../index.php?content=home&massage=NewId&NewId=$id'</script>";
 					}else{echo "can't move_uploaded_file";}
 				}else{echo "can't insert into Schedule";}
 			}else{echo"can't insert into Employee";}			
@@ -70,21 +70,35 @@
 		for($i=0; $i < count($_SESSION[days]); $i++){
 			mysql_query("INSERT INTO `Schedule`(`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunch_End`, `End`) VALUES (NULL, '".$_SESSION[userData][Emp_ID]."','".$_SESSION[days][$i]."','".$_POST["start$i"]."','".$_POST["lunchStart$i"]."','".$_POST["lunchEnd$i"]."','".$_POST["end$i"]."')") or die(mysql_error());
 		}
-		mysql_query("INSERT INTO `Reception`(`Emp_ID`, `Time`) VALUES ('".$_SESSION[userData][Emp_ID]."','".$_POST[oneReception]."')");
+		$t = mysql_fetch_array(mysql_query("SELECT Time FROM `Reception` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'"));
+		if($t['Time']){
+			if($t['Time'] != $_POST[oneReception]){
+				$newReception = true;
+				mysql_query("UPDATE `Reception` SET Time = '".$_POST[oneReception]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+			}
+		}else{
+			$newReception = true;
+			mysql_query("INSERT INTO `Reception`(`Emp_ID`, `Time`) VALUES ('".$_SESSION[userData][Emp_ID]."','".$_POST[oneReception]."')");
+		}
 		unset($_SESSION[days]);
-		print "<script type='text/javascript'>window.location.href='../index.php?content=home'</script>";
+		print "<script type='text/javascript'>window.location.href='../index.php?content=home&massage=NewSchedule&NewReception=$newReception'</script>";
 	}
 	if(isset($_POST[allAsOneSubmit])){
 		for($i=0; $i < count($_SESSION[days]); $i++){
 			mysql_query("INSERT INTO `Schedule`(`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunch_End`, `End`) VALUES (NULL, '".$_SESSION[userData][Emp_ID]."','".$_SESSION[days][$i]."','".$_POST["start"]."','".$_POST["lunchStart"]."','".$_POST["lunchEnd"]."','".$_POST["end"]."')") or die(mysql_error());
 		}
 		$t = mysql_fetch_array(mysql_query("SELECT Time FROM `Reception` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'"));
-		if($t['Time'])
-			mysql_query("UPDATE `Reception` SET Time = '".$_POST[oneReception]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
-		else
+		if($t['Time']){
+			if($t['Time'] != $_POST[oneReception]){
+				$newReception = true;
+				mysql_query("UPDATE `Reception` SET Time = '".$_POST[oneReception]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+			}
+		}else{
+			$newReception = true;
 			mysql_query("INSERT INTO `Reception`(`Emp_ID`, `Time`) VALUES ('".$_SESSION[userData][Emp_ID]."','".$_POST[oneReception]."')");
+		}
 		unset($_SESSION[days]);
-		print "<script type='text/javascript'>window.location.href='../index.php?content=home'</script>";
+		print "<script type='text/javascript'>window.location.href='../index.php?content=home&massage=NewSchedule&NewReception=$newReception'</script>";
 	}
 	if(isset($_POST[scheduleEditSubmitButton3])){
 		$res = mysql_query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
@@ -103,11 +117,16 @@
 			}
 		}
 		$t = mysql_fetch_array(mysql_query("SELECT Time FROM `Reception` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'"));
-		if($t['Time'])
-			mysql_query("UPDATE `Reception` SET Time = '".$_POST[oneReception]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
-		else
+		if($t['Time']){
+			if($t['Time'] != $_POST[oneReception]){
+				$newReception = true;
+				mysql_query("UPDATE `Reception` SET Time = '".$_POST[oneReception]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+			}
+		}else{
+			$newReception = true;
 			mysql_query("INSERT INTO `Reception`(`Emp_ID`, `Time`) VALUES ('".$_SESSION[userData][Emp_ID]."','".$_POST[oneReception]."')");
+		}
 		unset($_SESSION[days]);
-		print "<script type='text/javascript'>window.location.href='../index.php?content=home'</script>";
+		print "<script type='text/javascript'>window.location.href='../index.php?content=home&massage=NewSchedule&NewReception=$newReception'</script>";
 	}
 	?>

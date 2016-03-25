@@ -63,7 +63,6 @@
 		$result = mysql_query("SELECT Name FROM Staff WHERE Id = $data[Prof]");
 		$dataFromStaff = mysql_fetch_array($result);
 		$result = mysql_query("SELECT * FROM `Schedule` WHERE Emp_ID = $_GET[doctor]") or die(mysql_error());
-		//$dataFromSchedule = mysql_fetch_array($result);
 		$currentDate = date('m/d/Y');
 		$diff = abs(strtotime($currentDate) - strtotime($data[CarierStart]));
 		$years = floor($diff / (365*60*60*24));
@@ -74,21 +73,28 @@
 				<div class='doc_photo'> <img src='../images/$data[Image]'> </div>
 				<center><big><b>$data[First_Name] $data[Middle_Name] $data[Surname]<br><br>
 				$dataFromStaff[Name] of $data[Category] category <br>
-				</b>Experience:<b> %d years %d months</b><br>
-				<br><table class='brd'><tr><td></td><td>From</td><td colspan='2' style='text-align: center;'>Lunch</td><td style='text-align: center;'>To</td></tr>", $years, $months);
-				echo "Weekdays:";	
-				while($dataFromSchedule = mysql_fetch_array($result)){
-					print "<tr><th>$dataFromSchedule[Day]</th>
-						<td>".date('H:i',strtotime($dataFromSchedule[Start]))."</td>";
-						if($dataFromSchedule[Lunch_Start] != $dataFromSchedule[Lunch_End]){
-							print "<td>".date('H:i',strtotime($dataFromSchedule[Lunch_Start]))."</td>
-								   <td>".date('H:i',strtotime($dataFromSchedule[Lunch_End]))."</td>";
-						}else{
-							print "<td colspan='2' style='text-align: center;'> - </td>";
-						}
-						print "<td>".date('H:i',strtotime($dataFromSchedule['End']))."</td></tr>";
+				</b>Experience:<b> %d years %d months</b><br>", $years, $months);
+				
+					print "<br><table class='brd'><tr><td></td><td>From</td><td colspan='2' style='text-align: center;'>Lunch</td><td style='text-align: center;'>To</td></tr>Weekdays";
+					
+					while($dataFromSchedule = mysql_fetch_array($result)){
+						print "<tr><th>$dataFromSchedule[Day]</th>
+							<td>".date('H:i',strtotime($dataFromSchedule[Start]))."</td>";
+							if($dataFromSchedule[Lunch_Start] != $dataFromSchedule[Lunch_End]){
+								print "<td>".date('H:i',strtotime($dataFromSchedule[Lunch_Start]))."</td>
+									   <td>".date('H:i',strtotime($dataFromSchedule[Lunch_End]))."</td>";
+							}else{
+								print "<td colspan='2' style='text-align: center;'> - </td>";
+							}
+							print "<td>".date('H:i',strtotime($dataFromSchedule['End']))."</td></tr>";
+					}
+					print "</table>";
+				
+				$oneRecp = mysql_fetch_array(mysql_query("SELECT `Time` FROM `Reception` WHERE Emp_ID = $_GET[doctor]"));
+				if($oneRecp['Time']){
+					print "<br>Average  reception time: ".$oneRecp['Time']." min";
 				}
-				print "</table></big></center><br>$data[CurriculumVitae]<br></div><hr>";
+				print "</big></center><br>$data[CurriculumVitae]<br></div><hr>";
 				
 		$result = mysql_query("SELECT * FROM Emp_comments WHERE Emp_ID = $data[Emp_ID]") or die(mysql_error());
 		$comments = mysql_fetch_array($result);
@@ -140,6 +146,9 @@
 				<br>ЗАПИСЬ К ВРАЧУ<br><br>
 				<form name='statement' method='post'>";
 					 if($_SESSION['class'] == 4){
+						 print '<script type="text/javascript" src="scripts/calendar.js">
+								calendar.set("date");
+						 </script>';
 						print "
 							<input type='datetime-local' name='date'  /><br>
 							<input type='submit' name='registeredVisitor' value='Enter'>";
