@@ -5,32 +5,14 @@
 			<tr>
 				<td class="homeAction">
 					';
-	if(isset($_GET[newID])){
-		echo "<p style='color: green'>New entry has been added</p>
-		  <big>ID: <textarea cols='11' rows='1'>$_GET[newID]</textarea><br><br>";
+	if(isset($_GET[massage])){
+		if($_GET[massage] == "NewId"){
+			$id = $_GET[NewId]; 
+			echo "<p style='color: green'>New entry has been added</p>
+			<big>ID: <textarea cols='11' rows='1'>$id</textarea><br><br>";
+		}
 	}
-			
-	if(isset($_POST[newPatientForm])){
-		print '
-			<form enctype="multipart/form-data" accept-charset="utf8" method="POST" name="newPatientForm" action="../phpHendlers/forms.php">
-				<input type="text" maxlength="30" name="First_Name" placeholder="First Name"  required/> <br>
-				<input type="text" maxlength="30" name="Middle_Name" placeholder="Middle Name"  /> <br>
-				<input type="text" maxlength="30" name="Second_Name" placeholder="Second Name"  required/> <br>
-				Birth Date <input type="date" name="Birth_Date" style="width: 296px;" required/> <br>
-				Man <input type="radio" name="Gender" value="1"> Woman<input type="radio" name="Gender" value="0"> <br>
-				Virus <input type="checkbox" name="Virus" value="1" > <br>
-				Insurance Category <select name="Insurance_Category"  style="width: 227px;" required><option value="0">None</option><option value="1">Invalid 1</option><option value="2">Invalid 2</option><option value="3">Invalid 3</option><option value="4">Pensioner</option><option value="5">Veteran</option></select><br>
-				Diagnosis <select name="Diagnosis"  style="width: 297px;">'; $sql = mysql_query("SELECT * FROM Diagnosis"); while ($row = mysql_fetch_array($sql)){ echo "<option value=".$row['ID'].">" . $row['Name'] . "</option>";}	  print '</select><br>
-				<input type="text" name="Prof" maxlength="25" placeholder="Profession"  required/> <br>
-				<input type="text" name="Address" maxlength="70" placeholder="Address" required /> <br>
-				<input type="text" name="Phone" maxlength="20" placeholder="Phone"  required/> <br>
-				<input type="email" name="Email" maxlength="30" placeholder="Email" required/><br>
-				Photo <input type="file" name="image" value="image" multiple accept="image/*"  required/></br>
-				<textarea  name="Comment" maxlength="150" cols="50" rows="3" placeholder="Comment"></textarea><br>
-				<input type="submit" name="newPatientFormSubmit" value="Enter">
-			</form>
-		';
-	}
+	
 	if(isset($_POST[newEmployeeForm])){
 		print '
 			<form enctype="multipart/form-data" accept-charset="utf8_general_ci" name="emp" method="post" action="../phpHendlers/forms.php">
@@ -66,7 +48,6 @@
 				</td>
 				<td class="homeMenu">
 					<form method="POST">
-						<input class="homeMenuButton" type="submit"  name="newPatientForm" value="Patient+">
 						<input class="homeMenuButton" type="submit"	 name="newEmployeeForm" value="Employee+">
 					</form>
 				</td>

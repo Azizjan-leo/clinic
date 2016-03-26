@@ -225,6 +225,10 @@
 		$dir = $_SESSION[userData][Emp_ID];
 		print "<script type='text/javascript'>window.location.href='../index.php?doctor=$dir'</script>";
 	}
+	if(isset($_POST[myPatients])){
+		$query = mysql_query("SELECT * FROM patients WHERE Care_Doctor = $_SESSION[userData][Emp_ID]");
+		
+	}
 	print '
 				</td>
 				<td class="homeMenu">
@@ -235,6 +239,7 @@
 						}
 						print'
 						<input class="homeMenuButton" type="submit"  name="redirToMyPage" value="My page">
+						<input class="homeMenuButton" type="submit" name="myPatients" value="My patients">
 					</form>
 				</td>
 			</tr>
