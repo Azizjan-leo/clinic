@@ -111,7 +111,9 @@ overflow:auto;
  color: #80bed6;
  background: -webkit-gradient(linear, left top, left bottom, from(#0186ba), to(#04acec));
 }
-
+#button11{
+ width: 150px;
+}
 /*-------------------*/
 /*---Boxes styles---*/
 input[type="text"], input[type="password"], input[type="date"], select{
@@ -187,12 +189,27 @@ input.homeMenuButton{
 }
 
 .doc_photo img{
- width: 300px;
- height: 350px;
+ width: 200px;
+ height: 250px;
  float: left;
  margin: 0px 10px 3px 3px;
 }
-
+.doc_about{
+ margin-left: 120px;
+ float: left;
+}
+.orderView{
+ float: right;
+ width: 300px;
+ height: 250px;
+ margin: 0px 3px 3px 10px;
+}
+.orderAction{
+ width: 300px; 
+ height: 250px;
+ padding: 3px 3px 3px 3px;
+ border: solid black 1px;
+}
 .state  .button{
  width: 27%;
 }

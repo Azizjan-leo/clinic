@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 24, 2016 at 05:27 PM
+-- Generation Time: Mar 30, 2016 at 04:34 PM
 -- Server version: 5.5.41-log
 -- PHP Version: 5.3.29
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `Emp_comments` (
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Text` text NOT NULL,
   PRIMARY KEY (`Emp_comments_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `Emp_comments`
@@ -129,7 +129,9 @@ CREATE TABLE IF NOT EXISTS `Emp_comments` (
 INSERT INTO `Emp_comments` (`Emp_comments_ID`, `Emp_ID`, `Patient_Id`, `Date`, `Text`) VALUES
 (1, 5, 19, '2016-03-17 02:26:25', 'Awesome doctor!'),
 (3, 5, 21, '2016-03-17 06:17:28', 'Yeah!'),
-(9, 25, 21, '2016-03-17 09:33:12', 'Normal doctor. If I was a girl I exactly will fall to love with him...');
+(9, 25, 21, '2016-03-17 09:33:12', 'Normal doctor. If I was a girl I exactly will fall to love with him...'),
+(10, 29, 19, '2016-03-26 14:16:46', 'Awesome doctor!'),
+(11, 29, 19, '2016-03-26 14:16:50', 'Awesome doctor!');
 
 -- --------------------------------------------------------
 
@@ -192,8 +194,8 @@ CREATE TABLE IF NOT EXISTS `patients` (
 INSERT INTO `patients` (`ID`, `First_Name`, `Middle_Name`, `Second_Name`, `Birth_Date`, `Gender`, `Insurance_Category`, `Diagnosis`, `Virus`, `Receipt_Date`, `Prof`, `Address`, `Phone`, `Email`, `Care_Doctor`, `Care_Doctor_Prof`, `Photo`, `Comment`) VALUES
 (19, 'Azizjan', 'Hamidovich', 'Ayupov', '2016-03-01', 1, 2, 2, 0, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, 6, '20151211_231550.jpg', 'sd sd'),
 (21, 'Devid', '', 'Duhovnyi', '2016-03-01', 1, 1, 1, 1, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, 6, '20151211_231550.jpg', 'bla bla'),
-(37, 'Kamilla', '', 'Munurova', '2005-02-28', 0, 0, 2, 0, '2016-03-20', 'Cook', 'Bishkek Orto-Say', '+996702942932', 'litpulla@mail.ru', 1, 0, 'Фото0196.jpg', 'Beautiful girl.'),
-(38, 'Hamid', 'Kasymovich', 'Ayupov', '1963-05-22', 1, 0, 2, 0, '2016-03-20', 'Builder', 'Bishkek Orto-Say', '+996702568963', 'litpulla@mail.ru', 1, 0, 'Photo0086.jpg', ''),
+(37, 'Kamilla', '', 'Munurova', '2005-02-28', 0, 0, 2, 0, '2016-03-20', 'Cook', 'Bishkek Orto-Say', '+996702942932', 'litpulla@mail.ru', 25, 0, 'Photo37.jpg', 'Beautiful girl.'),
+(38, 'Hamid', 'Kasymovich', 'Ayupov', '1963-05-22', 1, 0, 2, 0, '2016-03-20', 'Builder', 'Bishkek Orto-Say', '+996702568963', 'litpulla@mail.ru', 25, 0, 'Photo0086.jpg', ''),
 (39, 'John', '', 'Fly', '2016-03-24', 1, 0, 2, 1, '2016-03-24', 'Actor', 'New Jersey', '+12661157', 'blabla@mail.ru', 25, 0, 'image.jpg', 'No comment.');
 
 -- --------------------------------------------------------
@@ -213,7 +215,8 @@ CREATE TABLE IF NOT EXISTS `Reception` (
 --
 
 INSERT INTO `Reception` (`Emp_ID`, `Time`) VALUES
-(25, 0);
+(25, 30),
+(32, 30);
 
 -- --------------------------------------------------------
 
@@ -230,19 +233,25 @@ CREATE TABLE IF NOT EXISTS `Schedule` (
   `Lunch_End` time DEFAULT NULL,
   `End` time DEFAULT NULL,
   PRIMARY KEY (`Day_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `Schedule`
 --
 
 INSERT INTO `Schedule` (`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunch_End`, `End`) VALUES
-(26, 25, 'Mon', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
-(27, 25, 'Tue', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
-(28, 25, 'Wed', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
-(29, 25, 'Thu', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
-(30, 25, 'Fri', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
-(31, 25, 'Sat', '08:00:00', '12:00:00', '13:00:00', '17:00:00');
+(32, 25, 'Mon', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(33, 25, 'Tue', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(34, 25, 'Wed', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(35, 25, 'Thu', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(36, 25, 'Fri', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
+(38, 32, 'Mon', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
+(39, 32, 'Tue', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
+(40, 32, 'Wed', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
+(41, 32, 'Thu', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
+(42, 32, 'Fri', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
+(43, 32, 'Sat', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
+(44, 25, 'Sat', '09:00:00', '12:00:00', '13:00:00', '16:00:00');
 
 -- --------------------------------------------------------
 
@@ -363,7 +372,7 @@ INSERT INTO `Users` (`Id`, `Class`, `Password`) VALUES
 (21, 4, '123'),
 (24, 3, '123'),
 (25, 2, '123'),
-(32, 2, NULL),
+(32, 2, '123'),
 (33, 3, NULL),
 (34, 3, NULL),
 (35, 2, NULL),
