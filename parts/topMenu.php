@@ -2,10 +2,11 @@
 	printf	('<nav id="menu-wrap">
       <ul id="menu">
        <li><a href="../index.php?docList=%s">Doctors</a><ul>',all);
-	$result = mysql_query("SELECT * FROM Staff WHERE IsDoctor='1'") or die(mysql_error());
-	$data = mysql_fetch_array($result);
-	do	{	printf ('<li><a href="../index.php?docList=%s">'.$data[Name].'s</a></li>', $data[Id]);	}
-	while($data = mysql_fetch_array($result));
+	$result = $mysqli->query("SELECT * FROM Staff WHERE IsDoctor='1'") or die(mysql_error());
+	
+	while($data = $result->fetch_array()){	printf ('<li><a href="../index.php?docList=%s">'.$data[Name].'s</a></li>', $data[Id]);	}
+	
+	while($data = $result->fetch_array(MYSQLI_NUM));
 	print '</ul>';
 	if($_SESSION["class"] == 2)
 	{
@@ -36,4 +37,5 @@
 	}	
 	else
 		printf ('<li><a href="../index.php?content=%s">LogIn</a></li></ul></nav>',logIn);
+	$result->free();
 ?>

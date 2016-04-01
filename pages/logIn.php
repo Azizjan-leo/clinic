@@ -1,9 +1,4 @@
 <?php
-	session_start();
-	mysql_connect ("localhost","root","") or die(mysql_error());
-	mysql_query("set names cp1251");
-	mysql_query("set character_set_server=utf8");
-    mysql_select_db ("system")or die(mysql_error());
 	if(!$_SESSION["check"])
 	{
 		$printIdInputForm = '
@@ -66,10 +61,12 @@
 		if(isset($_POST[reenter]))
 		{
 			$id = $_POST[f_id]; // From Users table
-			$usersTableData = mysql_fetch_array(mysql_query("SELECT * FROM Users WHERE Id = '$id'"));
+			$query = $mysqli->query("SELECT * FROM Users WHERE Id = '$id'");
+			$usersTableData = $query->fetch_array();
 			
 			if(($usersTableData['Class'] == 1) or ($usersTableData['Class'] == 2) or ($usersTableData['Class'] == 3)){
-				$data = mysql_fetch_array(mysql_query("SELECT * FROM Employee WHERE Emp_ID = '$id'"));
+				$query = $mysqli->query("SELECT * FROM Employee WHERE Emp_ID = '$id'");
+				$data = $query->fetch_array();
 				
 				if($usersTableData[Password] == $_POST[f_password])
 				{
@@ -97,7 +94,8 @@
 			}
 			else if($usersTableData['Class'] == 4){
 				if($usersTableData[Password] == $_POST[f_password]){
-					$_SESSION[userData] = mysql_fetch_array(mysql_query("SELECT * FROM patients WHERE Id = '$id'"));
+					$query = $mysqli->query("SELECT * FROM patients WHERE Id = '$id'");
+					$_SESSION[userData] = $query->fetch_array();
 					$_SESSION["check"] = $_SESSION['log'] = true;
 					$_SESSION["class"] = 4;
 					$_SESSION[userName] = $_SESSION[userData][First_Name] . " " . $_SESSION[userData][Second_Name];
@@ -113,8 +111,8 @@
 		{
 			
 			$id = $_POST[f_id];
-			$result = mysql_query("SELECT * FROM Users WHERE Id = '$id'") or die(mysql_error());
-			$data = mysql_fetch_array($result);
+			$query = $mysqli->query("SELECT * FROM Users WHERE Id = '$id'");
+			$data = $query->fetch_array(MYSQLI_ASSOC);
 			if($data[Id]) // There is entries with this id
 			{
 				$_SESSION[t] = true;
@@ -142,10 +140,11 @@
 			
 			if(mysql_query("UPDATE  `Users` SET  `Password` = $password WHERE  `Id` = $id"))			///////////////////////////////////	<<<<<<<<<<<
 			{
-				$userTableData = mysql_fetch_array(mysql_query("SELECT * FROM Users WHERE Id = '$id'"));
+				$query = $mysqli->query("SELECT * FROM Users WHERE Id = '$id'");
+				$userTableData = $query->fetch_array(MYSQLI_ASSOC);
 				if($userTableData['Class'] == 1 or $userTableData['Class'] == 2 or $userTableData['Class'] == 3){
-					$data = mysql_fetch_array(mysql_query("SELECT * FROM Employee WHERE  `Emp_ID` = $id"));
-										
+					$query = $mysqli->query("SELECT * FROM Employee WHERE  `Emp_ID` = $id");
+					$data = $query->fetch_array(MYSQLI_ASSOC);										
 					$_SESSION[userName] = $data[First_Name] . " " . $data[Surname];
 					$class = $_SESSION["class"] = $data['Class'];
 					$_SESSION[userData] = $data;
@@ -162,7 +161,8 @@
 					}
 				}
 				else if ($userTableData['Class'] == 4){
-					$_SESSION[userData] = mysql_fetch_array(mysql_query("SELECT * FROM patients WHERE  Id = $id"));			
+					$query = $mysqli->query("SELECT * FROM patients WHERE  Id = $id");
+					$_SESSION[userData] = $query->fetch_array(MYSQLI_ASSOC);			
 					$_SESSION[userName] = $_SESSION[userData][First_Name] . " " . $_SESSION[userData][Second_Name];
 					$_SESSION["class"] = 4;
 				}

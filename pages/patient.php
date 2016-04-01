@@ -1,8 +1,37 @@
 <?php
-	if($_GET[patient] == 'all')
-		echo '<br>Patients<br>';
-	else
-		echo '<br>Patient<br>';
+	if($_SESSION['class'] != 2)print "<script type='text/javascript'>window.location.href='../index.php'</script>";
+	
+	// LIST OF ALL PATIENTS OF THE CLINIC
+	
+	if($_GET[patient] == 'all'){
+			$result = $mysqli->query("SELECT ID FROM patients");
+			/* determine number of rows result set */
+			echo "
+		<div class='patientsList'>
+			<div id='title'><big><b>All patients</b></big></div> <div id='total'> Total: <b>$result->num_rows</b> </div><br><br>";
+			$query = $mysqli->query("SELECT * FROM patients");
+			while($row = $query->fetch_array(MYSQLI_ASSOC)){
+				echo "<center> <a href='../index.php?patient=$row[ID]'>$row[First_Name] $row[Middle_Name] $row[Second_Name]</a> </center><br>";
+			}
+			echo "
+		</div>";
+		$result->close();
+		
+	}else{
+		
+	// PARTICULAR PATIENT
+	
+		$query = $mysqli->query("SELECT * FROM patients WHERE ID = $_GET[patient]");
+		$patientData = $query->fetch_array(MYSQLI_ASSOC);
+		
+		print "
+				<div class='patient_info'>
+					<div class='patient_photo'> 
+						<img src='../images/$patientData[Photo]'>
+					</div>
+				</div>";
+				
+	}
 	/*
 		<form method="post">
 		<input type="text" name="name" maxlength="30" placeholder="Name" size="30" required /><br>

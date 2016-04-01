@@ -5,7 +5,8 @@
 <html>
  <head>
 	<title>Clinic</title>
-  <meta http-equiv="Content-Type" content="text/html;">
+	<link rel="shortcut icon" href="heart-icon.ico">
+  <meta http-equiv="Content-Type" content="text/html">
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
 		<link rel="stylesheet" type="text/css" href="styles/menu.css" />
   <script src="scripts/scripts.js"></script>
@@ -47,7 +48,8 @@
 					if($_GET["content"] == "home")
 					{
 						if($_SESSION['class']){
-							$data = mysql_fetch_array(mysql_query("SELECT Name FROM UserClasses WHERE Id = $_SESSION[class]"));
+							$query = $mysqli->query("SELECT Name FROM UserClasses WHERE Id = $_SESSION[class]");
+							$data = $query->fetch_array(MYSQLI_ASSOC);
 							$content = 'pages/'. $data[Name] . 'Home';
 						}else{
 							print '<script type="text/javascript">window.location.href="../index.php?content=logIn"</script>';
@@ -57,7 +59,7 @@
 					{
 						$content = "system/System";
 					}
-					else if ($_GET[patient] == "all")
+					else if ($_GET[patient])
 					{
 						$content = "pages/patient";
 					}
@@ -79,6 +81,8 @@
 				}
 				else
 					echo "INDEX";
+			/* close connection with database*/
+			$mysqli->close();
 			?>
     </div>
    </div>

@@ -17,7 +17,7 @@
 		print '
 			<form enctype="multipart/form-data" accept-charset="utf8_general_ci" name="emp" method="post" action="../phpHendlers/forms.php">
 				<select name="userClass" required>';
-					$sql = mysql_query("SELECT * FROM UserClasses"); while ($row = mysql_fetch_array($sql)){ echo "<option value=".$row['Id'].">" . $row['Name'] . "</option>";}
+					$sql = $mysqli->query("SELECT * FROM UserClasses"); while ($row = $sql->fetch_array(MYSQLI_ASSOC)){ echo "<option value=".$row['Id'].">" . $row['Name'] . "</option>";}
 					print '
 				</select><br>
 				<input type="text" name="name" maxlength="30" placeholder="Name" size="30"  required /><br>
@@ -25,7 +25,7 @@
 				<input type="text" name="middle_name" maxlength="30" placeholder="Middle name" size="30" required /><br>
 				Receipt date <input type="date" name="date"  required/><br>
 				<select name="prof">';
-					$sql = mysql_query("SELECT * FROM Staff"); while ($row = mysql_fetch_array($sql)){ echo "<option value=".$row['Id'].">" . $row['Name'] . "</option>";}
+					$sql = $mysqli->query("SELECT * FROM Staff"); while ($row = $sql->fetch_array(MYSQLI_ASSOC)){ echo "<option value=".$row['Id'].">" . $row['Name'] . "</option>";}
 					print '
 				</select><br>
 				Carier start <input type="date" name="carierStart"  required/><br>
