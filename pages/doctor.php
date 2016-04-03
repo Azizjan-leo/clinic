@@ -3,7 +3,7 @@
 	{
 		if($_GET[docList] == 'all')	// Choosing a prof of the doctor
 		{
-			$result = $mysqli->query("SELECT * FROM Staff");//mysql_query("SELECT * FROM Staff WHERE IsDoctor=true") or die(mysql_error());
+			$result = $mysqli->query("SELECT * FROM Staff");
 			$data = $result->fetch_array();
 			
 			echo '<table align="center">';
@@ -67,7 +67,7 @@
 		$diff = abs(strtotime($currentDate) - strtotime($data[CarierStart]));
 		$years = floor($diff / (365*60*60*24));
 		$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-		
+		 
 		if(isset($_GET[rating])){
 			$query = $mysqli->query("SELECT Id FROM Doctor_Patient_relationships WHERE Emp_ID = $data[Emp_ID] and Patient_ID = '".$_SESSION[userData][ID]."'");
 			$relation = $query->fetch_array(MYSQLI_ASSOC);
@@ -172,10 +172,14 @@
 		if($comments){
 			do
 			{
-				$res = $mysqli->query("SELECT First_Name, Second_Name FROM patients WHERE ID = $comments[Patient_Id]") or die(mysql_error());
+				$res = $mysqli->query("SELECT First_Name, Second_Name, ID FROM patients WHERE ID = $comments[Patient_Id]") or die(mysql_error());
 				$patientData = $res->fetch_array();
-				print "<div class='comment_block'>$comments[Text]<br>
-				<div class='comment_signiture'>$patientData[First_Name] $patientData[Second_Name]</div></div>";
+				print "<div class='comment_block'>";
+							if($_SESSION['class'] == 4 and $patientData[ID] == $_SESSION[userData][ID])
+								print "$comments[Text] <a href='../phpHendlers/commentDeleting.php?id=$comments[Emp_comments_ID]&from=$data[Emp_ID]' style='text-decoration: none; text-color: grey'>&#10005</a><br>";
+							else
+								print "$comments[Text]<br>";
+				print "<div class='comment_signiture'>$patientData[First_Name] $patientData[Second_Name]</div></div>";
 			}
 			while($comments = $result->fetch_array());
 		}else{
@@ -206,10 +210,6 @@
 			}
 		}
 	
-		
-		if(isset($_POST[docComment])){
-			$mysqli->query("INSERT INTO Emp_comments VALUES (NULL, '$data[Emp_ID]', '".$_SESSION[userData][ID]."', CURRENT_TIMESTAMP, '$_POST[text]')") or die(mysql_error());
-		}
 		
 		print "
 			<center><div class='state'><a href='#' class='button blue' onClick='scripts/hiddenShow(\"b2\");' id='button2'>Посмотреть список</a></div></center>
@@ -293,6 +293,7 @@
 						</form>
 					</div>";
 				}
+				//$forComment = $_SESSION
 				print "
 			</div>
 			
@@ -301,8 +302,10 @@
 			</div>
 			
 			<div id='b3' class='hidden'><br>
-				<form method='post'>
+				<form method='post' action='../phpHendlers/forms/commentAdding.php'>
 					<textarea cols='60' rows='10' name='text' required /></textarea><br>
+					<input type='hidden' name='docID' value='$data[Emp_ID]'>
+					<input type='hidden' name='patID' value='".$_SESSION[userData][ID]."'>
 					<input type='submit' name='docComment' value='Enter'>
 				</form>
 			</div>";
