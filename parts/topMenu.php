@@ -2,7 +2,7 @@
 	printf	('<nav id="menu-wrap">
       <ul id="menu">
        <li><a href="../index.php?docList=%s">Doctors</a><ul>',all);
-	$result = $mysqli->query("SELECT * FROM Staff WHERE IsDoctor='1'") or die(mysql_error());
+	$result = $mysqli->query("SELECT * FROM Staff") or die(mysql_error());
 	
 	while($data = $result->fetch_array()){	printf ('<li><a href="../index.php?docList=%s">'.$data[Name].'s</a></li>', $data[Id]);	}
 	

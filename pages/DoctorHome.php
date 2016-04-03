@@ -5,7 +5,8 @@
 			<tr>
 				<td class="homeAction">
 					';
-	$schedule = mysql_fetch_array(mysql_query("SELECT `Emp_ID` FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'"));
+    $query = $mysqli->query("SELECT `Emp_ID` FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'");
+	$schedule = $query->fetch_array(MYSQLI_ASSOC);
 	if(!$schedule[Emp_ID] and !$_GET[scheduleFormFilling]){
 		echo '<a href="../index.php?content=home&scheduleFormFilling=1" style="color: red">Please, create your schedule</a>';
 	}
@@ -82,9 +83,9 @@
 			';	
 		}
 		if(isset($_POST[editScheduleForm])){
-			$res = mysql_query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+			$res = $mysqli->query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
 			$days = array();
-			while(($row =  mysql_fetch_assoc($res))) {
+			while($row =  $res->fetch_array(MYSQLI_ASSOC)) {
 				$days[] = $row[Day];
 			}
 			print ' <div class="scheduleEditForm1">
@@ -226,7 +227,7 @@
 		print "<script type='text/javascript'>window.location.href='../index.php?doctor=$dir'</script>";
 	}
 	if(isset($_POST[myPatients])){
-		$query = mysql_query("SELECT * FROM patients WHERE Care_Doctor = $_SESSION[userData][Emp_ID]");
+		$query = $mysqli->query("SELECT * FROM patients WHERE Care_Doctor = $_SESSION[userData][Emp_ID]");
 		
 	}
 	print '

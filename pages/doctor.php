@@ -3,7 +3,7 @@
 	{
 		if($_GET[docList] == 'all')	// Choosing a prof of the doctor
 		{
-			$result = $mysqli->query("SELECT * FROM Staff WHERE IsDoctor=true");//mysql_query("SELECT * FROM Staff WHERE IsDoctor=true") or die(mysql_error());
+			$result = $mysqli->query("SELECT * FROM Staff");//mysql_query("SELECT * FROM Staff WHERE IsDoctor=true") or die(mysql_error());
 			$data = $result->fetch_array();
 			
 			echo '<table align="center">';
@@ -68,10 +68,51 @@
 		$years = floor($diff / (365*60*60*24));
 		$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 		
+		if(isset($_GET[rating])){
+			$query = $mysqli->query("SELECT Id FROM Doctor_Patient_relationships WHERE Emp_ID = $data[Emp_ID] and Patient_ID = '".$_SESSION[userData][ID]."'");
+			$relation = $query->fetch_array(MYSQLI_ASSOC);
+			if(!$relation[Id]){
+				$mysqli->query("INSERT INTO `Doctor_Patient_relationships` VALUES (NULL, $data[Emp_ID], '".$_SESSION[userData][ID]."', '".$_GET[rating]."')");
+				if($_GET[rating] == 1)
+					$mysqli->query("UPDATE `Rating` SET Likes = Likes + 1 WHERE Emp_ID = $data[Emp_ID]");
+				else
+					$mysqli->query("UPDATE `Rating` SET Dislikes = Dislikes + 1 WHERE Emp_ID = $data[Emp_ID]");
+				echo "Your first voting on this doc :) My congratulations, bitch!";
+			}else{
+				$qurey = $mysqli->query("SELECT Rating_changed FROM Doctor_Patient_relationships WHERE Emp_ID = $data[Emp_ID] and Patient_ID = '".$_SESSION[userData][ID]."'");
+				$vote = $qurey->fetch_array(MYSQLI_ASSOC);
+				if($vote[Rating_changed] == $_GET[rating])
+					echo "You're already rated this doc, bitch!";
+				else{
+					$mysqli->query("UPDATE `Doctor_Patient_relationships` SET Rating_changed = '".$_GET[rating]."' WHERE Emp_ID = $data[Emp_ID] and Patient_ID = '".$_SESSION[userData][ID]."'");
+					if($_GET[rating] == 1){
+						$mysqli->query("UPDATE `Rating` SET Likes = Likes + 1 WHERE Emp_ID = $data[Emp_ID]");
+						$mysqli->query("UPDATE `Rating` SET Dislikes = Dislikes - 1 WHERE Emp_ID = $data[Emp_ID]");
+					}
+					else{
+						$mysqli->query("UPDATE `Rating` SET Dislikes = Dislikes + 1 WHERE Emp_ID = $data[Emp_ID]");
+						$mysqli->query("UPDATE `Rating` SET Likes = Likes - 1 WHERE Emp_ID = $data[Emp_ID]");
+					}
+					echo "Ok, your vote changed :)";
+				}
+					
+			}
+		}
+		$query = $mysqli->query("SELECT Likes, Dislikes FROM Rating WHERE Emp_ID = $data[Emp_ID]");
+		$rating = $query->fetch_array(MYSQLI_ASSOC);
 		print "
 			<div class='docInfo'>
-				<div class='doc_photo'> 
+				<div class='doc_photo_rating'> 
 					<img src='../images/$data[Image]'>
+					<div class='rating'>
+						Likes: $rating[Likes]";
+					if($_SESSION['class'] == 4)
+						print "
+						<a style='text-decoration: none; color: green;' href='../index.php?doctor=$data[Emp_ID]&rating=1'>&#128077;</a>
+						<a style='text-decoration: none; color: red;' href='../index.php?doctor=$data[Emp_ID]&rating=2'>&#128078;</a>";
+						print "
+						Dislikes: $rating[Dislikes]
+					</div>
 				</div>
 				<div class='doc_about'>
 						<center><big><b>$data[First_Name] $data[Middle_Name] $data[Surname]<br><br>
@@ -180,7 +221,7 @@
 					<center><div>";
 			
 					$query = $mysqli->query("SELECT `Day` FROM Schedule WHERE Emp_ID = '$data[Emp_ID]'") or die($mysqli->error());
-					$selectedMonth = '03';
+					$selectedMonth = '04';
 					$tempDate = date('o') . '-' . $selectedMonth . '-01';
 					$days_in_month = cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($tempDate)), date("o")); // n - number of the month leading zeros //// o - year like 2016
 					$workDays = array();

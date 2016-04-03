@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.6
+-- version 4.4.15.5
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 30, 2016 at 04:34 PM
--- Server version: 5.5.41-log
--- PHP Version: 5.3.29
+-- Generation Time: Apr 03, 2016 at 03:21 PM
+-- Server version: 5.5.48
+-- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `system`
@@ -27,11 +27,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Comments_general` (
-  `Comment_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Comment_ID` int(11) NOT NULL,
   `Date` date NOT NULL,
-  `Text` varchar(500) NOT NULL,
-  PRIMARY KEY (`Comment_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+  `Text` varchar(500) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Comments_general`
@@ -53,12 +52,11 @@ INSERT INTO `Comments_general` (`Comment_ID`, `Date`, `Text`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Diagnosis` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Symptoms` text NOT NULL,
-  `Description` text NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `Description` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Diagnosis`
@@ -71,11 +69,35 @@ INSERT INTO `Diagnosis` (`ID`, `Name`, `Symptoms`, `Description`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Doctor_Patient_relationships`
+--
+
+CREATE TABLE IF NOT EXISTS `Doctor_Patient_relationships` (
+  `Id` int(11) NOT NULL,
+  `Emp_ID` int(11) NOT NULL,
+  `Patient_ID` int(11) NOT NULL,
+  `Rating_changed` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Doctor_Patient_relationships`
+--
+
+INSERT INTO `Doctor_Patient_relationships` (`Id`, `Emp_ID`, `Patient_ID`, `Rating_changed`) VALUES
+(4, 25, 19, 1),
+(5, 25, 19, 1),
+(6, 25, 19, 1),
+(7, 25, 19, 1),
+(8, 25, 19, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Employee`
 --
 
 CREATE TABLE IF NOT EXISTS `Employee` (
-  `Emp_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Emp_ID` int(11) NOT NULL,
   `Class` int(11) NOT NULL,
   `First_Name` varchar(30) NOT NULL,
   `Surname` varchar(25) NOT NULL,
@@ -87,9 +109,8 @@ CREATE TABLE IF NOT EXISTS `Employee` (
   `Passport_data` varchar(30) NOT NULL,
   `Receipt_Date` date NOT NULL,
   `Image` varchar(50) NOT NULL,
-  `CurriculumVitae` longtext NOT NULL,
-  PRIMARY KEY (`Emp_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+  `CurriculumVitae` longtext NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Employee`
@@ -114,13 +135,12 @@ INSERT INTO `Employee` (`Emp_ID`, `Class`, `First_Name`, `Surname`, `Middle_Name
 --
 
 CREATE TABLE IF NOT EXISTS `Emp_comments` (
-  `Emp_comments_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Emp_comments_ID` int(11) NOT NULL,
   `Emp_ID` int(5) NOT NULL,
   `Patient_Id` int(11) NOT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Text` text NOT NULL,
-  PRIMARY KEY (`Emp_comments_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+  `Text` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Emp_comments`
@@ -140,13 +160,12 @@ INSERT INTO `Emp_comments` (`Emp_comments_ID`, `Emp_ID`, `Patient_Id`, `Date`, `
 --
 
 CREATE TABLE IF NOT EXISTS `Order` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id` int(11) NOT NULL,
   `DoctorId` int(10) NOT NULL,
   `Date` datetime DEFAULT NULL,
   `PatientId` int(11) DEFAULT NULL,
-  `UnregVisitorId` int(11) NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `UnregVisitorId` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Order`
@@ -166,7 +185,7 @@ INSERT INTO `Order` (`Id`, `DoctorId`, `Date`, `PatientId`, `UnregVisitorId`) VA
 --
 
 CREATE TABLE IF NOT EXISTS `patients` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL,
   `First_Name` varchar(30) NOT NULL,
   `Middle_Name` varchar(30) DEFAULT NULL,
   `Second_Name` varchar(30) NOT NULL,
@@ -183,9 +202,8 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `Care_Doctor` int(5) NOT NULL,
   `Care_Doctor_Prof` int(5) NOT NULL,
   `Photo` varchar(50) NOT NULL,
-  `Comment` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
+  `Comment` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `patients`
@@ -201,13 +219,31 @@ INSERT INTO `patients` (`ID`, `First_Name`, `Middle_Name`, `Second_Name`, `Birth
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Rating`
+--
+
+CREATE TABLE IF NOT EXISTS `Rating` (
+  `Emp_ID` int(11) NOT NULL,
+  `Likes` int(10) DEFAULT '0',
+  `Dislikes` int(10) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Rating`
+--
+
+INSERT INTO `Rating` (`Emp_ID`, `Likes`, `Dislikes`) VALUES
+(25, 9, 8);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Reception`
 --
 
 CREATE TABLE IF NOT EXISTS `Reception` (
   `Emp_ID` int(10) NOT NULL,
-  `Time` int(3) DEFAULT NULL,
-  PRIMARY KEY (`Emp_ID`)
+  `Time` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -225,15 +261,14 @@ INSERT INTO `Reception` (`Emp_ID`, `Time`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Schedule` (
-  `Day_ID` int(10) NOT NULL AUTO_INCREMENT,
+  `Day_ID` int(10) NOT NULL,
   `Emp_ID` int(10) NOT NULL,
   `Day` varchar(3) NOT NULL,
   `Start` time NOT NULL,
   `Lunch_Start` time DEFAULT NULL,
   `Lunch_End` time DEFAULT NULL,
-  `End` time DEFAULT NULL,
-  PRIMARY KEY (`Day_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+  `End` time DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Schedule`
@@ -260,26 +295,22 @@ INSERT INTO `Schedule` (`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunc
 --
 
 CREATE TABLE IF NOT EXISTS `Staff` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id` int(11) NOT NULL,
   `Name` varchar(30) NOT NULL,
-  `IsDoctor` tinyint(1) NOT NULL,
   `Salary` double NOT NULL,
   `Unit` int(1) NOT NULL,
-  `Image` varchar(50) NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `Image` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Staff`
 --
 
-INSERT INTO `Staff` (`Id`, `Name`, `IsDoctor`, `Salary`, `Unit`, `Image`) VALUES
-(1, 'Surgeon', 1, 100.5, 1, 'surg.jpg'),
-(2, 'Pediatrician', 1, 150, 2, 'Pediatr.jpg'),
-(3, 'Cleaner', 0, 200, 1, ''),
-(4, 'Ophthalmologist', 1, 1000, 1, 'Ophthalmologist.jpg'),
-(5, 'Psychologist', 1, 1200, 1, '430910.png'),
-(6, 'Admin', 0, 15000, 1, 'admin.jpg');
+INSERT INTO `Staff` (`Id`, `Name`, `Salary`, `Unit`, `Image`) VALUES
+(1, 'Surgeon', 100.5, 1, 'surg.jpg'),
+(2, 'Pediatrician', 150, 2, 'Pediatr.jpg'),
+(4, 'Ophthalmologist', 1000, 1, 'Ophthalmologist.jpg'),
+(5, 'Psychologist', 1200, 1, '430910.png');
 
 -- --------------------------------------------------------
 
@@ -288,11 +319,10 @@ INSERT INTO `Staff` (`Id`, `Name`, `IsDoctor`, `Salary`, `Unit`, `Image`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Symptoms` (
-  `Symptom_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Symptom_ID` int(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
-  `Description` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`Symptom_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `Description` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Symptoms`
@@ -309,13 +339,12 @@ INSERT INTO `Symptoms` (`Symptom_ID`, `Name`, `Description`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `UnregVisitors` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id` int(11) NOT NULL,
   `First_Name` varchar(25) DEFAULT NULL,
   `Middle_Name` varchar(25) DEFAULT NULL,
   `Second_Name` varchar(25) DEFAULT NULL,
-  `Phone` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='All clinic non-registered patients' AUTO_INCREMENT=4 ;
+  `Phone` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='All clinic non-registered patients';
 
 --
 -- Dumping data for table `UnregVisitors`
@@ -333,10 +362,9 @@ INSERT INTO `UnregVisitors` (`Id`, `First_Name`, `Middle_Name`, `Second_Name`, `
 --
 
 CREATE TABLE IF NOT EXISTS `UserClasses` (
-  `Id` int(3) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(25) NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `Id` int(3) NOT NULL,
+  `Name` varchar(25) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `UserClasses`
@@ -355,11 +383,10 @@ INSERT INTO `UserClasses` (`Id`, `Name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Users` (
-  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Id` int(11) NOT NULL,
   `Class` int(3) NOT NULL,
-  `Password` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
+  `Password` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Users`
@@ -381,6 +408,169 @@ INSERT INTO `Users` (`Id`, `Class`, `Password`) VALUES
 (38, 4, NULL),
 (39, 4, NULL);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Comments_general`
+--
+ALTER TABLE `Comments_general`
+  ADD PRIMARY KEY (`Comment_ID`);
+
+--
+-- Indexes for table `Diagnosis`
+--
+ALTER TABLE `Diagnosis`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `Doctor_Patient_relationships`
+--
+ALTER TABLE `Doctor_Patient_relationships`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `Employee`
+--
+ALTER TABLE `Employee`
+  ADD PRIMARY KEY (`Emp_ID`);
+
+--
+-- Indexes for table `Emp_comments`
+--
+ALTER TABLE `Emp_comments`
+  ADD PRIMARY KEY (`Emp_comments_ID`);
+
+--
+-- Indexes for table `Order`
+--
+ALTER TABLE `Order`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `patients`
+--
+ALTER TABLE `patients`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `Rating`
+--
+ALTER TABLE `Rating`
+  ADD PRIMARY KEY (`Emp_ID`);
+
+--
+-- Indexes for table `Reception`
+--
+ALTER TABLE `Reception`
+  ADD PRIMARY KEY (`Emp_ID`);
+
+--
+-- Indexes for table `Schedule`
+--
+ALTER TABLE `Schedule`
+  ADD PRIMARY KEY (`Day_ID`);
+
+--
+-- Indexes for table `Staff`
+--
+ALTER TABLE `Staff`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `Symptoms`
+--
+ALTER TABLE `Symptoms`
+  ADD PRIMARY KEY (`Symptom_ID`);
+
+--
+-- Indexes for table `UnregVisitors`
+--
+ALTER TABLE `UnregVisitors`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `UserClasses`
+--
+ALTER TABLE `UserClasses`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `Users`
+--
+ALTER TABLE `Users`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Comments_general`
+--
+ALTER TABLE `Comments_general`
+  MODIFY `Comment_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+--
+-- AUTO_INCREMENT for table `Diagnosis`
+--
+ALTER TABLE `Diagnosis`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `Doctor_Patient_relationships`
+--
+ALTER TABLE `Doctor_Patient_relationships`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `Employee`
+--
+ALTER TABLE `Employee`
+  MODIFY `Emp_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+--
+-- AUTO_INCREMENT for table `Emp_comments`
+--
+ALTER TABLE `Emp_comments`
+  MODIFY `Emp_comments_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `Order`
+--
+ALTER TABLE `Order`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `patients`
+--
+ALTER TABLE `patients`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+--
+-- AUTO_INCREMENT for table `Schedule`
+--
+ALTER TABLE `Schedule`
+  MODIFY `Day_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+--
+-- AUTO_INCREMENT for table `Staff`
+--
+ALTER TABLE `Staff`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `Symptoms`
+--
+ALTER TABLE `Symptoms`
+  MODIFY `Symptom_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `UnregVisitors`
+--
+ALTER TABLE `UnregVisitors`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `UserClasses`
+--
+ALTER TABLE `UserClasses`
+  MODIFY `Id` int(3) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `Users`
+--
+ALTER TABLE `Users`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

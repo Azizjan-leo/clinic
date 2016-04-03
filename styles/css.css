@@ -200,12 +200,19 @@ input.homeMenuButton{
  margin: 0px 10px;
  min-height: 400;
 }
-
-.doc_photo img{
+.doc_photo_rating{
+	width: 205px;
+	height: 270px;
+	float: left;
+	padding: 5 0 0 5;
+}
+.doc_photo_rating img{
  width: 200px;
  height: 250px;
- float: left;
- margin: 0px 10px 3px 3px;
+ float: top;
+}
+.rating{
+	text-align: center;
 }
 .doc_about{
  margin-left: 120px;
