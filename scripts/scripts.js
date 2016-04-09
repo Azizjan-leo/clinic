@@ -1,4 +1,11 @@
-﻿function hiddenShow(id, evt)
+﻿function Get($id){
+	$.post( '../phpHendlers/datePicker.php', { name: $id },
+		function (output){
+			$('#datePicker').html(output).show();
+		}
+	);
+}
+function hiddenShow(id, evt)
 {
  var divs = [document.getElementById('b1'), document.getElementById('b2')];
    var div = document.getElementById(id);

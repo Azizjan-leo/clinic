@@ -143,7 +143,7 @@
 						<big> Order </big> <br>
 					</center>
 					<div class='orderAction'>
-						<center><a href='#' class='button' onClick='hiddenShow(\"b1\");' id='button11'>Запись на прием</a></center><br>";
+						<center><a href='#' class='button' onClick='hiddenShow(\"b1\");  Get(".$data[Emp_ID].");' id='button11'>Запись на прием</a></center><br>";
 					
 					$res = $mysqli->query("SELECT PatientId, UnregVisitorId FROM `Order` WHERE DoctorId = '$data[Emp_ID]' ORDER by Id DESC");
 					while($order = $res->fetch_array()){
@@ -215,86 +215,13 @@
 			<center><div class='state'><a href='#' class='button blue' onClick='scripts/hiddenShow(\"b2\");' id='button2'>Посмотреть список</a></div></center>
 			
 			<div id='b1' class='hidden'>
-				<br>ЗАПИСЬ К ВРАЧУ<br><br>";
-				if(!$_GET[selectedDay]){
-					print "
-					<center><div>";
 			
-					$query = $mysqli->query("SELECT `Day` FROM Schedule WHERE Emp_ID = '$data[Emp_ID]'") or die($mysqli->error());
-					$selectedMonth = '04';
-					$tempDate = date('o') . '-' . $selectedMonth . '-01';
-					$days_in_month = cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($tempDate)), date("o")); // n - number of the month leading zeros //// o - year like 2016
-					$workDays = array();
-					$firstDay = date('N', strtotime($tempDate));
-					while($row = $query->fetch_array(MYSQLI_ASSOC)){
-						$workDays[] = $row[Day];
-					}
-					$i = 1;
-					print "<table>
-							<tr>
-								<th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
-							</tr>";
-					for($list_day = "01"; $list_day <= $days_in_month; $list_day = sprintf("%02d", $list_day + 1)){
-						$tempDate = date('o') . '-' . $selectedMonth . '-' . $list_day;
-						if($i == 1)
-							echo "<tr>";
-						echo "<td align='center'>";
-						
-							if(!$start){
-								if($firstDay == $i){
-									$start = true;
-									$list_day = "01";
-									$tempDate = '2016-03-' . $list_day;
-									if(in_array(date('D', strtotime($tempDate)), $workDays)){
-										if($list_day < date('d'))
-											echo "<font color='grey'>$list_day</font> ";
-										else
-											echo "<b>$list_day</b> ";
-									}
-									else
-										echo "<font color='red'>$list_day</font> ";
-								}
-							}else{
-								if(in_array(date('D', strtotime($tempDate)), $workDays)){
-									if($list_day < date('d'))
-										echo "<font color='grey'>$list_day</font> ";
-									else
-										echo "<a href='#&selectedDay'><b>$list_day</b></a> ";
-								}else
-									echo "<font color='red'>$list_day</font> ";
-							}
-							
-						echo "</td>";
-						$i++;
-						if($i == 8){
-							echo "</tr>"; $i = 1;
-						}
-					}
-						print "
-					</table></div></center>";
-				}else{
-					print "
-					<form name='statement' method='post'>";
-					 if($_SESSION['class'] == 4){
-						print "
-							<input type='datetime-local' name='date'  /><br>
-							<input type='submit' name='registeredVisitor' value='Enter'>";
-					 }
-					 else{
-						print "
-							<input type='text' name='first_name' id='first_name' maxlength='30' placeholder='First name' size='30' required /><br>
-							<input type='text' name='middle_name' id='middle_name' maxlength='30' placeholder='Middle name' size='30' required /><br>
-							<input type='text' name='second_name' id='second_name' maxlength='30' placeholder='Second name' size='30' required /><br>
-							<input type='text' name='phone' maxlength='30' placeholder='Phone number' size='30'  /><br>
-							<input type='datetime-local' name='date'  /><br>
-							<input type='submit' name='unregisteredVisitor' value='Enter'>";
-					 }
-						print " 
-						</form>
-					</div>";
-				}
-				//$forComment = $_SESSION
-				print "
+				<br>ЗАПИСЬ К ВРАЧУ<br><br>
+				
+				<input type='button' value='Get' onClick='Get(29);'>
+				
+				<div id='datePicker'>
+				</div>				
 			</div>
 			
 			<div id='b2' class='hidden'>
@@ -318,12 +245,12 @@ if(!$_GET[selectedDay]){
 					<center><div>";
 			
 					$query = $mysqli->query("SELECT `Day` FROM Schedule WHERE Emp_ID = '$data[Emp_ID]'") or die($mysqli->error());
-					$selectedMonth = '03';
+					$selectedMonth = '04';
 					$tempDate = date('o') . '-' . $selectedMonth . '-01';
 					$days_in_month = cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($tempDate)), date("o")); // n - number of the month leading zeros //// o - year like 2016
 					$workDays = array();
 					$firstDay = date('N', strtotime($tempDate));
-					while($row = mysql_fetch_assoc($query)){
+					while($row = $query->fetch_array(MYSQLI_ASSOC)){
 						$workDays[] = $row[Day];
 					}
 					$i = 1;
