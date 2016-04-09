@@ -136,6 +136,7 @@
 					if($oneRecp['Time']){
 						print "<br>Average  reception time: ".$oneRecp['Time']." min";
 					}
+					$currentMonth = date('m');
 					print "</big></center>
 				</div>
 				<div class='orderView'>
@@ -143,7 +144,7 @@
 						<big> Order </big> <br>
 					</center>
 					<div class='orderAction'>
-						<center><a href='#' class='button' onClick='hiddenShow(\"b1\");  Get(".$data[Emp_ID].");' id='button11'>Запись на прием</a></center><br>";
+						<center><a href='#' class='button' onClick='hiddenShow(\"b1\");  Get(".$data[Emp_ID].",".$currentMonth.");' id='button11'>Запись на прием</a></center><br>";
 					
 					$res = $mysqli->query("SELECT PatientId, UnregVisitorId FROM `Order` WHERE DoctorId = '$data[Emp_ID]' ORDER by Id DESC");
 					while($order = $res->fetch_array()){
@@ -218,10 +219,12 @@
 			
 				<br>ЗАПИСЬ К ВРАЧУ<br><br>
 				
-				<input type='button' value='Get' onClick='Get(29);'>
+				<div id='datePickerMain'>
+					<input id='arrow-left' type='image' src='../images/arrow-left.ico' onClick='Get(".$data[Emp_ID].", ".$currentMonth = sprintf("%02d", $currentMonth - 1).");'>
+					<div id='datePicker'></div>
+					<input id='arrow-right' type='image' src='../images/arrow-right.ico' onClick='Get(".$data[Emp_ID].", ".$currentMonth = sprintf("%02d", $currentMonth + 1).");'>
+				</div>
 				
-				<div id='datePicker'>
-				</div>				
 			</div>
 			
 			<div id='b2' class='hidden'>

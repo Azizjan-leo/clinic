@@ -264,6 +264,26 @@ input.homeMenuButton{
  text-align: right;
 }
 
+#datePickerMain > #arrow-left{
+ float: left;
+ margin-left: 7;
+ margin-right: 1;
+ margin-top: 6%;
+ width: 75;
+ height: 100;
+ outline: 0;
+}
+#datePickerMain > #arrow-right{
+ float: left;
+ margin-left: 1;
+ margin-top: 6%;
+ width: 75;
+ height: 100;
+ outline: 0;
+}
+#datePicker{
+ float: left;
+}
 /*---------Comments---------*/
 .comments{
  text-align:center;

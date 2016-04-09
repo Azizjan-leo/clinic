@@ -16,7 +16,10 @@
 					<center><div>";
 			
 					$query = $mysqli->query("SELECT `Day` FROM Schedule WHERE Emp_ID = '$data[Emp_ID]'") or die($mysqli->error());
-					$selectedMonth = '04';
+					
+					$selectedMonth = $_POST[month];
+						
+					echo $_SESSION[month] . "<br>";
 					$tempDate = date('o') . '-' . $selectedMonth . '-01';
 					$days_in_month = cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($tempDate)), date("o")); // n - number of the month leading zeros //// o - year like 2016
 					$workDays = array();

@@ -1,10 +1,11 @@
-﻿function Get($id){
-	$.post( '../phpHendlers/datePicker.php', { name: $id },
+﻿function Get($id, $month){
+	$.post( '../phpHendlers/datePicker.php', { name: $id, month: $month },
 		function (output){
 			$('#datePicker').html(output).show();
 		}
 	);
 }
+
 function hiddenShow(id, evt)
 {
  var divs = [document.getElementById('b1'), document.getElementById('b2')];
