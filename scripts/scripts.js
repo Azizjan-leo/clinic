@@ -1,11 +1,76 @@
-﻿function Get($id, $month){
-	$.post( '../phpHendlers/datePicker.php', { name: $id, month: $month },
+﻿var d = new Date();
+var n = 10;//d.getMonth();
+var monthCounter = 0;
+var p = new Date();
+//p = p.getFullYear();
+function test(){
+	
+}
+function datePicker($Emp_ID, $patientId, $unregVisitorId){
+	$.post( '../parts/forms/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId },
+		function (output){
+			$('#datePickerMain').html(output).show();
+		}
+	);
+	onClick($Emp_ID, $patientId, $unregVisitorId, 0);
+}
+function UnregVisitorFormHendling(){
+	$f_name = document.getElementsByClassName("Name")[0].value;
+	$m_name = document.getElementsByClassName("Name")[1].value;
+	$l_name = document.getElementsByClassName("Name")[2].value;
+	$phone = document.getElementsByClassName("Phone")[0].value;
+	$Emp_ID = document.getElementsByClassName("Name")[3].value;
+	
+	$.post( '../phpHendlers/forms/UnregVisitorOrd.php', { Emp_ID: $Emp_ID, f_name: $f_name, m_name: $m_name, l_name: $l_name, phone: $phone  },
+		function (output){
+			$('#datePickerMain').html(output).show();
+		}
+	);
+	return false;
+}
+
+function unregVisitorForm($Emp_ID){
+	$.post( '../parts/forms/unregVisitorOrdF.php', { Emp_ID: $Emp_ID },
+		function (output){
+			$('#datePickerMain').html(output).show();
+		}
+	);
+}
+
+function onClick($Emp_ID, $patientId, $unregVisitorId, $act){
+	if(((monthCounter + $act) != -1) && ((monthCounter + $act) < 4)){
+		monthCounter += $act;
+		n += $act;
+		p = new Date(p.getFullYear(), n, 01);
+		n = p.getMonth();
+	}
+	Get($Emp_ID, $patientId, $unregVisitorId, n + 1, p.getFullYear());
+}
+
+function Get($Emp_ID, $patientId, $unregVisitorId, $month, $year){
+	$.post( '../phpHendlers/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, month: $month, year: $year },
 		function (output){
 			$('#datePicker').html(output).show();
 		}
 	);
 }
 
+function SelectDay($Emp_ID, $patientId, $unregVisitorId, $day, $month, $year){
+	
+	$.post( '../phpHendlers/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, day: $day, month: $month, year: $year },
+		function (output){
+			$('#timePicker').html(output).show();
+		}
+	);
+}
+
+function OrdConfirm($Emp_ID, $patientId, $unregVisitorId, $date, $time){
+	$.post( '../phpHendlers/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, date: $date, time: $time },
+		function (output){
+			$('#ordConfirm').html(output).show();
+		}
+	);
+}
 function hiddenShow(id, evt)
 {
  var divs = [document.getElementById('b1'), document.getElementById('b2')];

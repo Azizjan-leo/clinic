@@ -61,52 +61,55 @@
 		if(isset($_POST[reenter]))
 		{
 			$id = $_POST[f_id]; // From Users table
-			$query = $mysqli->query("SELECT * FROM Users WHERE Id = '$id'");
+			$query = $mysqli->query("SELECT `Class`, `Password` FROM Users WHERE Id = '$id'");
 			$usersTableData = $query->fetch_array();
-			
-			if(($usersTableData['Class'] == 1) or ($usersTableData['Class'] == 2) or ($usersTableData['Class'] == 3)){
-				$query = $mysqli->query("SELECT * FROM Employee WHERE Emp_ID = '$id'");
-				$data = $query->fetch_array();
-				
-				if($usersTableData[Password] == $_POST[f_password])
+			if($usersTableData[Password] == $_POST[f_password])
+			{
+				if( ($usersTableData['Class'] == 1) or ($usersTableData['Class'] == 2) )
 				{
-					$_SESSION[t] = false;
-					$_SESSION["check"] = $_SESSION['log'] = true;
-					$class = $_SESSION["class"] = $data['Class'];
-					$_SESSION[userName] = $data[First_Name] . " " . $data[Surname];
-					$_SESSION[userData] = $data;																//////////// >>>>>>>>>>>>>>
-					switch($class)
-					{
-						case 1:
-							$_SESSION[systAccess] = true;
-							break;
-						case 2:
-							$_SESSION[systAccess] = true;
-							break;
-					}
-					print '<script type="text/javascript">window.location.href="../index.php"</script>';
+					$query = $mysqli->query("SELECT * FROM Employee WHERE Emp_ID = '$id'");
+					$data = $query->fetch_array();
+					
+						$_SESSION[t] = false;
+						$_SESSION["check"] = $_SESSION['log'] = true;
+						$class = $_SESSION["class"] = $data['Class'];
+						$_SESSION[userName] = $data[First_Name] . " " . $data[Surname];
+						$_SESSION[userData] = $data;
+						$_SESSION[userData][Second_Name] = $data[Surname];
+						switch($class)
+						{
+							case 1:
+								$_SESSION[systAccess] = true;
+								break;
+							case 2:
+								$_SESSION[systAccess] = true;
+								break;
+						}
+						print '<script type="text/javascript">window.location.href="../index.php"</script>';
 				}
-				else
+				else if($usersTableData['Class'] == 4)
 				{
-					print '<center><div style="color:red">Wrong password</div><center>';
-					$_SESSION[t] = false;
-				}
-			}
-			else if($usersTableData['Class'] == 4){
-				if($usersTableData[Password] == $_POST[f_password]){
 					$query = $mysqli->query("SELECT * FROM patients WHERE Id = '$id'");
 					$_SESSION[userData] = $query->fetch_array();
 					$_SESSION["check"] = $_SESSION['log'] = true;
 					$_SESSION["class"] = 4;
 					$_SESSION[userName] = $_SESSION[userData][First_Name] . " " . $_SESSION[userData][Second_Name];
+					$_SESSION[t] = false;
 					print '<script type="text/javascript">window.location.href="../index.php"</script>';
 				}
-				else{
-					print '<center><div style="color:red">Wrong password</div><center>';
+				else
+				{
+					print '<center><div style="color:red">Unknown user class</div><center>';
+					$_SESSION[t] = false;
 				}
+			}
+			else
+			{
+				print '<center><div style="color:red">Wrong password</div><center>';
 				$_SESSION[t] = false;
 			}
 		}
+		
 		if(isset($_POST[f_idSubmit]))
 		{
 			
@@ -138,7 +141,7 @@
 			$id = $_POST[f_id]; // Users.Id
 			$password = $_POST[f_password];
 			
-			if(mysql_query("UPDATE  `Users` SET  `Password` = $password WHERE  `Id` = $id"))			///////////////////////////////////	<<<<<<<<<<<
+			if($mysqli->query("UPDATE  `Users` SET  `Password` = $password WHERE  `Id` = $id"))			///////////////////////////////////	<<<<<<<<<<<
 			{
 				$query = $mysqli->query("SELECT * FROM Users WHERE Id = '$id'");
 				$userTableData = $query->fetch_array(MYSQLI_ASSOC);

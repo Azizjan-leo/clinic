@@ -67,7 +67,7 @@
 		$diff = abs(strtotime($currentDate) - strtotime($data[CarierStart]));
 		$years = floor($diff / (365*60*60*24));
 		$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-		 
+				
 		if(isset($_GET[rating])){
 			$query = $mysqli->query("SELECT Id FROM Doctor_Patient_relationships WHERE Emp_ID = $data[Emp_ID] and Patient_ID = '".$_SESSION[userData][ID]."'");
 			$relation = $query->fetch_array(MYSQLI_ASSOC);
@@ -144,9 +144,14 @@
 						<big> Order </big> <br>
 					</center>
 					<div class='orderAction'>
-						<center><a href='#' class='button' onClick='hiddenShow(\"b1\");  Get(".$data[Emp_ID].",".$currentMonth.");' id='button11'>Запись на прием</a></center><br>";
+						<center><a href='#' class='button' onClick='hiddenShow(\"b1\"); ";
+							if(!$_SESSION['log'])
+								echo "unregVisitorForm(".$data[Emp_ID].");'";
+							else 
+								echo "datePicker($data[Emp_ID], ".$_SESSION[userData][ID].", 0);'";
+						print " id='button11'>Запись на прием</a></center><br>";
 					
-					$res = $mysqli->query("SELECT PatientId, UnregVisitorId FROM `Order` WHERE DoctorId = '$data[Emp_ID]' ORDER by Id DESC");
+					$res = $mysqli->query("SELECT PatientId, UnregVisitorId FROM `Ord` WHERE DoctorId = '$data[Emp_ID]' ORDER by Id DESC");
 					while($order = $res->fetch_array()){
 						
 						if($order[PatientId]){
@@ -219,12 +224,8 @@
 			
 				<br>ЗАПИСЬ К ВРАЧУ<br><br>
 				
-				<div id='datePickerMain'>
-					<input id='arrow-left' type='image' src='../images/arrow-left.ico' onClick='Get(".$data[Emp_ID].", ".$currentMonth = sprintf("%02d", $currentMonth - 1).");'>
-					<div id='datePicker'></div>
-					<input id='arrow-right' type='image' src='../images/arrow-right.ico' onClick='Get(".$data[Emp_ID].", ".$currentMonth = sprintf("%02d", $currentMonth + 1).");'>
-				</div>
-				
+				<div id='datePickerMain'></div>
+			
 			</div>
 			
 			<div id='b2' class='hidden'>

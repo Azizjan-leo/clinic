@@ -264,6 +264,9 @@ input.homeMenuButton{
  text-align: right;
 }
 
+#datePickerMain{
+ height: 70%;
+}		
 #datePickerMain > #arrow-left{
  float: left;
  margin-left: 7;
@@ -283,6 +286,15 @@ input.homeMenuButton{
 }
 #datePicker{
  float: left;
+}
+#timePicker{
+ margin-top: 45%;
+ width: auto;
+}
+.timePickerButton{
+ background-color: white;
+ width: 50;
+ height: 20;
 }
 /*---------Comments---------*/
 .comments{

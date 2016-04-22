@@ -101,30 +101,31 @@
 		print "<script type='text/javascript'>window.location.href='../index.php?content=home&massage=NewSchedule&NewReception=$newReception'</script>";
 	}
 	if(isset($_POST[scheduleEditSubmitButton3])){
-		$res = mysql_query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+		$res = $mysqli->query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
 		$days = array();
-		while($row =  mysql_fetch_assoc($res)) {
+		while($row =  $res->fetch_array(MYSQLI_ASSOC)) {
 			if(in_array($row[Day], $_SESSION[days]))
 				$days[] = $row[Day];
 			else
-				mysql_query("DELETE FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."' AND Day = '".$row[Day]."'");
+				$mysqli->query("DELETE FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."' AND Day = '".$row[Day]."'");
 		}
 		for($i=0; $i < count($_SESSION[days]); $i++){
 			if(in_array($_SESSION[days][$i],$days)){
-				mysql_query("UPDATE `Schedule` SET Start = '".$_POST["start$i"]."', Lunch_Start = '".$_POST["lunchStart$i"]."', Lunch_End = '".$_POST["lunchEnd$i"]."', End = '".$_POST["end$i"]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."' AND Day = '".$_SESSION[days][$i]."'") or die(mysql_error());
+				$mysqli->query("UPDATE `Schedule` SET Start = '".$_POST["start$i"]."', Lunch_Start = '".$_POST["lunchStart$i"]."', Lunch_End = '".$_POST["lunchEnd$i"]."', End = '".$_POST["end$i"]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."' AND Day = '".$_SESSION[days][$i]."'") or die(mysql_error());
 			}else{
-				mysql_query("INSERT INTO `Schedule`(`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunch_End`, `End`) VALUES (NULL, '".$_SESSION[userData][Emp_ID]."','".$_SESSION[days][$i]."','".$_POST["start$i"]."','".$_POST["lunchStart$i"]."','".$_POST["lunchEnd$i"]."','".$_POST["end$i"]."')") or die(mysql_error());
+				$mysqli->query("INSERT INTO `Schedule`(`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunch_End`, `End`) VALUES (NULL, '".$_SESSION[userData][Emp_ID]."','".$_SESSION[days][$i]."','".$_POST["start$i"]."','".$_POST["lunchStart$i"]."','".$_POST["lunchEnd$i"]."','".$_POST["end$i"]."')") or die(mysql_error());
 			}
 		}
-		$t = mysql_fetch_array(mysql_query("SELECT Time FROM `Reception` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'"));
+		$query = $mysqli->query("SELECT Time FROM `Reception` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'");
+		$t = $query->fetch_array(MYSQLI_ASSOC);
 		if($t['Time']){
 			if($t['Time'] != $_POST[oneReception]){
 				$newReception = true;
-				mysql_query("UPDATE `Reception` SET Time = '".$_POST[oneReception]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+				$mysqli->query("UPDATE `Reception` SET Time = '".$_POST[oneReception]."' WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
 			}
 		}else{
 			$newReception = true;
-			mysql_query("INSERT INTO `Reception`(`Emp_ID`, `Time`) VALUES ('".$_SESSION[userData][Emp_ID]."','".$_POST[oneReception]."')");
+			$mysqli->query("INSERT INTO `Reception`(`Emp_ID`, `Time`) VALUES ('".$_SESSION[userData][Emp_ID]."','".$_POST[oneReception]."')");
 		}
 		unset($_SESSION[days]);
 		print "<script type='text/javascript'>window.location.href='../index.php?content=home&massage=NewSchedule&NewReception=$newReception'</script>";

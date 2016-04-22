@@ -129,9 +129,9 @@
 					</div>';
 		}
 		if($_GET[scheduleFormFilling] == 3){
-			$res = mysql_query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+			$res = $mysqli->query("SELECT Day FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
 			$DBd = array();
-			while(($row =  mysql_fetch_assoc($res))) {
+			while($row =  $res->fetch_array(MYSQLI_ASSOC)) {
 				if(in_array($row[Day], $_GET[days]))
 					$DBd[] = $row[Day];
 			}
@@ -144,15 +144,16 @@
 					for($i=0; $i < count($_GET[days]); $i++){
 						print '<tr><td>'.$_GET[days][$i].'</td><td><input type="time" name="start'.$i.'"';
 						if(in_array($_GET[days][$i],$DBd)){
-							$res = mysql_query("SELECT * FROM Schedule WHERE `Emp_ID` = '".$_SESSION[userData][Emp_ID]."' AND `Day` = '".$_GET[days][$i]."'");
-							$row = mysql_fetch_array($res);
+							$res = $mysqli->query("SELECT * FROM Schedule WHERE `Emp_ID` = '".$_SESSION[userData][Emp_ID]."' AND `Day` = '".$_GET[days][$i]."'");
+							$row = $res->fetch_array(MYSQLI_ASSOC);
 							print " value='$row[Start]'></td><td><input type='time' name='lunchStart$i' value='$row[Lunch_Start]'></td><td><input type='time' name='lunchEnd$i' value='$row[Lunch_End]'></td><td><input type='time' name='end$i' value='$row[End]'></td></tr>";
 						}else{
 							print '>
 						</td><td><input type="time" name="lunchStart'.$i.'"></td><td><input type="time" name="lunchEnd'.$i.'"></td><td><input type="time" name="end'.$i.'"></td></tr>';
 						}
 					}
-					$res = mysql_fetch_array(mysql_query("SELECT Time FROM Reception WHERE `Emp_ID` = '".$_SESSION[userData][Emp_ID]."'"));
+					$query = $mysqli->query("SELECT Time FROM Reception WHERE `Emp_ID` = '".$_SESSION[userData][Emp_ID]."'");
+					$res = $query->fetch_array(MYSQLI_ASSOC);
 					print '
 					<tr><td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;Time you need for one reception</td><td colspan="2"><input id="shortInputField" type="text" value="'.$res['Time'].'" name="oneReception">min</td></tr>
 					<tr><td colspan="5"><input type="submit" name="scheduleEditSubmitButton3" value="Enter"></td></tr>
@@ -180,10 +181,10 @@
 			<big>ID: <textarea cols='11' rows='1'>$id</textarea><br><br>";
 		}
 		if($_GET[massage] == "NewSchedule"){
-			$result = mysql_query("SELECT * FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
+			$result = $mysqli->query("SELECT * FROM `Schedule` WHERE Emp_ID = '".$_SESSION[userData][Emp_ID]."'") or die(mysql_error());
 			print "<br><center><table class='brd'><tr><td></td><td>From</td><td colspan='2' style='text-align: center;'>Lunch</td><td style='text-align: center;'>To</td></tr>";
 				echo "<font color='green'>New Schedule:</font>";
-				while($dataFromSchedule = mysql_fetch_array($result)){
+				while($dataFromSchedule = $result->fetch_array(MYSQLI_ASSOC)){
 					print "<tr><th>$dataFromSchedule[Day]</th>
 						<td>".date('H:i',strtotime($dataFromSchedule[Start]))."</td>";
 						if($dataFromSchedule[Lunch_Start] != $dataFromSchedule[Lunch_End]){
