@@ -1,11 +1,23 @@
 ﻿var d = new Date();
-var n = 10;//d.getMonth();
+var n = d.getMonth();
 var monthCounter = 0;
 var p = new Date();
 //p = p.getFullYear();
-function test(){
-	
+function elementReload(id){
+	id = "#" + id;
+	$(id).load(location.href + " " + id);
 }
+function test($Emp_ID, $patientId, $unregVisitorId, $date, $time){
+	$.post( '../phpHendlers/newOrd.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, date: $date, time: $time },
+		function (output){
+			$('#timePicker').html(output).show();
+		}
+	);
+	//hiddenShow('b1');
+	//document.getElementById("b1").style.display="hidden";
+	elementReload("orderView");
+}
+
 function datePicker($Emp_ID, $patientId, $unregVisitorId){
 	$.post( '../parts/forms/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId },
 		function (output){
@@ -56,7 +68,13 @@ function Get($Emp_ID, $patientId, $unregVisitorId, $month, $year){
 }
 
 function SelectDay($Emp_ID, $patientId, $unregVisitorId, $day, $month, $year){
+	var x = document.getElementsByClassName("dayInDatePicker");
+	$('#ordConfirm:parent').hide();
+	for (var i = 0; i < x.length; i++) {
+		x[i].style.backgroundColor = "transparent";
+	}
 	
+	document.getElementById($day).style.backgroundColor = 'green';
 	$.post( '../phpHendlers/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, day: $day, month: $month, year: $year },
 		function (output){
 			$('#timePicker').html(output).show();
@@ -65,6 +83,14 @@ function SelectDay($Emp_ID, $patientId, $unregVisitorId, $day, $month, $year){
 }
 
 function OrdConfirm($Emp_ID, $patientId, $unregVisitorId, $date, $time){
+	var x = document.getElementsByClassName("timeTable");
+	
+	for (var i = 0; i < x.length; i++) {
+		x[i].style.backgroundColor = "white";
+	}
+	
+	document.getElementById($time).style.backgroundColor = 'green';
+	
 	$.post( '../phpHendlers/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, date: $date, time: $time },
 		function (output){
 			$('#ordConfirm').html(output).show();

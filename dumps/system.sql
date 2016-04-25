@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 03, 2016 at 03:21 PM
--- Server version: 5.5.48
+-- Generation Time: Apr 25, 2016 at 04:39 PM
+-- Server version: 5.7.11
 -- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `Doctor_Patient_relationships` (
   `Emp_ID` int(11) NOT NULL,
   `Patient_ID` int(11) NOT NULL,
   `Rating_changed` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Doctor_Patient_relationships`
@@ -88,7 +88,10 @@ INSERT INTO `Doctor_Patient_relationships` (`Id`, `Emp_ID`, `Patient_ID`, `Ratin
 (5, 25, 19, 1),
 (6, 25, 19, 1),
 (7, 25, 19, 1),
-(8, 25, 19, 1);
+(8, 25, 19, 1),
+(9, 5, 39, 2),
+(10, 25, 39, 1),
+(11, 32, 19, 2);
 
 -- --------------------------------------------------------
 
@@ -156,27 +159,66 @@ INSERT INTO `Emp_comments` (`Emp_comments_ID`, `Emp_ID`, `Patient_Id`, `Date`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Order`
+-- Table structure for table `messages`
 --
 
-CREATE TABLE IF NOT EXISTS `Order` (
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `message`, `created_at`) VALUES
+(1, 'Test MySQL Event 1 aza loh', '2016-04-24 16:45:32'),
+(2, 'Test MySQL Event 2', '2016-04-24 16:48:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Ord`
+--
+
+CREATE TABLE IF NOT EXISTS `Ord` (
   `Id` int(11) NOT NULL,
   `DoctorId` int(10) NOT NULL,
-  `Date` datetime DEFAULT NULL,
   `PatientId` int(11) DEFAULT NULL,
-  `UnregVisitorId` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `UnregVisitorId` int(11) DEFAULT NULL,
+  `Date` date NOT NULL,
+  `Time` time NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Order`
+-- Dumping data for table `Ord`
 --
 
-INSERT INTO `Order` (`Id`, `DoctorId`, `Date`, `PatientId`, `UnregVisitorId`) VALUES
-(1, 5, NULL, 19, 0),
-(2, 25, NULL, 0, 1),
-(8, 25, NULL, 21, 0),
-(9, 5, NULL, NULL, 3),
-(10, 5, NULL, 21, 2147483647);
+INSERT INTO `Ord` (`Id`, `DoctorId`, `PatientId`, `UnregVisitorId`, `Date`, `Time`) VALUES
+(55, 25, 0, 47, '2016-04-25', '10:00:00'),
+(59, 25, 0, 51, '2016-04-25', '10:30:00'),
+(61, 25, 19, 0, '2016-04-24', '08:00:00'),
+(63, 25, 19, 0, '2016-04-23', '10:00:00'),
+(64, 25, 19, 0, '2016-04-10', '09:00:00'),
+(65, 32, 19, 0, '2016-04-15', '10:00:00'),
+(66, 32, 19, 0, '2016-04-22', '10:00:00'),
+(67, 25, 19, 0, '2016-05-29', '10:30:00'),
+(68, 25, 19, 0, '2016-05-29', '22:30:00'),
+(70, 25, 19, 0, '2016-05-29', '03:00:22'),
+(71, 25, 19, 0, '2016-05-29', '03:00:22'),
+(72, 25, 19, 0, '2016-05-22', '20:30:00');
+
+--
+-- Triggers `Ord`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_organization` BEFORE DELETE ON `ord`
+ FOR EACH ROW BEGIN
+  DELETE FROM UnregVisitors WHERE Id = OLD.UnregVisitorId; 
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -233,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `Rating` (
 --
 
 INSERT INTO `Rating` (`Emp_ID`, `Likes`, `Dislikes`) VALUES
-(25, 9, 8);
+(25, 10, 8);
 
 -- --------------------------------------------------------
 
@@ -268,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `Schedule` (
   `Lunch_Start` time DEFAULT NULL,
   `Lunch_End` time DEFAULT NULL,
   `End` time DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Schedule`
@@ -279,14 +321,15 @@ INSERT INTO `Schedule` (`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunc
 (33, 25, 'Tue', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
 (34, 25, 'Wed', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
 (35, 25, 'Thu', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
-(36, 25, 'Fri', '08:00:00', '12:00:00', '13:00:00', '17:00:00'),
 (38, 32, 'Mon', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
 (39, 32, 'Tue', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
 (40, 32, 'Wed', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
 (41, 32, 'Thu', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
 (42, 32, 'Fri', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
 (43, 32, 'Sat', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
-(44, 25, 'Sat', '09:00:00', '12:00:00', '13:00:00', '16:00:00');
+(44, 25, 'Sat', '09:00:00', '12:00:00', '13:00:00', '16:00:00'),
+(46, 25, 'Fri', '08:00:00', '00:00:00', '00:00:00', '13:00:00'),
+(47, 25, 'Sun', '07:00:00', '00:00:00', '00:00:00', '23:00:00');
 
 -- --------------------------------------------------------
 
@@ -344,16 +387,15 @@ CREATE TABLE IF NOT EXISTS `UnregVisitors` (
   `Middle_Name` varchar(25) DEFAULT NULL,
   `Second_Name` varchar(25) DEFAULT NULL,
   `Phone` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='All clinic non-registered patients';
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='All clinic non-registered patients';
 
 --
 -- Dumping data for table `UnregVisitors`
 --
 
 INSERT INTO `UnregVisitors` (`Id`, `First_Name`, `Middle_Name`, `Second_Name`, `Phone`) VALUES
-(1, 'Kamilla', '', 'Munurova', '+996702942932'),
-(2, 'Yusupova', 'Erkinovna', 'Guzyal', '+996702647002'),
-(3, 'Guzyal', 'Erkinovna', 'Yusupova', '+996702647002');
+(47, 'Azizjan', 'Hamidovich', 'Ayupov', '+996702647002'),
+(51, 'Blabla', 'Blabla', 'Blabla', '+996123321123');
 
 -- --------------------------------------------------------
 
@@ -406,7 +448,7 @@ INSERT INTO `Users` (`Id`, `Class`, `Password`) VALUES
 (36, 4, NULL),
 (37, 4, NULL),
 (38, 4, NULL),
-(39, 4, NULL);
+(39, 4, '123');
 
 --
 -- Indexes for dumped tables
@@ -443,9 +485,15 @@ ALTER TABLE `Emp_comments`
   ADD PRIMARY KEY (`Emp_comments_ID`);
 
 --
--- Indexes for table `Order`
+-- Indexes for table `messages`
 --
-ALTER TABLE `Order`
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Ord`
+--
+ALTER TABLE `Ord`
   ADD PRIMARY KEY (`Id`);
 
 --
@@ -520,7 +568,7 @@ ALTER TABLE `Diagnosis`
 -- AUTO_INCREMENT for table `Doctor_Patient_relationships`
 --
 ALTER TABLE `Doctor_Patient_relationships`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `Employee`
 --
@@ -532,10 +580,15 @@ ALTER TABLE `Employee`
 ALTER TABLE `Emp_comments`
   MODIFY `Emp_comments_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `Order`
+-- AUTO_INCREMENT for table `messages`
 --
-ALTER TABLE `Order`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `Ord`
+--
+ALTER TABLE `Ord`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT for table `patients`
 --
@@ -545,7 +598,7 @@ ALTER TABLE `patients`
 -- AUTO_INCREMENT for table `Schedule`
 --
 ALTER TABLE `Schedule`
-  MODIFY `Day_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+  MODIFY `Day_ID` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `Staff`
 --
@@ -560,7 +613,7 @@ ALTER TABLE `Symptoms`
 -- AUTO_INCREMENT for table `UnregVisitors`
 --
 ALTER TABLE `UnregVisitors`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `UserClasses`
 --
@@ -571,6 +624,14 @@ ALTER TABLE `UserClasses`
 --
 ALTER TABLE `Users`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`%` EVENT `delete_ord` ON SCHEDULE EVERY 1 DAY STARTS '2016-04-26 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `Ord` WHERE `Date` < DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)$$
+
+DELIMITER ;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

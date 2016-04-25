@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include("phpHendlers/connect.php");
+	include("phpHendlers/connect.php"); //<script src='scripts/jquery.js'></script>
 ?>
 <html>
  <head>
@@ -9,9 +9,8 @@
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
 		<link rel="stylesheet" type="text/css" href="styles/menu.css" />
   <script src="scripts/scripts.js"></script>
-  <script src='scripts/jquery.js'></script>
-		<!--<script type="text/javascript" src="scripts/jquery-1.4.1.min.js"></script>
-		<script type="text/javascript" src="scripts/jquery.orbit.min.js"></script>-->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
  </head>
  <body>

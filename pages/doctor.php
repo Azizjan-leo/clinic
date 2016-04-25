@@ -139,17 +139,17 @@
 					$currentMonth = date('m');
 					print "</big></center>
 				</div>
-				<div class='orderView'>
+				<div id='orderView'>
 					<center> 
 						<big> Order </big> <br>
 					</center>
-					<div class='orderAction'>
-						<center><a href='#' class='button' onClick='hiddenShow(\"b1\"); ";
+					<div id='orderAction'>
+						<center><button class='button' onClick='hiddenShow(\"b1\"); ";
 							if(!$_SESSION['log'])
 								echo "unregVisitorForm(".$data[Emp_ID].");'";
 							else 
 								echo "datePicker($data[Emp_ID], ".$_SESSION[userData][ID].", 0);'";
-						print " id='button11'>Запись на прием</a></center><br>";
+						print " id='button11'>Запись на прием</button></center><br>";
 					
 					$res = $mysqli->query("SELECT PatientId, UnregVisitorId FROM `Ord` WHERE DoctorId = '$data[Emp_ID]' ORDER by Id DESC");
 					while($order = $res->fetch_array()){

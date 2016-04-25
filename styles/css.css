@@ -218,13 +218,13 @@ input.homeMenuButton{
  margin-left: 120px;
  float: left;
 }
-.orderView{
+#orderView{
  float: right;
  width: 300px;
  height: 250px;
  margin: 0px 3px 3px 10px;
 }
-.orderAction{
+#orderAction{
  width: 300px; 
  height: 250px;
  padding: 3px 3px 3px 3px;
@@ -266,7 +266,8 @@ input.homeMenuButton{
 
 #datePickerMain{
  height: 70%;
-}		
+}
+		
 #datePickerMain > #arrow-left{
  float: left;
  margin-left: 7;
