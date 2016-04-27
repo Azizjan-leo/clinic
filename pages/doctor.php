@@ -113,24 +113,46 @@
 						print "
 						Dislikes: $rating[Dislikes]
 					</div>
-				</div>
+				</div>";
+				$dfs = array(); // Data From Schedule
+				$workdays = array();
+				while($dataFromSchedule = $result->fetch_array(MYSQLI_ASSOC)){
+						$dfs[] = $dataFromSchedule;
+						$workdays[] = $dataFromSchedule['Day'];
+				}
+				//var_dump($workdays);
+											
+						print "
 				<div class='doc_about'>
 						<center><big><b>$data[First_Name] $data[Middle_Name] $data[Surname]<br><br>
 					$dataFromStaff[Name] of $data[Category] category <br>
 					</b>Experience:<b> $years years $months months</b><br>
-						<br><table class='brd'><tr><td></td><td>From</td><td colspan='2' style='text-align: center;'>Lunch</td><td style='text-align: center;'>To</td></tr>Weekdays";
-						while($dataFromSchedule = $result->fetch_array()){
-							print "<tr><th>$dataFromSchedule[Day]</th>
-								<td>".date('H:i',strtotime($dataFromSchedule[Start]))."</td>";
-								if($dataFromSchedule[Lunch_Start] != $dataFromSchedule[Lunch_End]){
-									print "<td>".date('H:i',strtotime($dataFromSchedule[Lunch_Start]))."</td>
-										   <td>".date('H:i',strtotime($dataFromSchedule[Lunch_End]))."</td>";
-								}else{
-									print "<td colspan='2' style='text-align: center;'> - </td>";
-								}
-								print "<td>".date('H:i',strtotime($dataFromSchedule['End']))."</td></tr>";
-						}
-						print "</table>";
+					<br>
+					<table class='brd' id='textCenter'>
+						<tr><td></td><td>From</td><td colspan='2'>Lunch</td><td style='text-align: center;'>To</td></tr>Weekdays";
+						foreach($dfs as $row) if($row['Day'] == 'Mon') { print "<tr><td>Mon</td><td>" . date("H:i",strtotime($row['Start'])) . "</td>"; if($row[Lunch_Start] != $row[Lunch_End]){ print "<td>" . date("H:i",strtotime($row['Lunch_Start'])) . "</td><td>". date("H:i",strtotime($row['Lunch_End']))."</td>";} else print "<td colspan='2'>-</td>"; print "</td><td>".date("H:i", strtotime($row['End']))."</td> </tr>";}
+						if (!in_array("Mon", $workdays)) print "<tr><td><font color='red'>Mon</font></td><td colspan='4' style='text-align:center'>Day off</td></tr>";
+						
+						foreach($dfs as $row) if($row['Day'] == 'Tue') { print "<tr><td>Tue</td><td>" . date("H:i",strtotime($row['Start'])) . "</td>"; if($row[Lunch_Start] != $row[Lunch_End]){ print "<td>" . date("H:i",strtotime($row['Lunch_Start'])) . "</td><td>". date("H:i",strtotime($row['Lunch_End']))."</td>";} else print "<td colspan='2'>-</td>"; print "</td><td>".date("H:i", strtotime($row['End']))."</td> </tr>";}
+						if (!in_array("Tue", $workdays)) print "<tr><td><font color='red'>Tue</font></td><td colspan='4' style='text-align:center'>Day off</td></tr>";
+						
+						foreach($dfs as $row) if($row['Day'] == 'Wed') { print "<tr><td>Wed</td><td>" . date("H:i",strtotime($row['Start'])) . "</td>"; if($row[Lunch_Start] != $row[Lunch_End]){ print "<td>" . date("H:i",strtotime($row['Lunch_Start'])) . "</td><td>". date("H:i",strtotime($row['Lunch_End']))."</td>";} else print "<td colspan='2'>-</td>"; print "</td><td>".date("H:i", strtotime($row['End']))."</td> </tr>";}
+						if (!in_array("Wed", $workdays)) print "<tr><td><font color='red'>Wed</font></td><td colspan='4' style='text-align:center'>Day off</td></tr>";
+						
+						foreach($dfs as $row) if($row['Day'] == 'Thu') { print "<tr><td>Thu</td><td>" . date("H:i",strtotime($row['Start'])) . "</td>"; if($row[Lunch_Start] != $row[Lunch_End]){ print "<td>" . date("H:i",strtotime($row['Lunch_Start'])) . "</td><td>". date("H:i",strtotime($row['Lunch_End']))."</td>";} else print "<td colspan='2'>-</td>"; print "</td><td>".date("H:i", strtotime($row['End']))."</td> </tr>";}
+						if (!in_array("Thu", $workdays)) print "<tr><td><font color='red'>Thu</font></td><td colspan='4' style='text-align:center'>Day off</td></tr>";
+						
+						foreach($dfs as $row) if($row['Day'] == 'Fri') { print "<tr><td>Fri</td><td>" . date("H:i",strtotime($row['Start'])) . "</td>"; if($row[Lunch_Start] != $row[Lunch_End]){ print "<td>" . date("H:i",strtotime($row['Lunch_Start'])) . "</td><td>". date("H:i",strtotime($row['Lunch_End']))."</td>";} else print "<td colspan='2'>-</td>"; print "</td><td>".date("H:i", strtotime($row['End']))."</td> </tr>";}
+						if (!in_array("Fri", $workdays)) print "<tr><td><font color='red'>Fri</font></td><td colspan='4' style='text-align:center'>Day off</td></tr>";
+						
+						foreach($dfs as $row) if($row['Day'] == 'Sat') { print "<tr><td>Sat</td><td>" . date("H:i",strtotime($row['Start'])) . "</td>"; if($row[Lunch_Start] != $row[Lunch_End]){ print "<td>" . date("H:i",strtotime($row['Lunch_Start'])) . "</td><td>". date("H:i",strtotime($row['Lunch_End']))."</td>";} else print "<td colspan='2'>-</td>"; print "</td><td>".date("H:i", strtotime($row['End']))."</td> </tr>";}
+						if (!in_array("Sat", $workdays)) print "<tr><td><font color='red'>Sat</font></td><td colspan='4' style='text-align:center'>Day off</td></tr>";
+						
+						foreach($dfs as $row) if($row['Day'] == 'Sun') { print "<tr><td>Sun</td><td>" . date("H:i",strtotime($row['Start'])) . "</td>"; if($row[Lunch_Start] != $row[Lunch_End]){ print "<td>" . date("H:i",strtotime($row['Lunch_Start'])) . "</td><td>". date("H:i",strtotime($row['Lunch_End']))."</td>";} else print "<td colspan='2'>-</td>"; print "</td><td>".date("H:i", strtotime($row['End']))."</td> </tr>";}
+						if (!in_array("Sun", $workdays)) print "<tr><td><font color='red'>Sun</font></td><td colspan='4' style='text-align:center'>Day off</td></tr>";
+						
+						print "
+					</table>";
 						$forOneRecp = $mysqli->query("SELECT `Time` FROM `Reception` WHERE Emp_ID = $_GET[doctor]");
 					$oneRecp = $forOneRecp->fetch_array();
 					if($oneRecp['Time']){
@@ -140,36 +162,16 @@
 					print "</big></center>
 				</div>
 				<div id='orderView'>
-					<center> 
-						<big> Order </big> <br>
-					</center>
+					<center> <big> Order </big> </center> <br>
 					<div id='orderAction'>
-						<center><button class='button' onClick='hiddenShow(\"b1\"); ";
-							if(!$_SESSION['log'])
-								echo "unregVisitorForm(".$data[Emp_ID].");'";
-							else 
-								echo "datePicker($data[Emp_ID], ".$_SESSION[userData][ID].", 0);'";
-						print " id='button11'>Запись на прием</button></center><br>";
-					
-					$res = $mysqli->query("SELECT PatientId, UnregVisitorId FROM `Ord` WHERE DoctorId = '$data[Emp_ID]' ORDER by Id DESC");
-					while($order = $res->fetch_array()){
-						
-						if($order[PatientId]){
-						
-							$forPtr = $mysqli->query("SELECT First_Name, Second_Name, Phone FROM patients WHERE ID = '$order[PatientId]'");
-							$ptr = $forPtr->fetch_array();
-
-						}else{
-
-							$forPtr = $mysqli->query("SELECT First_Name, Second_Name, Phone FROM UnregVisitors WHERE Id = '$order[UnregVisitorId]'");
-							$ptr = $forPtr->fetch_array();
-						
-						}
-
-						print $ptr[First_Name]." ".$ptr[Second_Name]." ".$ptr[Phone]."<br>";
-					}
-					print "
+						<script>orderView($data[Emp_ID]);</script>
 					</div>
+					<center><button class='button' onClick='hiddenShow(\"b1\"); ";
+							if(!$_SESSION['log'])
+									echo "unregVisitorForm(".$data[Emp_ID].");'";
+								else 
+									echo "datePicker($data[Emp_ID], ".$_SESSION[userData][ID].", 0);'";
+							print " id='button11'>Make an appointment</button></center><br>
 				</div>
 			</div>
 			<hr><br>$data[CurriculumVitae]<br>";					 
@@ -228,10 +230,6 @@
 			
 			</div>
 			
-			<div id='b2' class='hidden'>
-				<br>СПИСОК ЗАПИСАВШИХСЯ<br><br>
-			</div>
-			
 			<div id='b3' class='hidden'><br>
 				<form method='post' action='../phpHendlers/forms/commentAdding.php'>
 					<textarea cols='60' rows='10' name='text' required /></textarea><br>
@@ -242,83 +240,3 @@
 			</div>";
     }
 ?>
-<?
-/*
-if(!$_GET[selectedDay]){
-					print "
-					<center><div>";
-			
-					$query = $mysqli->query("SELECT `Day` FROM Schedule WHERE Emp_ID = '$data[Emp_ID]'") or die($mysqli->error());
-					$selectedMonth = '04';
-					$tempDate = date('o') . '-' . $selectedMonth . '-01';
-					$days_in_month = cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($tempDate)), date("o")); // n - number of the month leading zeros //// o - year like 2016
-					$workDays = array();
-					$firstDay = date('N', strtotime($tempDate));
-					while($row = $query->fetch_array(MYSQLI_ASSOC)){
-						$workDays[] = $row[Day];
-					}
-					$i = 1;
-					print "<table>
-							<tr>
-								<th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
-							</tr>";
-					for($list_day = "01"; $list_day <= $days_in_month; $list_day = sprintf("%02d", $list_day + 1)){
-						$tempDate = date('o') . '-' . $selectedMonth . '-' . $list_day;
-						if($i == 1)
-							echo "<tr>";
-						echo "<td align='center'>";
-						
-							if(!$start){
-								if($firstDay == $i){
-									$start = true;
-									$list_day = "01";
-									$tempDate = '2016-03-' . $list_day;
-									if(in_array(date('D', strtotime($tempDate)), $workDays)){
-										if($list_day < date('d'))
-											echo "<font color='grey'>$list_day</font> ";
-										else
-											echo "<b>$list_day</b> ";
-									}
-									else
-										echo "<font color='red'>$list_day</font> ";
-								}
-							}else{
-								if(in_array(date('D', strtotime($tempDate)), $workDays)){
-									if($list_day < date('d'))
-										echo "<font color='grey'>$list_day</font> ";
-									else
-										echo "<a href='#&selectedDay'><b>$list_day</b></a> ";
-								}else
-									echo "<font color='red'>$list_day</font> ";
-							}
-							
-						echo "</td>";
-						$i++;
-						if($i == 8){
-							echo "</tr>"; $i = 1;
-						}
-					}
-						print "
-					</table></div></center>";
-				}else{
-					print "
-					<form name='statement' method='post'>";
-					 if($_SESSION['class'] == 4){
-						print "
-							<input type='datetime-local' name='date'  /><br>
-							<input type='submit' name='registeredVisitor' value='Enter'>";
-					 }
-					 else{
-						print "
-							<input type='text' name='first_name' id='first_name' maxlength='30' placeholder='First name' size='30' required /><br>
-							<input type='text' name='middle_name' id='middle_name' maxlength='30' placeholder='Middle name' size='30' required /><br>
-							<input type='text' name='second_name' id='second_name' maxlength='30' placeholder='Second name' size='30' required /><br>
-							<input type='text' name='phone' maxlength='30' placeholder='Phone number' size='30'  /><br>
-							<input type='datetime-local' name='date'  /><br>
-							<input type='submit' name='unregisteredVisitor' value='Enter'>";
-					 }
-						print " 
-						</form>
-					</div>";
-				}
-				*/

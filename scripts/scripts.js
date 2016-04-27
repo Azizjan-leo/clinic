@@ -2,7 +2,20 @@
 var n = d.getMonth();
 var monthCounter = 0;
 var p = new Date();
-//p = p.getFullYear();
+
+function orderView($Emp_ID){
+	$.post( '../parts/orderView.php', { Emp_ID: $Emp_ID},
+		function (output){
+			$('#orderAction').html(output).show();
+		}
+	);
+}
+// to add leading zero
+function slice(str, max) {
+  str = str.toString();
+  return str.length < max ? slice("0" + str, max) : str;
+}
+
 function elementReload(id){
 	id = "#" + id;
 	$(id).load(location.href + " " + id);
@@ -13,9 +26,8 @@ function test($Emp_ID, $patientId, $unregVisitorId, $date, $time){
 			$('#timePicker').html(output).show();
 		}
 	);
-	//hiddenShow('b1');
-	//document.getElementById("b1").style.display="hidden";
-	elementReload("orderView");
+	orderView($Emp_ID);
+	hiddenShow('b1');
 }
 
 function datePicker($Emp_ID, $patientId, $unregVisitorId){
@@ -60,6 +72,8 @@ function onClick($Emp_ID, $patientId, $unregVisitorId, $act){
 }
 
 function Get($Emp_ID, $patientId, $unregVisitorId, $month, $year){
+	$('#ordConfirm').hide();
+	$('#timePicker').hide();
 	$.post( '../phpHendlers/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, month: $month, year: $year },
 		function (output){
 			$('#datePicker').html(output).show();
@@ -68,28 +82,26 @@ function Get($Emp_ID, $patientId, $unregVisitorId, $month, $year){
 }
 
 function SelectDay($Emp_ID, $patientId, $unregVisitorId, $day, $month, $year){
-	var x = document.getElementsByClassName("dayInDatePicker");
+	$day = slice(String($day), 2); // to add leading zero
 	$('#ordConfirm:parent').hide();
-	for (var i = 0; i < x.length; i++) {
-		x[i].style.backgroundColor = "transparent";
-	}
+	$(".dayInDatePicker").css("background-color", "white"); // cells
+	$(".dayL").css({"color":"green"}); // links
+	$("#"+$day).css("background-color", "green"); // choosen cell	
+	$("#a"+$day).css({"color":"white"}); // choosen link
 	
-	document.getElementById($day).style.backgroundColor = 'green';
 	$.post( '../phpHendlers/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, day: $day, month: $month, year: $year },
 		function (output){
 			$('#timePicker').html(output).show();
 		}
-	);
+	);	
 }
 
 function OrdConfirm($Emp_ID, $patientId, $unregVisitorId, $date, $time){
-	var x = document.getElementsByClassName("timeTable");
+	$(".timeTable").css("background-color", "white"); // cells
+	$(".timeTableL").css({"color":"green"}); // links
+	$("#"+$time).css("background-color", "green"); // choosen cell
+	$("#a"+$time).css({"color":"white"}); // choosen link
 	
-	for (var i = 0; i < x.length; i++) {
-		x[i].style.backgroundColor = "white";
-	}
-	
-	document.getElementById($time).style.backgroundColor = 'green';
 	
 	$.post( '../phpHendlers/datePicker.php', { Emp_ID: $Emp_ID, patientId: $patientId, unregVisitorId: $unregVisitorId, date: $date, time: $time },
 		function (output){

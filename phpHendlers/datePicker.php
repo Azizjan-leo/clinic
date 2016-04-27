@@ -2,9 +2,16 @@
 	$mysqli = mysqli_connect('localhost', 'root', '123', 'system');
 	$result = $mysqli->query("SELECT * FROM Employee WHERE Emp_ID = $_POST[Emp_ID]");
 	$data = $result->fetch_array();
+	
 	//time choosing
 	if(isset($_POST[day])){
 		$date = date("o-n-d" ,strtotime($_POST[year]."-".$_POST[month]."-".$_POST[day]));
+		//for timezone
+		$tz = 'Asia/Bishkek';
+		$timestamp = time();
+		$dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
+		$dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+		$curTime = $dt->format('H:i');
 		
 		if (!$result = $mysqli->query("SELECT `Time` FROM `system`.`Ord` WHERE DoctorId = $_POST[Emp_ID] AND `Date` = '$date'")) {
 			
@@ -18,9 +25,9 @@
 		}
 		$takenTime = array();
 		while($df = $result->fetch_array(MYSQLI_ASSOC)){
-			$takenTime[] = $df['Time'];
+			$takenTime[] = date("H:i",strtotime($df['Time']));
 		}
-		echo date("H:i:s");
+		
 		$result = $mysqli->query("SELECT `Time` FROM `Reception` WHERE Emp_ID = $_POST[Emp_ID]");
 		$reception = $result->fetch_array();
 		$reception = $reception['Time'];
@@ -31,43 +38,79 @@
 		
 		$date = strtotime($date);
 		echo "<center><table><tr>";
-		for($i_time = strtotime($dataFromSchedule[Start]), $i = 0; ($i_time + $reception) < strtotime($dataFromSchedule['End']); $i_time = strtotime("+$reception minutes", $i_time)) {
-			if($i == 7){
-				echo "</tr><tr>";
-				$i = 0;
-			}
-			echo "<td class='timeTable' id='$i_time' style='background-color: white; border-radius: 7px;'><a href='#' ";
+		if($_POST[day] == date("d")){ // time for current day because we need to hide not relevant time
 			if($lunch){
-				if(strtotime("+$reception minutes", $i_time) <= strtotime($dataFromSchedule['Lunch_Start']) or $i_time >= strtotime($dataFromSchedule['Lunch_End'])){
-					if(!in_array ( date("H:i", $i_time) , $takenTime ))
-						echo "onClick='OrdConfirm($_POST[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $date, $i_time);'><b>" . date('H:i', $i_time). "</b></a></td>";
-					else
-						echo "><font color='grey'><b>" . date('H:i', $i_time). "</b></font></a></td>";
-					$i++;
+				for($i_time = strtotime($dataFromSchedule[Start]), $i = 0; ($i_time + $reception) < strtotime($dataFromSchedule['End']); $i_time = strtotime("+$reception minutes", $i_time)) {
+					if($i == 6){
+						echo "</tr><tr>";
+						$i = 0;
+					}
+					if(strtotime("+$reception minutes", $i_time) <= strtotime($dataFromSchedule['Lunch_Start']) or $i_time >= strtotime($dataFromSchedule['Lunch_End'])){
+						if(!in_array ( date("H:i", $i_time) , $takenTime ) && date("H:i", $i_time) >= $curTime)
+							echo "<td class='timeTable' id='$i_time'><a href='#' class='timeTableL' id='a$i_time' onClick='OrdConfirm($_POST[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $date, $i_time);'><b>" . date('H:i', $i_time). "</b></a></td>";
+						else
+							echo "<td><a href='#' class='grey'><b>" . date('H:i', $i_time). "</b></a></td>";
+						$i++;
+					}
 				}
 			}else{
-				if(!in_array ( date("H:i", $i_time) , $takenTime ))
-					echo "onClick='OrdConfirm($_POST[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $date, $i_time);'><b>" . date('H:i', $i_time). "</b></a></td>";
-				else
-					echo "><font color='grey'><b>" . date('H:i', $i_time). "</b></font></a></td>";
-				$i++;
+				for($i_time = strtotime($dataFromSchedule[Start]), $i = 0; ($i_time + $reception) < strtotime($dataFromSchedule['End']); $i_time = strtotime("+$reception minutes", $i_time)) {
+					if($i == 6){
+						echo "</tr><tr>";
+						$i = 0;
+					}
+					if(!in_array ( date("H:i", $i_time) , $takenTime ) && date("H:i", $i_time) >= $curTime)
+						echo "<td class='timeTable' id='$i_time' ><a href='#' class='timeTableL' id='a$i_time' onClick='OrdConfirm($_POST[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $date, $i_time);'><b>" . date('H:i', $i_time). "</b></a></td>";
+					else
+						echo "<td><a href='#' class='grey'><b>" . date('H:i', $i_time). "</b></a></td>";
+					$i++;
+				}
 			}
+		}else{
+			if($lunch){
+				for($i_time = strtotime($dataFromSchedule[Start]), $i = 0; ($i_time + $reception) <= strtotime($dataFromSchedule['End']); $i_time = strtotime("+$reception minutes", $i_time)) {
+					if($i == 6){
+						echo "</tr><tr>";
+						$i = 0;
+					}
+					if(strtotime("+$reception minutes", $i_time) <= strtotime($dataFromSchedule['Lunch_Start']) or $i_time >= strtotime($dataFromSchedule['Lunch_End'])){
+						if(!in_array ( date("H:i", $i_time) , $takenTime ))
+							echo "<td class='timeTable' id='$i_time'><a class='timeTableL' id='a$i_time' href='#' onClick='OrdConfirm($_POST[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $date, $i_time);'><b>" . date('H:i', $i_time). "</b></a></td>";
+						else
+							echo "<td><a href='#' class='grey'><b>" . date('H:i', $i_time). "</b></a></td>";
+						$i++;
+					}
+				}	
+			}
+			else{
+				for($i_time = strtotime($dataFromSchedule[Start]), $i = 0; ($i_time + $reception) <= strtotime($dataFromSchedule['End']); $i_time = strtotime("+$reception minutes", $i_time)) {
+					if($i == 6){
+						echo "</tr><tr>";
+						$i = 0;
+					}
+					if(!in_array ( date("H:i", $i_time) , $takenTime ))
+						echo "<td class='timeTable' id='$i_time'><a href='#' class='timeTableL' id='a$i_time' onClick='OrdConfirm($_POST[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $date, $i_time);'><b>" . date('H:i', $i_time). "</b></a></td>";
+					else
+						echo "<td><a href='#' class='grey'><b>" . date('H:i', $i_time). "</b></a></td>";
+					$i++;
+				}
+			}
+		
 		}
 		echo "</tr></table></center>";
 		
 	}
-	elseif(isset($_POST['time'])){
-		echo "<b>" .$date = date("o-n-d", $_POST['date']) . " " . $time = date("H:i:s", $_POST['time']) . "</b>";
-
-		echo "<br><button onclick='test($_POST[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $_POST[date], $_POST[time])'>Confirm</button>";
-	}
+	// confirm box
+	elseif(isset($_POST['time']))
+		print "<br><button onclick='test($_POST[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $_POST[date], $_POST[time])'>Confirm</button>";
+	// month and day choosing
 	else{
 		$selectedMonth = $_POST[month];
 		if($selectedMonth == date('n'))
 			$today = date('d');
 		else
 			$today = '01';
-
+		
 						print "
 						<center><div>";
 				
@@ -76,7 +119,7 @@
 						$dateObj   = DateTime::createFromFormat('!m', $selectedMonth);
 						$monthName = $dateObj->format('F'); // March	
 						
-						echo  $monthName . " " . $_POST[year] . "<br>";
+						echo  "<colspan id='green'>" .$monthName . " " . $_POST[year] . "</colspan>";
 						
 						$selectedMonth = sprintf("%02d", $selectedMonth);
 						$tempDate = $_POST[year] . '-' . $selectedMonth . '-01';
@@ -95,7 +138,7 @@
 							$tempDate = $_POST[year] . '-' . $selectedMonth . '-' . $i_day;
 							if($i == 1)
 								echo "<tr>";
-							echo "<td align='center' class='dayInDatePicker' id='$i_day' style='border-radius: 7px;'>";
+							echo "<td align='center' ";
 							
 								if(!$start){
 									if($firstDay == $i){
@@ -104,21 +147,21 @@
 										$tempDate = $_POST[year] . '-' . $selectedMonth . '-' . $i_day;
 										if(in_array(date('D', strtotime($tempDate)), $workDays)){
 											if($i_day < $today)
-												echo "<font color='grey'>$i_day</font> ";
+												echo "class='grey'>$i_day ";
 											else
-												echo "<a style='text-decoration: none;' href='#' onClick='SelectDay($data[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $i_day, $selectedMonth, $_POST[year]);'><b>$i_day</b></a> ";
+												echo "class='dayInDatePicker' id='$i_day'><a class='dayL' id='a$i_day' href='#' onClick='SelectDay($data[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $i_day, $selectedMonth, $_POST[year]);'><b>$i_day</b></a> ";
 										}
 										else
-											echo "<font color='red'>$i_day</font> ";
+											echo "class='red'>$i_day ";
 									}
 								}else{
 									if(in_array(date('D', strtotime($tempDate)), $workDays)){
 										if($i_day < $today)
-											echo "<font color='grey'>$i_day</font> ";
+											echo "class='grey'>$i_day ";
 										else
-											echo "<a style='text-decoration: none;' href='#' onClick='SelectDay($data[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $i_day, $selectedMonth, $_POST[year]);'><b>$i_day</b></a> ";
+											echo "class='dayInDatePicker' id='$i_day'><a class='dayL' id='a$i_day' href='#' onClick='SelectDay($data[Emp_ID], $_POST[patientId], $_POST[unregVisitorId], $i_day, $selectedMonth, $_POST[year]);'><b>$i_day</b></a> ";
 									}else
-										echo "<font color='red'>$i_day</font> ";
+										echo "class='red'>$i_day ";
 								}
 								
 							echo "</td>";

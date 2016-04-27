@@ -178,6 +178,9 @@ input.homeMenuButton{
 .brd {
  border: 1px solid black;
 }
+#textCenter td{
+ text-align: center;
+}
 .scheduleEditForm td{
  border: 1px white;
  text-align: center;
@@ -229,6 +232,7 @@ input.homeMenuButton{
  height: 250px;
  padding: 3px 3px 3px 3px;
  border: solid black 1px;
+ overflow: auto;
 }
 .state  .button{
  width: 27%;
@@ -288,14 +292,41 @@ input.homeMenuButton{
 #datePicker{
  float: left;
 }
+.dayInDatePicker{
+ background-color: white;
+}
+.dayL{
+ text-decoration: none;
+ color: green;
+ font-size: 17,5;
+}
 #timePicker{
- margin-top: 45%;
+ margin-top: 50%;
  width: auto;
 }
-.timePickerButton{
+#timePicker a{
+ text-decoration: none;
+}
+.timeTableL{
+ font-size: 17,5;
+ color: green;
+}
+.timeTable{
  background-color: white;
- width: 50;
- height: 20;
+}
+.grey{
+ color: grey;
+ background-color: white;
+}
+.red{
+ color: red;
+ background-color: white;
+}
+#green{
+ background-color: green;
+ font-size: 18;
+ font-weight: bold;
+ color: white;
 }
 /*---------Comments---------*/
 .comments{
