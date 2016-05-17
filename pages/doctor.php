@@ -164,7 +164,11 @@
 				<div id='orderView'>
 					<center> <big> Order </big> </center> <br>
 					<div id='orderAction'>
-						<script>orderView($data[Emp_ID]);</script>
+						<script>
+							window.onload = function() {
+								orderView($data[Emp_ID]);
+							};
+						</script>
 					</div>
 					<center><button class='button' onClick='hiddenShow(\"b1\"); ";
 							if(!$_SESSION['log'])
@@ -220,8 +224,6 @@
 	
 		
 		print "
-			<center><div class='state'><a href='#' class='button blue' onClick='scripts/hiddenShow(\"b2\");' id='button2'>Посмотреть список</a></div></center>
-			
 			<div id='b1' class='hidden'>
 			
 				<br>ЗАПИСЬ К ВРАЧУ<br><br>

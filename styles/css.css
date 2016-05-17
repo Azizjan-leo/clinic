@@ -116,15 +116,69 @@ overflow:auto;
 }
 /*-------------------*/
 /*---Patient page---*/
-.patientsList > #title{
- width: 150px;
- float: left;
- margin-left: 44.9%;
+#patientTop{
+ position: relative;
+ margin-left: 1%;
+ margin-right: 1%;
+ height: 2em;
 }
-.patientsList > #total{
- min-width: 60px;
- float: right;
- margin-right: 5px;
+#patientSearchType{
+ position: absolute;
+ bottom: 0;
+ height: auto;
+ float: left;
+ width: 80%;
+ font-size: 16pt;
+ text-align: center;
+}
+#patientSearchResCount{
+ position: absolute;
+ bottom: 0;
+ right: 0;
+ width: 20%;	
+ text-align: right;
+}
+#patientSearchAction{
+ position: relative;
+ margin-left: 1%;
+ margin-right: 1%;
+ min-height: 50%;
+}
+#patientSearchResult{
+ position: absolute;
+ top: 5;
+ height: auto;
+ float: left;
+ width: 80%;
+ text-align: center;
+}
+#patientSearchMenu{
+ position: absolute;
+ top: 5;
+ right: 5;
+ width: 20%;	
+ text-align: right;
+}
+#diagnosisSearchField{
+ margin-top: 5;
+ padding-left: 1;
+}
+textarea[name="diagnosisSearch"]{
+	width: 192;
+	height: 50;
+	border-color: blue;
+}
+#searchSettingsDiv{
+ text-align: left;
+}
+fieldset{
+ border-color: blue;  
+ height: 55;
+}
+#narrowSelect{
+   -webkit-appearance: menulist-button;
+   height: 75px;
+   width: 192px;
 }
 .patient_photo{
  float: left;
@@ -322,6 +376,10 @@ input.homeMenuButton{
  color: red;
  background-color: white;
 }
+.white{
+ color: white;
+ background-color: white;
+}
 #green{
  background-color: green;
  font-size: 18;
@@ -368,6 +426,11 @@ input.homeMenuButton{
 #comments_form{
  background-color: yellow;
  display: none;
+}
+/*----------SYSTEM-----------*/
+#heightSelect {
+   -webkit-appearance: menulist-button;
+   height: 100px;
 }
 /*---------------------*/
 .footer_text{

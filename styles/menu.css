@@ -236,3 +236,6 @@ div.slider-nav span.left { background: url('../images/left-arrow.png'); left: 10
 .orbit-bullets li.active { color: #222; background-position: -7px 0; }
 
 #featured { width: 1000px; height: 150px; background: #009cff url('images/loading.gif') no-repeat center center; overflow: hidden; }
+
+/* MENU IN PATIENT SEARCH */
+/* Dropdown Button */

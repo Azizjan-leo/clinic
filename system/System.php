@@ -1,4 +1,4 @@
-<div align=center><?php
+<div align='center'><?php
 	if($_SESSION[systAccess])
 	{
 		include("phpHendlers/connect.php");
@@ -74,16 +74,24 @@
 				$name = $_POST['name'];
 				$description = $_POST['description'];
 				$query="INSERT INTO `Symptoms` VALUES(NULL,'".$name."','".$description."')";
-				mysql_query( $query );
+				$mysqli->query( $query );
 				$_POST['position'] = false;
 				$_SESSION['form'] = false;
 			}
 			if(isset($_POST['diagnosis']) and $_SESSION['form']){
 				$name = $_POST['name'];
 				$description = $_POST['description'];
-				$symptoms = $_POST['symptoms'];
-				$query="INSERT INTO `Diagnosis` VALUES(NULL,'".$name."','".$symptoms."','".$description."')";
-				mysql_query( $query );
+				//$symptoms = $_POST['symptoms'];
+				$mysqli->query("INSERT INTO `Diagnosis`(`ID`, `Name`, `Description`) VALUES (NULL, '$name', '$description')");
+				$diagnosisID = $mysqli->insert_id;
+				
+				foreach( $_POST['symptoms'] as $v ) {
+					$result = $mysqli->query("SELECT `ID` FROM `Symptoms` WHERE `Name` = '$v'");
+					$symptom_ID = $result->fetch_array(MYSQLI_ASSOC);
+					$symptom_ID = $symptom_ID[ID];
+					$mysqli->query("INSERT INTO `Diagnosis_symptoms` (`ID`, `Diagnosis_ID`, `Symptom_ID`) VALUES (NULL, '$diagnosisID', '$symptom_ID')");
+				}
+				
 				$_POST['position'] = false;
 				$_SESSION['form'] = false;
 			}		
@@ -92,7 +100,22 @@
 		{
 			if(isset($_GET['item']) and $_SESSION['form']){
 				$item = $_GET['item'];
-				if($item == "position"){
+			if($item == "diagnosis"){
+				print 'Diagnosis adding
+				 <form name="diagnoses" id="diagnosis" method="POST" >
+				  <input type="text" name="name" maxlength="50" placeholder="Diagnosis name" size="30" required /><br>
+				  <input type="text" id="symptoms" name="symptomsField" maxlength="50" placeholder="Symptoms" size="30" /><br>
+				  <select id="heightSelect" multiple="multiple" name="selectingSymptoms[]" onclick="fuckMe()">';
+				  	$sql = $mysqli->query("SELECT `Name` FROM Symptoms"); while ($row = $sql->fetch_array(MYSQLI_ASSOC)){ echo "<option value='".$row['Name']."'>" . $row['Name'] . "</option>";}
+				  print '</select><br>
+				  <textarea name="description" maxlength="500" cols="50" rows="2" placeholder="Description" required></textarea><br>
+				  <input type="submit" name="diagnosis" value="Enter">
+				 </form>';
+				printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>',position);
+				printf ('<a href="../index.php?item=%s" class="button blue">New employee</a><br>',emloyee);
+				printf ('<a href="../index.php?item=%s" class="button blue">New symptom</a><br>',symptom);
+			}
+			else if($item == "position"){
 					print 'Position adding.
 					 <form enctype="multipart/form-data" accept-charset="cp1251_general_ci" name="staff" method="post">
 					  <input type="text" name="name" maxlength="30" placeholder="Position name" size="30" required /><br>
@@ -152,20 +175,6 @@
 					printf ('<a href="../index.php?item=%s" class="button blue">New employee</a><br>',emloyee);
 					printf ('<a href="../index.php?item=%s" class="button blue">New diagnosis</a><br>',diagnosis);
 				}
-				else if($item == "diagnosis"){
-					print 'Diagnosis adding
-					 <form name="diagnoses" method="post" >
-					  <input type="text" name="name" maxlength="50" placeholder="Diagnosis name" size="30" required /><br>
-					  <select size="10" multiple="multiple" name="symptoms[]">';
-					  $sql = mysql_query("SELECT Name FROM Symptoms"); while ($row = mysql_fetch_array($sql)){ echo "<option value=".$row['Name'].">" . $row['Name'] . "</option>";}
-					  print '</select><br>
-					  <textarea name="description" maxlength="500" cols="50" rows="2" placeholder="Description" required></textarea><br>
-					  <input type="submit" name="diagnosis" value="Enter">
-					 </form>';
-					printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>',position);
-					printf ('<a href="../index.php?item=%s" class="button blue">New employee</a><br>',emloyee);
-					printf ('<a href="../index.php?item=%s" class="button blue">New symptom</a><br>',symptom);
-				}
 			}
 			else{
 				printf ('<a href="../index.php?item=%s" class="button blue">New position</a><br>
@@ -173,6 +182,21 @@
 						 <a href="../index.php?item=%s" class="button blue">New symptom</a><br>
 						 <a href="../index.php?item=%s" class="button blue">New diagnosis</a>',position,employee,symptom,diagnosis);						 
 			}
-		}	
-	}		
+		}
+		print "
+		<script>
+			function fuckMe(){
+				
+				var selectedSymptom = document.getElementById('heightSelect').value;
+				document.getElementById('symptoms').value += selectedSymptom + ' ';
+				var input = document.createElement('input');
+				input.setAttribute('type', 'hidden');
+				input.setAttribute('name', 'symptoms[]');
+				input.setAttribute('value', selectedSymptom);
+				//append to form element that you want .
+				document.getElementById('diagnosis').appendChild(input);
+			}
+		</script>
+			";
+	}
 ?></div>

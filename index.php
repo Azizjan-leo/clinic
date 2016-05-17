@@ -8,10 +8,10 @@
   <meta http-equiv="Content-Type" content="text/html">
 		<link rel="stylesheet" type="text/css" href="styles/css.css" />
 		<link rel="stylesheet" type="text/css" href="styles/menu.css" />
-  <script src="scripts/scripts.js"></script>
+  <script defer="defer" src="scripts/scripts.js"></script>
+   <script defer="defer" src="scripts/jquery.js"></script>
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+		
  </head>
  <body>
   <div class="all">
@@ -31,7 +31,7 @@
     <div id="leftmenu"><? include("parts/menu.php");?></div>
     </div>
     <div id="action">
-			<?php
+			<?php	//<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 				if(isset($_GET["content"])or $_GET["item"] or $_GET[docProf] or $_GET[doctor] or $_GET[docList] or $_GET[patient])
 				{
 					//$_SESSION[t] = false;
