@@ -89,7 +89,7 @@
 				}
 				else if($usersTableData['Class'] == 4)
 				{
-					$query = $mysqli->query("SELECT * FROM patients WHERE Id = '$id'");
+					$query = $mysqli->query("SELECT First_Name, Second_Name, ID FROM patients WHERE Id = '$id'");
 					$_SESSION[userData] = $query->fetch_array();
 					$_SESSION["check"] = $_SESSION['log'] = true;
 					$_SESSION["class"] = 4;

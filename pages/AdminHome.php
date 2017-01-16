@@ -43,15 +43,49 @@
 				<input type="submit" name="newEmployeeFormSubmit" value="Enter">
 			</form>';
 	}
-	
+	if (isset($_POST['Submit1'])) {
+
+		$selected_radio = $_POST['interfase_style'];
+
+		switch ($selected_radio) {
+    case 1:
+        echo "<body style='background-color:orange ; font-size: 15'>";
+		$lang = "eng";
+        break;
+    case 2:
+        echo "<body style='background-color:white; font-size: 20'>";
+		$lang = "eng";
+        break;
+    case 3:
+        $lang = "ru";
+		echo "<body style='background-color:red; font-size: 15'>";
+        break;
+
+
+	}
+	}
 	print '
 				</td>
-				<td class="homeMenu">
-					<form method="POST">
-						<input class="homeMenuButton" type="submit"	 name="newEmployeeForm" value="Employee+">
-					</form>
+				<p>'; if($lang == "ru") echo "бла бла бла"; else print 
+				'bla bla bla';
+				print '</p>
+				
+					<br>
+					<form name="interface_change" method="POST">
+						<Input type = "radio" Name = "interfase_style" value= "1">OrengeNormal
+						<br>
+						<Input type = "radio" Name = "interfase_style" value= "2">WhiteBig
+						<br>
+						<Input type = "radio" Name = "interfase_style" value= "3">RuRedNormal
+						<br>
+						<Input type = "Submit" Name = "Submit1" VALUE = "'; if($lang == "ru") echo 'Применить"'; else echo 'ok"';
+						print '>
 				</td>
 			</tr>
 		</table>
 	';
+	/*<td class="homeMenu">
+					<form name="actions" method="POST">
+						<input class="homeMenuButton" type="submit"	 name="newEmployeeForm" value="Employee+">
+					</form>*/
 ?>

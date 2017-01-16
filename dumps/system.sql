@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 25, 2016 at 04:39 PM
+-- Generation Time: Aug 05, 2016 at 07:02 AM
 -- Server version: 5.7.11
 -- PHP Version: 7.0.4
 
@@ -19,6 +19,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `system`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Advisers`
+--
+
+CREATE TABLE IF NOT EXISTS `Advisers` (
+  `id` int(11) NOT NULL,
+  `DoctorId` int(11) NOT NULL,
+  `PatientId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -54,17 +66,45 @@ INSERT INTO `Comments_general` (`Comment_ID`, `Date`, `Text`) VALUES
 CREATE TABLE IF NOT EXISTS `Diagnosis` (
   `ID` int(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
-  `Symptoms` text NOT NULL,
   `Description` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Diagnosis`
 --
 
-INSERT INTO `Diagnosis` (`ID`, `Name`, `Symptoms`, `Description`) VALUES
-(1, 'Loh po jizni etoy', '', 'Just loh koroche'),
-(2, 'Bla bla', 'Headache', 'Bla bla bla');
+INSERT INTO `Diagnosis` (`ID`, `Name`, `Description`) VALUES
+(13, 'Cerebral Palsy', 'Reaching the expected developmental benchmarks of infancy and childhood – sitting, rolling over, crawling, standing and walking – are a matter of great joy for parents, but what if a child’s developmental timetable seems delayed? There are many tell-tale signs that a child may have Cerebral Palsy, but those factors can be indicative of many conditions'),
+(14, 'Benign Prostatic Hyperplasia', 'An enlarged prostate gland . The prostate gland surrounds the urethra, the tube that carries urine from the bladder out of the body. As the prostate gets bigger, it may squeeze or partly block the urethra');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Diagnosis_symptoms`
+--
+
+CREATE TABLE IF NOT EXISTS `Diagnosis_symptoms` (
+  `ID` int(11) NOT NULL,
+  `Diagnosis_ID` int(11) NOT NULL,
+  `Symptom_ID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Diagnosis_symptoms`
+--
+
+INSERT INTO `Diagnosis_symptoms` (`ID`, `Diagnosis_ID`, `Symptom_ID`) VALUES
+(11, 13, 3),
+(12, 13, 4),
+(13, 13, 5),
+(14, 13, 6),
+(15, 13, 7),
+(16, 13, 8),
+(17, 13, 9),
+(18, 13, 10),
+(19, 13, 11),
+(20, 13, 12),
+(21, 14, 13);
 
 -- --------------------------------------------------------
 
@@ -76,22 +116,21 @@ CREATE TABLE IF NOT EXISTS `Doctor_Patient_relationships` (
   `Id` int(11) NOT NULL,
   `Emp_ID` int(11) NOT NULL,
   `Patient_ID` int(11) NOT NULL,
-  `Rating_changed` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `Rating_changed` tinyint(1) DEFAULT NULL,
+  `Advise_or_Treat` int(1) DEFAULT NULL COMMENT '0 - none 1 - advising 2 - treating'
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Doctor_Patient_relationships`
 --
 
-INSERT INTO `Doctor_Patient_relationships` (`Id`, `Emp_ID`, `Patient_ID`, `Rating_changed`) VALUES
-(4, 25, 19, 1),
-(5, 25, 19, 1),
-(6, 25, 19, 1),
-(7, 25, 19, 1),
-(8, 25, 19, 1),
-(9, 5, 39, 2),
-(10, 25, 39, 1),
-(11, 32, 19, 2);
+INSERT INTO `Doctor_Patient_relationships` (`Id`, `Emp_ID`, `Patient_ID`, `Rating_changed`, `Advise_or_Treat`) VALUES
+(8, 25, 19, 1, 1),
+(9, 5, 39, 2, NULL),
+(10, 25, 39, 1, 2),
+(11, 32, 19, 2, NULL),
+(12, 25, 21, 2, 1),
+(13, 25, 37, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -159,26 +198,6 @@ INSERT INTO `Emp_comments` (`Emp_comments_ID`, `Emp_ID`, `Patient_Id`, `Date`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messages`
---
-
-CREATE TABLE IF NOT EXISTS `messages` (
-  `id` int(11) NOT NULL,
-  `message` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `message`, `created_at`) VALUES
-(1, 'Test MySQL Event 1 aza loh', '2016-04-24 16:45:32'),
-(2, 'Test MySQL Event 2', '2016-04-24 16:48:37');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `Ord`
 --
 
@@ -189,25 +208,44 @@ CREATE TABLE IF NOT EXISTS `Ord` (
   `UnregVisitorId` int(11) DEFAULT NULL,
   `Date` date NOT NULL,
   `Time` time NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Ord`
 --
 
 INSERT INTO `Ord` (`Id`, `DoctorId`, `PatientId`, `UnregVisitorId`, `Date`, `Time`) VALUES
-(55, 25, 0, 47, '2016-04-25', '10:00:00'),
-(59, 25, 0, 51, '2016-04-25', '10:30:00'),
-(61, 25, 19, 0, '2016-04-24', '08:00:00'),
-(63, 25, 19, 0, '2016-04-23', '10:00:00'),
-(64, 25, 19, 0, '2016-04-10', '09:00:00'),
-(65, 32, 19, 0, '2016-04-15', '10:00:00'),
-(66, 32, 19, 0, '2016-04-22', '10:00:00'),
 (67, 25, 19, 0, '2016-05-29', '10:30:00'),
 (68, 25, 19, 0, '2016-05-29', '22:30:00'),
 (70, 25, 19, 0, '2016-05-29', '03:00:22'),
 (71, 25, 19, 0, '2016-05-29', '03:00:22'),
-(72, 25, 19, 0, '2016-05-22', '20:30:00');
+(72, 25, 19, 0, '2016-05-22', '20:30:00'),
+(85, 25, 19, 0, '2016-04-27', '08:00:00'),
+(86, 25, 19, 0, '2016-04-27', '08:00:00'),
+(87, 25, 19, 0, '2016-04-28', '08:30:00'),
+(88, 25, 19, 0, '2016-04-29', '09:30:00'),
+(89, 25, 19, 0, '2016-04-30', '11:00:00'),
+(90, 25, 19, 0, '2016-04-27', '09:00:00'),
+(91, 25, 19, 0, '2016-04-27', '09:00:00'),
+(92, 25, 19, 0, '2016-04-27', '09:00:00'),
+(93, 25, 19, 0, '2016-04-27', '09:00:00'),
+(94, 25, 19, 0, '2016-04-28', '09:30:00'),
+(95, 25, 19, 0, '2016-04-28', '09:30:00'),
+(96, 25, 19, 0, '2016-04-27', '08:00:00'),
+(97, 25, 19, 0, '2016-04-27', '08:00:00'),
+(98, 25, 19, 0, '2016-04-30', '11:30:00'),
+(99, 25, 19, 0, '2016-06-01', '16:30:00'),
+(100, 25, 19, 0, '2016-06-01', '16:30:00'),
+(101, 25, 19, 0, '2016-04-30', '11:30:00'),
+(102, 25, 19, 0, '2016-05-01', '07:00:00'),
+(103, 25, 19, 0, '2016-04-30', '15:00:00'),
+(104, 25, 0, 55, '2016-04-27', '08:30:00'),
+(105, 25, 0, 56, '2016-04-27', '13:00:00'),
+(106, 25, 0, 57, '2016-04-27', '13:30:00'),
+(107, 25, 21, 0, '2016-05-15', '10:00:00'),
+(108, 25, 21, 0, '2016-04-29', '10:00:00'),
+(109, 25, 19, 0, '2016-07-03', '12:00:00'),
+(110, 25, 19, 0, '2016-07-04', '10:30:00');
 
 --
 -- Triggers `Ord`
@@ -242,6 +280,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `Phone` varchar(20) NOT NULL,
   `Email` varchar(30) NOT NULL,
   `Care_Doctor` int(5) NOT NULL,
+  `Advisers` tinyint(1) DEFAULT NULL COMMENT 'If a patient has advisers here will 1 and we start to search him being sure he exists',
   `Care_Doctor_Prof` int(5) NOT NULL,
   `Photo` varchar(50) NOT NULL,
   `Comment` varchar(150) DEFAULT NULL
@@ -251,12 +290,33 @@ CREATE TABLE IF NOT EXISTS `patients` (
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`ID`, `First_Name`, `Middle_Name`, `Second_Name`, `Birth_Date`, `Gender`, `Insurance_Category`, `Diagnosis`, `Virus`, `Receipt_Date`, `Prof`, `Address`, `Phone`, `Email`, `Care_Doctor`, `Care_Doctor_Prof`, `Photo`, `Comment`) VALUES
-(19, 'Azizjan', 'Hamidovich', 'Ayupov', '2016-03-01', 1, 2, 2, 0, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, 6, '20151211_231550.jpg', 'sd sd'),
-(21, 'Devid', '', 'Duhovnyi', '2016-03-01', 1, 1, 1, 1, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, 6, '20151211_231550.jpg', 'bla bla'),
-(37, 'Kamilla', '', 'Munurova', '2005-02-28', 0, 0, 2, 0, '2016-03-20', 'Cook', 'Bishkek Orto-Say', '+996702942932', 'litpulla@mail.ru', 25, 0, 'Photo37.jpg', 'Beautiful girl.'),
-(38, 'Hamid', 'Kasymovich', 'Ayupov', '1963-05-22', 1, 0, 2, 0, '2016-03-20', 'Builder', 'Bishkek Orto-Say', '+996702568963', 'litpulla@mail.ru', 25, 0, 'Photo0086.jpg', ''),
-(39, 'John', '', 'Fly', '2016-03-24', 1, 0, 2, 1, '2016-03-24', 'Actor', 'New Jersey', '+12661157', 'blabla@mail.ru', 25, 0, 'image.jpg', 'No comment.');
+INSERT INTO `patients` (`ID`, `First_Name`, `Middle_Name`, `Second_Name`, `Birth_Date`, `Gender`, `Insurance_Category`, `Diagnosis`, `Virus`, `Receipt_Date`, `Prof`, `Address`, `Phone`, `Email`, `Care_Doctor`, `Advisers`, `Care_Doctor_Prof`, `Photo`, `Comment`) VALUES
+(19, 'Azizjan', 'Hamidovich', 'Ayupov', '2016-03-01', 1, 2, 13, 0, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, NULL, 6, '20151211_231550.jpg', 'sd sd'),
+(21, 'Devid', '', 'Duhovnyi', '2016-03-01', 1, 1, 1, 1, '2016-03-15', 'Programmer', 'Bishkek', '+996702568963', 'litpulla@mail.ru', 1, NULL, 6, '20151211_231550.jpg', 'bla bla'),
+(37, 'Kamilla', '', 'Munurova', '2005-02-28', 0, 0, 2, 0, '2016-03-20', 'Cook', 'Bishkek Orto-Say', '+996702942932', 'litpulla@mail.ru', 25, NULL, 0, 'Фото0195.jpg', 'Beautiful girl.'),
+(38, 'Hamid', 'Kasymovich', 'Ayupov', '1963-05-22', 1, 0, 2, 0, '2016-03-20', 'Builder', 'Bishkek Orto-Say', '+996702568963', 'litpulla@mail.ru', 25, NULL, 0, 'Photo0086.jpg', ''),
+(39, 'John', '', 'Fly', '2016-03-24', 1, 0, 2, 1, '2016-03-24', 'Actor', 'New Jersey', '+12661157', 'blabla@mail.ru', 25, NULL, 0, 'image.jpg', 'No comment.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Patient_diagnosis`
+--
+
+CREATE TABLE IF NOT EXISTS `Patient_diagnosis` (
+  `ID` int(11) NOT NULL,
+  `Patient_ID` int(11) NOT NULL,
+  `Diagnosis_ID` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Patient_diagnosis`
+--
+
+INSERT INTO `Patient_diagnosis` (`ID`, `Patient_ID`, `Diagnosis_ID`) VALUES
+(1, 19, 13),
+(2, 21, 13),
+(3, 21, 14);
 
 -- --------------------------------------------------------
 
@@ -275,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `Rating` (
 --
 
 INSERT INTO `Rating` (`Emp_ID`, `Likes`, `Dislikes`) VALUES
-(25, 10, 8);
+(25, 10, 9);
 
 -- --------------------------------------------------------
 
@@ -327,7 +387,6 @@ INSERT INTO `Schedule` (`Day_ID`, `Emp_ID`, `Day`, `Start`, `Lunch_Start`, `Lunc
 (41, 32, 'Thu', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
 (42, 32, 'Fri', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
 (43, 32, 'Sat', '08:00:00', '12:00:00', '13:00:00', '16:00:00'),
-(44, 25, 'Sat', '09:00:00', '12:00:00', '13:00:00', '16:00:00'),
 (46, 25, 'Fri', '08:00:00', '00:00:00', '00:00:00', '13:00:00'),
 (47, 25, 'Sun', '07:00:00', '00:00:00', '00:00:00', '23:00:00');
 
@@ -362,18 +421,28 @@ INSERT INTO `Staff` (`Id`, `Name`, `Salary`, `Unit`, `Image`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `Symptoms` (
-  `Symptom_ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Description` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Symptoms`
 --
 
-INSERT INTO `Symptoms` (`Symptom_ID`, `Name`, `Description`) VALUES
-(1, '0', '0'),
-(2, 'Headache', 'Headache');
+INSERT INTO `Symptoms` (`ID`, `Name`, `Description`) VALUES
+(2, 'Headache', 'Headache'),
+(3, 'Hypotonia', 'Decreased muscle tone or tension (flaccid, relaxed, or floppy limbs)'),
+(4, 'Hypertonia', 'Increased muscle tone or tension (stiff or rigid limbs)'),
+(5, 'Dystonia', 'Fluctuating muscle tone or tension (too loose at times and too tight at others)'),
+(6, 'Muscle spasms', 'Sometimes painful, involuntary muscular contraction'),
+(7, 'Abnormal neck or truncal tone', 'Decreased hypotonic or increased hypertonic, depending on age and Cerebral Palsy type'),
+(8, 'Mixed', 'The trunk of the body may be hypotonic while the arms and legs are hypertonic'),
+(9, 'Fixed joints', 'Joints that are effectively fused together preventing proper motion'),
+(10, 'Clonus', 'Muscular spasms with regular contractions'),
+(11, 'Ankle/foot clonus', 'Spasmodic abnormal movement of the foot'),
+(12, 'Wrist clonus', 'Spasmodic movement of the hand'),
+(13, 'Problems with urination', 'A need to pee more often, especially at night. Dribbling, leaking, or an urgent need to go. Trouble starting to pee, or a weak stream');
 
 -- --------------------------------------------------------
 
@@ -387,15 +456,16 @@ CREATE TABLE IF NOT EXISTS `UnregVisitors` (
   `Middle_Name` varchar(25) DEFAULT NULL,
   `Second_Name` varchar(25) DEFAULT NULL,
   `Phone` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='All clinic non-registered patients';
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='All clinic non-registered patients';
 
 --
 -- Dumping data for table `UnregVisitors`
 --
 
 INSERT INTO `UnregVisitors` (`Id`, `First_Name`, `Middle_Name`, `Second_Name`, `Phone`) VALUES
-(47, 'Azizjan', 'Hamidovich', 'Ayupov', '+996702647002'),
-(51, 'Blabla', 'Blabla', 'Blabla', '+996123321123');
+(55, 'Kio', '', 'Kasuka', '+996123123000'),
+(56, 'Koli', '', 'Ko', '+996566566566'),
+(57, 'Sk', '', 'Lini', '+996121212121');
 
 -- --------------------------------------------------------
 
@@ -455,6 +525,12 @@ INSERT INTO `Users` (`Id`, `Class`, `Password`) VALUES
 --
 
 --
+-- Indexes for table `Advisers`
+--
+ALTER TABLE `Advisers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `Comments_general`
 --
 ALTER TABLE `Comments_general`
@@ -464,6 +540,12 @@ ALTER TABLE `Comments_general`
 -- Indexes for table `Diagnosis`
 --
 ALTER TABLE `Diagnosis`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `Diagnosis_symptoms`
+--
+ALTER TABLE `Diagnosis_symptoms`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -485,12 +567,6 @@ ALTER TABLE `Emp_comments`
   ADD PRIMARY KEY (`Emp_comments_ID`);
 
 --
--- Indexes for table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `Ord`
 --
 ALTER TABLE `Ord`
@@ -500,6 +576,12 @@ ALTER TABLE `Ord`
 -- Indexes for table `patients`
 --
 ALTER TABLE `patients`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `Patient_diagnosis`
+--
+ALTER TABLE `Patient_diagnosis`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -530,7 +612,7 @@ ALTER TABLE `Staff`
 -- Indexes for table `Symptoms`
 --
 ALTER TABLE `Symptoms`
-  ADD PRIMARY KEY (`Symptom_ID`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indexes for table `UnregVisitors`
@@ -555,6 +637,11 @@ ALTER TABLE `Users`
 --
 
 --
+-- AUTO_INCREMENT for table `Advisers`
+--
+ALTER TABLE `Advisers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `Comments_general`
 --
 ALTER TABLE `Comments_general`
@@ -563,12 +650,17 @@ ALTER TABLE `Comments_general`
 -- AUTO_INCREMENT for table `Diagnosis`
 --
 ALTER TABLE `Diagnosis`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `Diagnosis_symptoms`
+--
+ALTER TABLE `Diagnosis_symptoms`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `Doctor_Patient_relationships`
 --
 ALTER TABLE `Doctor_Patient_relationships`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `Employee`
 --
@@ -580,20 +672,20 @@ ALTER TABLE `Employee`
 ALTER TABLE `Emp_comments`
   MODIFY `Emp_comments_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT for table `Ord`
 --
 ALTER TABLE `Ord`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=111;
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+--
+-- AUTO_INCREMENT for table `Patient_diagnosis`
+--
+ALTER TABLE `Patient_diagnosis`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `Schedule`
 --
@@ -608,12 +700,12 @@ ALTER TABLE `Staff`
 -- AUTO_INCREMENT for table `Symptoms`
 --
 ALTER TABLE `Symptoms`
-  MODIFY `Symptom_ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `UnregVisitors`
 --
 ALTER TABLE `UnregVisitors`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
 --
 -- AUTO_INCREMENT for table `UserClasses`
 --
@@ -628,7 +720,7 @@ DELIMITER $$
 --
 -- Events
 --
-CREATE DEFINER=`root`@`%` EVENT `delete_ord` ON SCHEDULE EVERY 1 DAY STARTS '2016-04-26 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `Ord` WHERE `Date` < DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)$$
+CREATE DEFINER=`root`@`%` EVENT `delete_ord` ON SCHEDULE EVERY 1 DAY STARTS '2016-04-27 23:59:59' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM `Ord` WHERE `Date` < DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)$$
 
 DELIMITER ;
 

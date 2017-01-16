@@ -16,11 +16,11 @@
 					  // Читаем содержимое файла
 					  $image = file_get_contents( $_FILES['image']['tmp_name'] );
 					  // Экранируем специальные символы в содержимом файла
-					  $image = mysql_escape_string( $image );
+					  $image = $mysqli->real_escape_string( $image );
 					  // Формируем запрос на добавление файла в базу данных
-					  $query="INSERT INTO `Staff` VALUES(NULL,'".$name."','".$isDoctor."','".$salary."','".$unit."','".$_FILES['image']['name']."')";
+					  $query="INSERT INTO `Staff` VALUES(NULL,'".$name."','".$salary."','".$unit."','".$_FILES['image']['name']."')";
 					  // После чего остается только выполнить данный запрос к базе данных
-					  mysql_query( $query );
+					  $mysqli->query( $query );
 					 
 					  // Также отправляем картинку в папку unloaded_images
 					  function Uploading($files){
@@ -42,10 +42,10 @@
 				$phone_num = $_POST['phone_num'];
 				$passport_data = $_POST['passport_data'];
 				$isDoctor = $_POST['doctor'];
-				$carierStart = $_POST[carierStart];
-				$category = $_POST[category];
-				$class = $_POST[userClass];
-				
+				$carierStart = $_POST['carierStart'];
+				$category = $_POST['category'];
+				$class = $_POST['userClass'];
+				$curriculumVitae = $_POST['curriculumVitae'];
 				 // Проверяем, что при загрузке не произошло ошибок
 				if ( $_FILES['image']['error'] == 0 ) {
 					// Если файл загружен успешно, то проверяем - графический ли он
@@ -53,11 +53,11 @@
 					  // Читаем содержимое файла
 					  $image = file_get_contents( $_FILES['image']['tmp_name'] );
 					  // Экранируем специальные символы в содержимом файла
-					  $image = mysql_escape_string( $image );
+					  $image = $mysqli->real_escape_string( $image );
 					  // Формируем запрос на добавление файла в базу данных
-					  $query="INSERT INTO `Employee` VALUES(NULL,'".$class."','".$name."','".$surname."','".$middle_name."','".$prof."','".$isDoctor."','".$carierStart."','".$category."','".$phone_num."','".$passport_data."','".$date."','".$_FILES['image']['name']."','".$_POST[curriculumVitae]."',NULL)";
+					  $query="INSERT INTO `Employee` VALUES(NULL,'".$class."','".$name."','".$surname."','".$middle_name."','".$prof."','".$carierStart."','".$category."','".$phone_num."','".$passport_data."','".$date."','".$_FILES['image']['name']."','".$curriculumVitae."')";
 					  // После чего остается только выполнить данный запрос к базе данных
-					  mysql_query( $query );
+					  $mysqli->query( $query );
 					 
 					  // Также отправляем картинку в папку unloaded_images
 					  function Uploading($files){
@@ -134,7 +134,7 @@
 					print 'Employee.
 					 <form enctype="multipart/form-data" accept-charset="cp1251_general_ci" name="emp" method="post">
 					  <select name="userClass">';
-					  $sql = mysql_query("SELECT Name FROM UserClasses"); while ($row = mysql_fetch_array($sql)){ echo "<option value=".$row['Name'].">" . $row['Name'] . "</option>";}
+					  $sql = $mysqli->query("SELECT * FROM UserClasses"); while ($row = mysqli_fetch_array($sql)){ echo "<option value=".$row['Id'].">" . $row['Name'] . "</option>";}
 					  print '</select><br>
 					  <input type="text" name="name" maxlength="30" placeholder="Name" size="30" required /><br>
 					  <input type="text" name="surname" maxlength="30" placeholder="Surname" size="30" required /><br>
@@ -142,11 +142,12 @@
 					  Receipt date<br>
 					  <input type="date" name="date" required /><br>
 					  <select name="prof">';
-					  $sql = mysql_query("SELECT Name FROM Staff"); while ($row = mysql_fetch_array($sql)){ echo "<option value=".$row['Name'].">" . $row['Name'] . "</option>";}
+					  $sql = $mysqli->query("SELECT * FROM Staff"); while ($row = mysqli_fetch_array($sql)){ echo "<option value=".$row['Id'].">" . $row['Name'] . "</option>";}
 					  print '</select><br>
 					  Is a doctor <input type="checkbox" name="doctor" value="1" checked> <br>
 					  Carier start<br>
 					  <input type="date" name="carierStart" required /><br>
+					  Category<br>
 					  <select name="category">
 						<option value="1">1</option>
 						<option value="2">2</option>
