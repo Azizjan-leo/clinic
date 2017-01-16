@@ -40,6 +40,7 @@
 						if($_SESSION['class']){
 							$query = $mysqli->query("SELECT Name FROM UserClasses WHERE Id = $_SESSION[class]");
 							$data = $query->fetch_array(MYSQLI_ASSOC);
+							
 							$content = 'pages/'. $data[Name] . 'Home';
 						}else{
 							print '<script type="text/javascript">window.location.href="../index.php?content=logIn"</script>';
